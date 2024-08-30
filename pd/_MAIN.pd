@@ -1,4 +1,4 @@
-#N canvas 348 392 523 349 12;
+#N canvas 813 477 523 349 12;
 #X declare -path ./bop;
 #X obj 35 71 declare -path ./bop;
 #X obj 305 268 dac~;
@@ -11,7 +11,7 @@
 #A saved sustain 0;
 #A saved release 0;
 #A saved gain 1;
-#X obj 305 69 loadbang;
+#X obj 305 99 loadbang;
 #X msg 35 130 \; pd dsp 1;
 #X obj 35 100 loadbang;
 #X msg 305 137 64;
