@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/pi/bopOS
+cd /home/pi/plantsOS
 echo "--- clearing changes"
 git restore .
 echo "--- pulling from git"
