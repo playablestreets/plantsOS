@@ -5,7 +5,7 @@
 #X obj 325 302 bop.casio~;
 #A saved wave-1 1;
 #A saved wave-2 6;
-#A saved filter 0.382655;
+#A saved filter 0.427196;
 #A saved attack 0;
 #A saved decay 0.464286;
 #A saved sustain 0.4;
@@ -103,7 +103,7 @@
 #X connect 24 0 19 0;
 #X connect 25 0 11 0;
 #X restore 35 300 pd keybindings;
-#X obj 35 281 tgl 19 1 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 1 1;
+#X obj 35 281 tgl 19 1 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X text 31 348 [0] SHUTDOWN;
 #X text 31 368 [+] SAVE;
 #X text 31 328 [*] UPDATE;
@@ -127,6 +127,7 @@
 #X connect 8 0 1 0;
 #X connect 9 0 8 0;
 #X restore 35 203 pd init;
+#X text 33 390 todo - replace keybindings with button input from esp, f 18;
 #X connect 2 0 17 0;
 #X connect 3 0 16 0;
 #X connect 5 0 4 0;
