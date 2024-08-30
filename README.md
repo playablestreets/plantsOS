@@ -13,12 +13,6 @@ A Raspberry Pi and Arduino based framework for networked multichannel sound, lig
 
 Reads distance sensor and controls lights and stepper motor.  Communicates with PD via SLIP encoded OSC over USB serial.
 
-### Arduino Sketch Requires:
-- https://github.com/thomasfredericks/MicroOsc
-- https://github.com/qub1750ul/Arduino_SharpIR
-- http://www.airspayce.com/mikem/arduino/AccelStepper/
-- https://github.com/FastLED/FastLED
-
 
 # Installation and Setup
 
@@ -86,13 +80,13 @@ python3 -m venv ./venv
 cd ~
 
 # clone this repo (or your fork)
-git clone https://github.com/zealtv/bopOS.git
+git clone https://github.com/playablestreets/plantsOS.git
 
 # !copy samples
 # !edit scripts/start.sh to configure soundcard
 
 # run update script 
-sudo ~/bopOS/scripts/update.sh
+sudo ~/plantsOS/scripts/update.sh
 
 # pi should copy rc.local and reboot with jack, puredata, and helper.py running
 
