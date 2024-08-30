@@ -18,15 +18,11 @@
 #X obj 305 196 pack, f 17;
 #X obj 305 169 makenote 127 3000;
 #X text 29 19 bopOS Template;
-#X obj 305 114 metro 1000;
-#X msg 305 92 1;
 #X connect 2 0 1 0;
 #X connect 2 0 1 1;
-#X connect 3 0 11 0;
+#X connect 3 0 6 0;
 #X connect 5 0 4 0;
 #X connect 6 0 8 0;
 #X connect 7 0 2 0;
 #X connect 8 0 7 0;
 #X connect 8 1 7 1;
-#X connect 10 0 6 0;
-#X connect 11 0 10 0;
