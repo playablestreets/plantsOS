@@ -30,8 +30,8 @@
 
 sleep 5
 
-#Running Jack at 22050khz
-jackd -P70 -p16 -t2000 -d alsa -dhw:Device -p 128 -n 3 -r 44100 -s &
+#Running Jack  --- ! changed -p (buffer) to 512, -n to 2, added -P for playback only
+jackd -P70 -p16 -t2000 -d alsa -dhw:Device -p 512 -n 2 -r 44100 -s -P &
 
 # leave enough time for jack to start before launching PD
 sleep 10
