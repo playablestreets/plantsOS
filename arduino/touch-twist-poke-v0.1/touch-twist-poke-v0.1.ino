@@ -3,6 +3,10 @@
 // - OSC (Adrian Freed)
 // - Adafruit_MPR121 (Adafruit)
 
+// Pots connected to A2, A3, A4, A5
+// Buttons connected to 13, 12, 27
+// Two MPR121 modules connected to i2c, one on channel 0x5A, one on 0x5C
+
 #include <WiFi.h>
 // #include <WebServer.h>
 // #include <AutoConnect.h>
@@ -18,7 +22,7 @@ SLIPEncodedUSBSerial SLIPSerial( thisBoardsSerialUSB );
 SLIPEncodedSerial SLIPSerial(Serial); // Change to Serial1 or Serial2 etc. for boards with multiple serial ports that don’t have Serial
 #endif
 
-//OSC stuff
+//----------------- OSC STUFF
 #include <WiFiUdp.h>
 #include <OSCMessage.h>
 #include <OSCBundle.h>
@@ -34,7 +38,7 @@ const unsigned int localPort = 9000;        // local port to listen for OSC pack
 String macString = "";
 String oscAddress;
 
-//touch stuff
+//--------------   TOUCH VARIABLES
 typedef struct
 {
   int pin;
@@ -53,27 +57,48 @@ int i2cADDR[] = {0x5A, 0x5C};
 Adafruit_MPR121 capLeft = Adafruit_MPR121();  // ADDR not connected: 0x5A
 Adafruit_MPR121 capRight = Adafruit_MPR121(); // ADDR tied to SDA:   0x5C
 
+//------------------  BUTTONS AND POTS
+#define BUTTON_PIN1 13
+#define BUTTON_PIN2 12
+#define BUTTON_PIN3 27
+
+//34 39 36 4
+const int POT_PIN1 34;
+const int POT_PIN2 39;
+const int POT_PIN3 36;
+const int POT_PIN4 4;
+
+
+
 
 // void rootPage() {
 //   char content[] = "Hello, world";
 //   Server.send(200, "text/plain", content);
 // }
 
-
+// ------------------------------------------  SETUP
 void setup() {
   delay(1000);
+  
+  //set buttons
+  pinMode(BUTTON_PIN1, INPUT_PULLUP);
+  pinMode(BUTTON_PIN2, INPUT_PULLUP);
+  pinMode(BUTTON_PIN3, INPUT_PULLUP);
+
+  //serial
   Serial.begin(115200);
   //begin SLIPSerial just like Serial
   SLIPSerial.begin(115200);   // set this as high as you can reliably run on your platform
   Serial.println("setting up pins...");
   SLIPSerial.println("setting up pins...");
 
+
+  //touches
   for (int i = 0; i < NUMTOUCHPINS; i++) {
     touchInputs[i].pin = touchPins[i];
     touchInputs[i].currentValue = 0;
     touchInputs[i].lastValue = 1;
   }
-
   
   bool capLeft_connected = false;
   while (!capLeft_connected) {
@@ -100,6 +125,8 @@ void setup() {
 
   Serial.println("done :)");
 
+
+  // networking
   //get mac
   byte macBytes[6];
   WiFi.macAddress(macBytes);
@@ -128,10 +155,15 @@ void loop() {
   delay(25);
 
   readTouches();
-
+  readButtons();
+  readPots();
 }
 
+//-------------------- BUTTONS
+void readButtons(){}
 
+//-------------------- POTS
+void readPots(){}
 
 //-------------------- MPR TOUCH SENSORS
 void readTouches(){
