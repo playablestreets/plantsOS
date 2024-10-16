@@ -12,7 +12,7 @@
 #X obj 75 311 t b l;
 #X obj 75 338 unpack 0 0 0 0 0 0 0 0, f 32;
 #X obj 74 218 list split 1;
-#X obj 90 246 list trim;
+#X obj 75 258 list trim;
 #X msg 181 72 devices;
 #X obj 97 453 s sensor1;
 #X obj 70 529 s sensor2;
