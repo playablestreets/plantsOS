@@ -7,6 +7,13 @@
 // Buttons connected to 13, 12, 27
 // Two MPR121 modules connected to i2c, one on channel 0x5A, one on 0x5C
 
+typedef struct
+{
+  int pin;
+  int currentValue;
+  int lastValue;
+} Input;
+
 #include <WiFi.h>
 // #include <WebServer.h>
 // #include <AutoConnect.h>
@@ -39,16 +46,9 @@ String macString = "";
 String oscAddress;
 
 //--------------   TOUCH VARIABLES
-typedef struct
-{
-  int pin;
-  int currentValue;
-  int lastValue;
-} TouchInput;
-
-#define NUMTOUCHPINS 8
-TouchInput touchInputs[NUMTOUCHPINS];
-int touchPins[NUMTOUCHPINS] = {4, 15, 13, 12, 14, 27, 32, 33};
+#define NUMTOUCHES 8 // THIS SHOULD BE 12 INPUTS PER MPR
+Input touchInputs[NUMTOUCHES];
+// int touchPins[NUMTOUCHES] = {4, 15, 13, 12, 14, 27, 32, 33};
 
 // MPR121 CapTouch Breakout Stuff
 #include <Wire.h>
@@ -58,18 +58,21 @@ Adafruit_MPR121 capLeft = Adafruit_MPR121();  // ADDR not connected: 0x5A
 Adafruit_MPR121 capRight = Adafruit_MPR121(); // ADDR tied to SDA:   0x5C
 
 //------------------  BUTTONS AND POTS
+//--------------   TOUCH VARIABLES
 #define BUTTON_PIN1 13
 #define BUTTON_PIN2 12
 #define BUTTON_PIN3 27
+#define NUMBUTTONS 3
+Input buttonInputs[NUMBUTTONS];
+int buttonPins[NUMBUTTONS] = {BUTTON_PIN1, BUTTON_PIN2, BUTTON_PIN3};
 
-//34 39 36 4
-const int POT_PIN1 34;
-const int POT_PIN2 39;
-const int POT_PIN3 36;
-const int POT_PIN4 4;
-
-
-
+#define POT_PIN1 34
+#define POT_PIN2 39
+#define POT_PIN3 36
+#define POT_PIN4 4
+#define NUMPOTS 4
+Input potInputs[NUMPOTS];
+int potPins[NUMPOTS] = {POT_PIN1, POT_PIN2, POT_PIN3};
 
 // void rootPage() {
 //   char content[] = "Hello, world";
@@ -79,13 +82,33 @@ const int POT_PIN4 4;
 // ------------------------------------------  SETUP
 void setup() {
   delay(1000);
-  
-  //set buttons
+
+  //INIT INPUTS
   pinMode(BUTTON_PIN1, INPUT_PULLUP);
   pinMode(BUTTON_PIN2, INPUT_PULLUP);
   pinMode(BUTTON_PIN3, INPUT_PULLUP);
 
-  //serial
+  for (int i = 0; i < NUMBUTTONS; i++){
+    buttonInputs[i].pin = buttonPins[i];
+    buttonInputs[i].currentValue = 0;
+    buttonInputs[i].lastValue = 0;
+  }
+
+ for (int i = 0; i < NUMPOTS; i++){
+    potInputs[i].pin = potPins[i];
+    potInputs[i].currentValue = 0;
+    potInputs[i].lastValue = 0;
+  }
+
+  for (int i = 0; i < NUMTOUCHES; i++) {
+    // touchInputs[i].pin = touchPins[i];
+    touchInputs[i].currentValue = 0;
+    touchInputs[i].lastValue = 1;
+  }
+
+
+
+  //SERIAL
   Serial.begin(115200);
   //begin SLIPSerial just like Serial
   SLIPSerial.begin(115200);   // set this as high as you can reliably run on your platform
@@ -93,13 +116,8 @@ void setup() {
   SLIPSerial.println("setting up pins...");
 
 
-  //touches
-  for (int i = 0; i < NUMTOUCHPINS; i++) {
-    touchInputs[i].pin = touchPins[i];
-    touchInputs[i].currentValue = 0;
-    touchInputs[i].lastValue = 1;
-  }
-  
+ 
+  //INIT MPR121
   bool capLeft_connected = false;
   while (!capLeft_connected) {
     if (!capLeft.begin(0x5A)) {
@@ -126,7 +144,7 @@ void setup() {
   Serial.println("done :)");
 
 
-  // networking
+  // NETWORKING
   //get mac
   byte macBytes[6];
   WiFi.macAddress(macBytes);
@@ -160,7 +178,9 @@ void loop() {
 }
 
 //-------------------- BUTTONS
-void readButtons(){}
+void readButtons(){
+
+}
 
 //-------------------- POTS
 void readPots(){}
@@ -185,7 +205,7 @@ void readTouches(){
 
   if (changeDetected) {
     OSCMessage msg(oscAddress.c_str());
-    for (int i = 0; i < NUMTOUCHPINS; i++) msg.add( (unsigned int)touchInputs[i].currentValue );
+    for (int i = 0; i < NUMTOUCHES; i++) msg.add( (unsigned int)touchInputs[i].currentValue );
     // Udp.beginPacket(outIp, outPort);
     // msg.send(Udp);
     // Udp.endPacket();
