@@ -23,8 +23,9 @@
 #X obj 75 126 babs.slipdecode;
 #X msg 75 45 0;
 #X msg 140 43 1;
-#X obj 75 284 route touches buttons;
-#X listbox 335 302 20 0 0 0 - - - 0;
+#X listbox 315 339 20 0 0 0 - - - 0;
+#X obj 75 284 route touches buttons pots;
+#X listbox 349 304 20 0 0 0 - - - 0;
 #X connect 0 0 21 0;
 #X connect 3 0 4 0;
 #X connect 4 0 10 0;
@@ -35,7 +36,7 @@
 #X connect 9 0 18 0;
 #X connect 9 1 17 0;
 #X connect 10 1 11 0;
-#X connect 11 0 23 0;
+#X connect 11 0 24 0;
 #X connect 12 0 6 0;
 #X connect 16 0 17 1;
 #X connect 16 0 18 1;
@@ -46,5 +47,6 @@
 #X connect 20 0 3 0;
 #X connect 21 0 7 0;
 #X connect 22 0 7 0;
-#X connect 23 0 8 0;
-#X connect 23 1 24 0;
+#X connect 24 0 8 0;
+#X connect 24 1 23 0;
+#X connect 24 2 25 0;
