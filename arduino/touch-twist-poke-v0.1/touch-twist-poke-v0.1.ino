@@ -177,13 +177,71 @@ void loop() {
   readPots();
 }
 
+
+
 //-------------------- BUTTONS
 void readButtons(){
+    bool changeDetected = false;
+
+    //get values
+    for(int i = 0; i < NUMBUTTONS; i++){
+      buttonInputs[i].currentValue = digitalRead(buttonPins[i]);
+
+      if(buttonInputs[i].currentValue != buttonInputs[i].lastValue)
+        changeDetected = true;
+
+    }
+    
+    if(changeDetected){
+      oscAddress = "/" + macString + "/buttons";
+      OSCMessage msg(oscAddress.c_str());
+      for (int i = 0; i < NUMBUTTONS; i++) 
+        msg.add( (unsigned int)(1 - buttonInputs[i].currentValue) );
+      // Udp.beginPacket(outIp, outPort);
+      // msg.send(Udp);
+      // Udp.endPacket();
+      SLIPSerial.beginPacket();
+      msg.send(SLIPSerial);
+      SLIPSerial.endPacket();
+      msg.empty();
+    }
+
+    for(int i = 0; i < NUMBUTTONS; i++)
+      buttonInputs[i].lastValue = buttonInputs[i].currentValue;
 
 }
 
 //-------------------- POTS
-void readPots(){}
+void readPots(){
+    bool changeDetected = false;
+
+    //get values
+    for(int i = 0; i < NUMPOTS; i++){
+      potInputs[i].currentValue = analogRead(potPins[i]);
+
+      if(potInputs[i].currentValue != potInputs[i].lastValue)
+        changeDetected = true;
+
+    }
+    
+    if(changeDetected){
+      oscAddress = "/" + macString + "/pots";
+      OSCMessage msg(oscAddress.c_str());
+      for (int i = 0; i < NUMPOTS; i++) 
+        msg.add( (unsigned int)(potInputs[i].currentValue) );
+      // Udp.beginPacket(outIp, outPort);
+      // msg.send(Udp);
+      // Udp.endPacket();
+      SLIPSerial.beginPacket();
+      msg.send(SLIPSerial);
+      SLIPSerial.endPacket();
+      msg.empty();
+    }
+
+    for(int i = 0; i < NUMPOTS; i++)
+      potInputs[i].lastValue = potInputs[i].currentValue;
+
+}
 
 //-------------------- MPR TOUCH SENSORS
 void readTouches(){
@@ -204,6 +262,7 @@ void readTouches(){
   touchInputs[1].lastValue = touchInputs[1].currentValue;
 
   if (changeDetected) {
+    oscAddress = "/" + macString + "/touches";
     OSCMessage msg(oscAddress.c_str());
     for (int i = 0; i < NUMTOUCHES; i++) msg.add( (unsigned int)touchInputs[i].currentValue );
     // Udp.beginPacket(outIp, outPort);
