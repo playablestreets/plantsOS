@@ -5,7 +5,7 @@
 #X obj 325 302 bop.casio~;
 #A saved wave-1 1;
 #A saved wave-2 6;
-#A saved filter 0.427196;
+#A saved filter 0.548482;
 #A saved attack 0;
 #A saved decay 0.464286;
 #A saved sustain 0.4;
@@ -21,7 +21,7 @@
 #X floatatom 120 40 8 0 1 1 floor floor-init floor 0;
 #X floatatom 304 150 15 0 1 0 - - - 0;
 #X obj 332 276 bop.strum;
-#A saved strum 0;
+#A saved strum 1;
 #A saved chord 7;
 #A saved shuffle 1;
 #A saved root 52;
@@ -128,6 +128,8 @@
 #X connect 9 0 8 0;
 #X restore 35 203 pd init;
 #X text 33 390 todo - replace keybindings with button input from esp, f 18;
+#X obj 166 233 s calibrate;
+#X obj 166 193 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X connect 2 0 17 0;
 #X connect 3 0 16 0;
 #X connect 5 0 4 0;
@@ -141,3 +143,4 @@
 #X connect 17 0 1 0;
 #X connect 17 0 1 1;
 #X connect 23 0 22 0;
+#X connect 30 0 29 0;
