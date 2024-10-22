@@ -1,10 +1,10 @@
-#N canvas 133 308 1016 522 12;
+#N canvas 133 309 1030 571 12;
 #X declare -path ./bop;
 #X obj 35 91 declare -path ./bop;
 #X obj 325 302 bop.casio~;
 #A saved wave-1 1;
 #A saved wave-2 6;
-#A saved filter 0.585307;
+#A saved filter 0.421974;
 #A saved attack 0;
 #A saved decay 0.464286;
 #A saved sustain 0.4;
@@ -157,6 +157,14 @@
 #A saved instrument 3;
 #X obj 532 402 dac~;
 #X obj 194 172 r button2;
+#X obj 256 401 netreceive -u -b 7777;
+#X obj 167 269 noise~;
+#X obj 221 318 line~;
+#X obj 200 362 *~;
+#X obj 257 436 oscparse;
+#X obj 254 465 list trim;
+#X obj 254 489 route calibrate;
+#X msg 209 240 0.5 \, 0 200;
 #X connect 1 0 16 0;
 #X connect 1 1 16 1;
 #X connect 2 0 15 0;
@@ -173,6 +181,7 @@
 #X connect 20 0 33 0;
 #X connect 22 0 21 0;
 #X connect 29 0 28 0;
+#X connect 29 0 47 0;
 #X connect 30 0 29 0;
 #X connect 31 0 35 0;
 #X connect 32 1 37 1;
@@ -183,3 +192,12 @@
 #X connect 37 0 36 0;
 #X connect 37 1 36 1;
 #X connect 39 0 29 0;
+#X connect 40 0 44 0;
+#X connect 41 0 43 0;
+#X connect 42 0 43 1;
+#X connect 43 0 38 0;
+#X connect 43 0 38 1;
+#X connect 44 0 45 0;
+#X connect 45 0 46 0;
+#X connect 46 0 29 0;
+#X connect 47 0 42 0;
