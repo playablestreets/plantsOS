@@ -1,5 +1,5 @@
-#N canvas 950 663 307 167 12;
-#N canvas 235 164 780 622 osc 1;
+#N canvas 950 662 307 167 12;
+#N canvas 235 164 780 622 osc 0;
 #X obj 92 290 netsend -u -b;
 #X msg 62 111 connect 255.255.255.255 7770;
 #X obj 92 198 oscformat reboot;
@@ -54,4 +54,4 @@
 #X obj 24 84 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 24 55 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
 #X text 22 6 control all devices on network;
-#X obj 30 135 bng 19 250 50 0 #0-calibrate empty calibrate 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 30 135 bng 19 250 50 0 \$0-calibrate empty calibrate 25 10 0 12 #fcfcfc #000000 #000000;

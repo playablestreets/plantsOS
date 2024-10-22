@@ -1,4 +1,4 @@
-#N canvas 630 123 531 569 12;
+#N canvas 811 143 531 569 12;
 #X declare -path ./bop/babs;
 #X obj 75 18 loadbang;
 #X text 140 532 pin 4/A5;
@@ -26,6 +26,10 @@
 #X listbox 315 339 20 0 0 0 - - - 0;
 #X obj 75 284 route touches buttons pots;
 #X listbox 349 304 20 0 0 0 - - - 0;
+#X obj 341 377 unpack 0 0 0;
+#X obj 327 472 s button1;
+#X obj 376 439 s button2;
+#X obj 414 413 s button3;
 #X connect 0 0 21 0;
 #X connect 3 0 4 0;
 #X connect 4 0 10 0;
@@ -49,4 +53,8 @@
 #X connect 22 0 7 0;
 #X connect 24 0 8 0;
 #X connect 24 1 23 0;
+#X connect 24 1 26 0;
 #X connect 24 2 25 0;
+#X connect 26 0 27 0;
+#X connect 26 1 28 0;
+#X connect 26 2 29 0;

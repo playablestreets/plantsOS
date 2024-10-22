@@ -14,7 +14,7 @@ typedef struct
   int lastValue;
 } Input;
 
-#include <WiFi.h>
+// #include <WiFi.h>
 // #include <WebServer.h>
 // #include <AutoConnect.h>
 
@@ -38,10 +38,10 @@ SLIPEncodedSerial SLIPSerial(Serial); // Change to Serial1 or Serial2 etc. for b
 OSCErrorCode error;
 unsigned int ledState = LOW;              // LOW means led is *on*
 
-WiFiUDP Udp;                                // A UDP instance to let us send and receive packets over UDP
-const IPAddress outIp(255, 255, 255, 255);     // remote IP of your computer
-const unsigned int outPort = 8000;          // remote port to receive OSC
-const unsigned int localPort = 9000;        // local port to listen for OSC packets
+// WiFiUDP Udp;                                // A UDP instance to let us send and receive packets over UDP
+// const IPAddress outIp(255, 255, 255, 255);     // remote IP of your computer
+// const unsigned int outPort = 8000;          // remote port to receive OSC
+// const unsigned int localPort = 9000;        // local port to listen for OSC packets
 String macString = "";
 String oscAddress;
 
@@ -69,10 +69,10 @@ int buttonPins[NUMBUTTONS] = {BUTTON_PIN1, BUTTON_PIN2, BUTTON_PIN3};
 #define POT_PIN1 34
 #define POT_PIN2 39
 #define POT_PIN3 36
-#define POT_PIN4 4
+#define POT_PIN4 32 //jump pin 15 to pot 4 wiper on TTP 0.1 boards 
 #define NUMPOTS 4
 Input potInputs[NUMPOTS];
-int potPins[NUMPOTS] = {POT_PIN1, POT_PIN2, POT_PIN3};
+int potPins[NUMPOTS] = {POT_PIN1, POT_PIN2, POT_PIN3, POT_PIN4};
 
 // void rootPage() {
 //   char content[] = "Hello, world";
@@ -146,12 +146,14 @@ void setup() {
 
   // NETWORKING
   //get mac
-  byte macBytes[6];
-  WiFi.macAddress(macBytes);
-  char macChars[19];
-  sprintf(macChars, "%02X-%02X-%02X-%02X-%02X-%02X", macBytes[0], macBytes[1], macBytes[2], macBytes[3], macBytes[4], macBytes[5]);
-  macString = String(macChars);
-  Serial.println("hey there.  I am " + macString);
+  // byte macBytes[6];
+  // WiFi.macAddress(macBytes);
+  // char macChars[19];
+  // sprintf(macChars, "%02X-%02X-%02X-%02X-%02X-%02X", macBytes[0], macBytes[1], macBytes[2], macBytes[3], macBytes[4], macBytes[5]);
+  // macString = String(macChars);
+    macString = "usb";
+  // Serial.println("hey there.  I am " + macString);
+  Serial.println("hey there.  I am not connected to wifi.");
   oscAddress = "/" + macString + "/touches";
   Serial.println("I will output osc to " + oscAddress + " on port 8000 as well as over serial.");
 
