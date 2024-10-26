@@ -1,7 +1,7 @@
 MAC, ID, POSX, POSY, hostname
 00:00:00:00:00:00, 0, 0, 0, test
-b8:27:eb:4e:97:93, 1, 0, 0, plant1
-b8:27:eb:4b:f0:d9, 2, 100, 0, plant2
+B8:27:EB:07:13:A7, 1, 0, 0, plant1
+b8:27:eb:1e:a5:8c, 2, 100, 0, plant2
 b8:27:eb:c9:1b:d2, 3, 200, 0, plant3
 b8:27:eb:f7:63:31, 4, 300, 0, plant4
 b8:27:eb:41:e3:c2, 5, 400, 0, plant5
