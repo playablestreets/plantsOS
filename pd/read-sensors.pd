@@ -1,8 +1,8 @@
 #N canvas 445 151 839 695 12;
 #X declare -path ./bop/babs;
 #X obj 75 18 loadbang;
-#X text 138 538 pin 4/A5;
-#X text 174 458 pin 15/A8;
+#X text 138 578 pin 4/A5;
+#X text 174 488 pin 15/A8;
 #X obj 75 153 oscparse;
 #X obj 75 180 route list;
 #X msg 129 72 close;
@@ -12,11 +12,11 @@
 #X obj 74 218 list split 1;
 #X obj 90 246 list trim;
 #X msg 181 72 devices;
-#X obj 95 459 s sensor1;
-#X obj 68 535 s sensor2;
+#X obj 95 489 s sensor1;
+#X obj 68 575 s sensor2;
 #X obj 326 50 declare -path ./bop/babs;
-#X obj 97 427 filter-and-scale 2;
-#X obj 74 503 filter-and-scale 2;
+#X obj 97 457 filter-and-scale 2;
+#X obj 74 543 filter-and-scale 2;
 #X obj 75 126 babs.slipdecode;
 #X msg 75 45 0;
 #X msg 140 43 1;
