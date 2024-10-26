@@ -1,5 +1,5 @@
-#N canvas 950 663 307 167 12;
-#N canvas 396 488 675 314 osc 0;
+#N canvas 154 404 631 397 12;
+#N canvas 347 176 671 486 osc 0;
 #X obj 92 250 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
 #X obj 92 158 oscformat reboot;
@@ -16,6 +16,10 @@
 #X obj 358 105 r update;
 #X obj 488 105 r updatesamples;
 #X msg 38 12 disconnect;
+#X obj 46 307 netreceive -u -b 5550;
+#X obj 46 331 oscparse;
+#X obj 47 363 list trim;
+#X obj 45 395 print from-plants;
 #X connect 1 0 0 0;
 #X connect 2 0 0 0;
 #X connect 3 0 2 0;
@@ -31,6 +35,9 @@
 #X connect 13 0 7 0;
 #X connect 14 0 9 0;
 #X connect 15 0 0 0;
+#X connect 16 0 17 0;
+#X connect 17 0 18 0;
+#X connect 18 0 19 0;
 #X restore 173 73 pd osc;
 #X obj 24 36 bng 19 250 50 0 reboot empty reboot 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 24 103 bng 19 250 50 0 updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
