@@ -1,4 +1,4 @@
-# bopOS
+# plantsOS
 
 A Raspberry Pi and Arduino based framework for networked multichannel sound, light, and motion.   This repo provides scaffolding for the [bop](https://github.com/zealtv/bop) library for PD Vanilla. Python scripts provide admin services (updating, rebooting, shutdown). 
 

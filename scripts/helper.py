@@ -22,6 +22,9 @@ def config_callback(path='', tags='', args='', source=''):
         # Iterate over each row in the csv using reader object
         for row in csv_reader:
             # row variable is a list that represents a row in csv
+            # sys.argv[1] is mac address passed in at run
+            # row[0] is mac address in config file
+            # row[1] is ID in config file
             if row[0] == sys.argv[1]:
                 print('MAC MATCHED LINE IN CONFIG')
                 msg = OSCMessage("/id")
