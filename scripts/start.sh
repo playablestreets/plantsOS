@@ -31,7 +31,7 @@
 sleep 5
 
 #Running Jack  --- -p (buffer) 512 samples, -P for playback only
-jackd -P70 -p16 -t2000 -d alsa -dhw:DigiAMP -p 1024 -n 2 -r 44100 -s -P &
+jackd -P70 -p16 -t2000 -d alsa -dhw:DigiAMP -p 2048 -n 2 -r 44100 -s -P &
 
 # leave enough time for jack to start before launching PD
 sleep 10
