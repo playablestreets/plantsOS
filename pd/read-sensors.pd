@@ -19,7 +19,7 @@
 #X obj 74 543 filter-and-scale 2;
 #X obj 75 126 babs.slipdecode;
 #X msg 75 45 0;
-#X msg 140 43 1;
+#X msg 110 45 1;
 #X obj 75 284 route touches buttons pots, f 105;
 #X obj 326 430 unpack 0 0 0;
 #X obj 327 517 s button1;
@@ -28,7 +28,7 @@
 #X obj 537 387 unpack 0 0 0 0;
 #X obj 538 644 s pot1;
 #X obj 568 579 s pot2;
-#X msg 176 42 2;
+#X msg 146 44 2;
 #X obj 537 614 expr 1 - ($f1 / 4095);
 #X obj 571 551 expr 1 - ($f1 / 4095);
 #X obj 603 489 expr 1 - ($f1 / 4095);
@@ -61,7 +61,7 @@
 #X connect 25 1 30 0;
 #X connect 25 2 31 0;
 #X connect 25 3 32 0;
-#X connect 28 0 6 0;
+#X connect 28 0 7 0;
 #X connect 29 0 26 0;
 #X connect 30 0 27 0;
 #X connect 31 0 33 0;
