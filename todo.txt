@@ -1,0 +1,3 @@
+- [ ] presistance for voice
+- [ ] setting id via python
+- [ ] sending version (git commit?)
