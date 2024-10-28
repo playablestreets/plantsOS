@@ -44,7 +44,7 @@ echo "MAC: $MACADDRESS"
 # PUREDATA
 pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RANDOM; " &
 
-sleep 2
+sleep 5
 
 # PYTHON
 sudo /home/pi/venv/bin/python /home/pi/plantsOS/scripts/helper.py $MACADDRESS &

@@ -1,13 +1,15 @@
 - [x] presistance for voice
 	- [ ] test voice persist
-- [ ] setting id via python
-- [ ] sending version (git commit?)
-- [ ] OSC documentation
-	- [ ] aloha at boot, in response to aloha delayed by 1sec
 
 
 - [ ] box 1 not loading MPRs
 - [ ] Box 2 pot 4 dodgy
-- [ ] Box 6 pot 4 dodgy // seems to be ESP problem
-- [x] Box 6 requires reflashing
+- [ ] Box 6 pot 4 dodgy
+- [ ] Box 6 ESP not connecting to PD
 
+
+- [x] Box 6 requires reflashing
+- [x] setting id via python
+- [ ] sending version (git commit?)
+- [ ] OSC documentation
+	- [ ] aloha at boot, in response to aloha delayed by 1sec

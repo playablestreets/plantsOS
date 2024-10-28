@@ -47,7 +47,7 @@
 #X connect 21 0 19 0;
 #X connect 24 0 19 0;
 #X connect 25 0 19 0;
-#X restore 25 89 pd osc;
+#X restore 22 92 pd osc;
 #X f 15;
 #X text 22 22 helper.py listening on 7770;
 #X text 22 37 PD listening on 6660;
@@ -60,9 +60,11 @@
 #X obj 176 527 device-dashboard 5;
 #X obj 326 527 device-dashboard 6;
 #X obj 326 17 device-dashboard 0;
-#X obj 26 137 cnv 19 250 80 empty empty all\ devices 10 10 0 12 #c6feff #404040 0;
-#X obj 37 167 bng 19 250 50 0 reboot empty reboot 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 147 186 bng 19 250 50 0 updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 147 167 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 37 186 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
-#X text 171 52 admin update \; admin updatesamples \; admin shutdown \; admin reboot \; aloha \;;
+#X obj 26 147 cnv 19 250 80 empty empty all\ devices 10 10 0 12 #c6feff #404040 0;
+#X obj 37 177 bng 19 250 50 0 reboot empty reboot 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 147 196 bng 19 250 50 0 updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 147 177 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 37 196 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
+#N canvas 63 100 450 300 message 0;
+#X text 23 13 admin update \; admin updatesamples \; admin shutdown \; admin reboot \; aloha \;;
+#X restore 22 111 pd message list;

@@ -10,7 +10,7 @@
 #X obj 267 369 list prepend;
 #X obj 348 341 r \$0-print;
 #X obj 267 417 print device-\$1;
-#X listbox 20 212 18 0 0 0 - \$0-osc-list - 0;
+#X listbox 20 212 16 0 0 0 - \$0-osc-list - 0;
 #X obj 299 300 s \$0-osc-list;
 #X obj 11 11 cnv 18 148 18 empty \$0-header device\ 2 45 10 0 12 #e3c6ff #404040 0;
 #X obj 475 13 loadbang;
@@ -42,6 +42,10 @@
 #X msg 497 245 list admin update;
 #X msg 517 305 list admin shutdown;
 #X msg 522 365 list admin reboot;
+#X obj 138 212 bng 18 250 50 0 \$0-clear-osc-list empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
+#X obj 131 497 s \$0-osc-list;
+#X obj 128 449 r \$0-clear-osc-list;
+#X msg 128 473 set;
 #X connect 4 0 27 0;
 #X connect 6 0 32 0;
 #X connect 8 0 31 0;
@@ -71,4 +75,6 @@
 #X connect 40 0 21 0;
 #X connect 41 0 21 0;
 #X connect 42 0 21 0;
+#X connect 45 0 46 0;
+#X connect 46 0 44 0;
 #X coords 0 -1 1 1 150 250 2 10 10;
