@@ -41,10 +41,13 @@ MACADDRESS=$(cat /sys/class/net/wlan0/address)
 # MACADDRESS=$(cat /sys/class/net/eth0/address)
 echo "MAC: $MACADDRESS"
 
+# PUREDATA
+pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RANDOM; " &
+
+sleep 2
+
 # PYTHON
 sudo /home/pi/venv/bin/python /home/pi/plantsOS/scripts/helper.py $MACADDRESS &
 
-# PUREDATA
-pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RANDOM; " &
 
 exit

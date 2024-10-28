@@ -48,6 +48,7 @@
 #X connect 24 0 19 0;
 #X connect 25 0 19 0;
 #X restore 25 89 pd osc;
+#X f 35;
 #X text 22 22 helper.py listening on 7770;
 #X text 22 37 PD listening on 6660;
 #X text 22 54 PD reporting on 5550;
