@@ -6,7 +6,7 @@
 #X obj 193 10 r osc-from-devices;
 #X obj 193 123 s \$0-osc-in;
 #X obj 193 182 r \$0-osc-in;
-#X obj 20 237 tgl 19 1 \$0-print empty print 25 10 0 12 #fcfcfc #000000 #000000 1 1;
+#X obj 20 237 tgl 19 1 \$0-print empty print 25 10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 267 369 list prepend;
 #X obj 348 341 r \$0-print;
 #X obj 267 417 print device-\$1;
