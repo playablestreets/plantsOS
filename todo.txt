@@ -6,7 +6,8 @@
 	- [ ] aloha at boot, in response to aloha delayed by 1sec
 
 
-- [ ] Box 2 pot 4 dodgy
-- [ ] Box 6 pot 4 dodgy
 - [ ] box 1 not loading MPRs
+- [ ] Box 2 pot 4 dodgy
+- [ ] Box 6 pot 4 dodgy // seems to be ESP problem
+- [x] Box 6 requires reflashing
 
