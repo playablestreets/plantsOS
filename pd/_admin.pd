@@ -1,4 +1,4 @@
-#N canvas 776 97 508 800 12;
+#N canvas 790 80 508 800 12;
 #N canvas 721 327 702 571 osc 0;
 #X obj 92 250 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -67,4 +67,6 @@
 #X obj 37 196 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
 #N canvas 63 100 450 300 message 0;
 #X text 23 13 admin update \; admin updatesamples \; admin shutdown \; admin reboot \; aloha \;;
+#X text 48 174 debug sensor1 [0 \, 1];
+#X text 47 200 debug sensor2 [0 \, 1];
 #X restore 22 111 pd message list;
