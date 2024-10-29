@@ -1,4 +1,4 @@
-#N canvas 445 151 839 695 12;
+#N canvas 55 227 839 695 12;
 #X declare -path ./bop/babs;
 #X obj 75 18 loadbang;
 #X text 138 578 pin 4/A5;
@@ -22,9 +22,9 @@
 #X msg 110 45 1;
 #X obj 75 284 route touches buttons pots, f 105;
 #X obj 326 430 unpack 0 0 0;
-#X obj 327 517 s button1;
-#X obj 357 492 s button2;
-#X obj 391 468 s button3;
+#X obj 313 593 s button1;
+#X obj 366 546 s button2;
+#X obj 400 492 s button3;
 #X obj 537 387 unpack 0 0 0 0;
 #X obj 538 644 s pot1;
 #X obj 568 579 s pot2;
@@ -35,6 +35,9 @@
 #X obj 647 426 expr 1 - ($f1 / 4095);
 #X obj 604 519 s pot3;
 #X obj 644 454 s pot4;
+#X obj 312 558 change;
+#X obj 362 520 change;
+#X obj 396 461 change;
 #X connect 0 0 18 0;
 #X connect 3 0 4 0;
 #X connect 4 0 9 0;
@@ -54,9 +57,9 @@
 #X connect 20 0 8 0;
 #X connect 20 1 21 0;
 #X connect 20 2 25 0;
-#X connect 21 0 22 0;
-#X connect 21 1 23 0;
-#X connect 21 2 24 0;
+#X connect 21 0 35 0;
+#X connect 21 1 36 0;
+#X connect 21 2 37 0;
 #X connect 25 0 29 0;
 #X connect 25 1 30 0;
 #X connect 25 2 31 0;
@@ -66,3 +69,6 @@
 #X connect 30 0 27 0;
 #X connect 31 0 33 0;
 #X connect 32 0 34 0;
+#X connect 35 0 22 0;
+#X connect 36 0 23 0;
+#X connect 37 0 24 0;
