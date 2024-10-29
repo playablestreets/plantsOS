@@ -65,7 +65,7 @@
 #X obj 147 196 bng 19 250 50 0 updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 147 177 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 37 196 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
-#N canvas 63 100 450 300 message 1;
+#N canvas 655 195 450 300 message 0;
 #X text 21 89;
-#X text 23 13 admin update \; admin updatesamples \; admin shutdown \; admin reboot \; aloha \; debug sensor1 [0 \, 1] \; debug sensor2 [0 \, 1] \;;
+#X text 23 13 admin update \; admin updatesamples \; admin shutdown \; admin reboot \; aloha \; debug sensor1 [0 \, 1] \; debug sensor2 [0 \, 1] \; sensitivity [f] \; floor [f] \;;
 #X restore 22 111 pd message list;

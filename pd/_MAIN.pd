@@ -125,7 +125,7 @@
 #X obj 37 567 *~;
 #X obj 55 533 r~ amp1;
 #X obj 158 536 r~ amp2;
-#N canvas 351 143 615 576 mapping 0;
+#N canvas 559 120 784 635 mapping 0;
 #X msg 67 417 \$1 10;
 #X obj 67 445 line~;
 #X msg 169 419 \$1 10;
@@ -167,6 +167,10 @@
 #X text 55 28 red \; press to reboot \; hold for 2s to shutdown \;;
 #X text 297 30 blue \; next voice \;;
 #X text 440 30 green \; calibrate \;;
+#X obj 574 294 r osc-in;
+#X obj 574 318 route sensitivity floor;
+#X obj 574 372 s sensitivity-init;
+#X obj 651 346 s floor-init;
 #X connect 0 0 1 0;
 #X connect 1 0 31 0;
 #X connect 2 0 3 0;
@@ -199,11 +203,14 @@
 #X connect 34 0 36 0;
 #X connect 36 0 37 0;
 #X connect 37 0 35 0;
+#X connect 41 0 42 0;
+#X connect 42 0 43 0;
+#X connect 42 1 44 0;
 #X restore 263 331 pd mapping;
 #X f 19;
 #X obj 268 226 s version;
 #X obj 268 173 loadbang;
-#X msg 268 197 4;
+#X msg 268 197 5;
 #X connect 3 0 2 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;
