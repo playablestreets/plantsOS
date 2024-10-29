@@ -1,4 +1,4 @@
-#N canvas 457 204 993 673 12;
+#N canvas 112 127 993 673 12;
 #N canvas 606 294 416 120 variables 0;
 #X obj 21 22 r RANDOM;
 #X obj 21 51 print RANDOM;
