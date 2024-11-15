@@ -7,7 +7,7 @@
 #X obj 648 51 r sensor2;
 #X floatatom 309 192 15 0 1 0 - - - 0;
 #X obj 307 326 bop.strum, f 11;
-#A saved strum 1;
+#A saved strum 0.254658;
 #A saved chord 0;
 #A saved shuffle 0;
 #A saved root 52;
@@ -17,7 +17,7 @@
 #X msg 309 215 strum \$1;
 #X floatatom 652 192 15 0 1 0 - - - 0;
 #X obj 679 323 bop.strum;
-#A saved strum 0.590062;
+#A saved strum 0.869565;
 #A saved chord 0;
 #A saved shuffle 1;
 #A saved root 48;
@@ -64,10 +64,10 @@
 #X obj 704 133 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 298 410 bop.delay~;
 #A saved time 0.5;
-#A saved feedback 0.478571;
+#A saved feedback 0.271429;
 #A saved cutoff 20000;
 #A saved q 0;
-#A saved wet 0.728571;
+#A saved wet 0.578571;
 #A saved dry 1;
 #X obj 298 454 *~ 6;
 #X connect 1 0 19 0;
