@@ -7,7 +7,7 @@
 #X msg 395 220 strum \$1;
 #X floatatom 869 192 15 0 1 0 - - - 0;
 #X obj 894 366 bop.strum;
-#A saved strum 0;
+#A saved strum 0.745342;
 #A saved chord 0;
 #A saved shuffle 1;
 #A saved root 48;
@@ -25,7 +25,7 @@
 #A saved instrument 1;
 #X msg 433 363 stop;
 #X obj 393 311 bop.strum, f 15;
-#A saved strum 1;
+#A saved strum 0.546584;
 #A saved chord 7;
 #A saved shuffle 1;
 #A saved root 33;
@@ -44,7 +44,7 @@
 #A saved loop-start 0;
 #A saved loop-length 1;
 #A saved attack 0;
-#A saved release 1;
+#A saved release 0.928571;
 #A saved gain 1;
 #X obj 382 560 throw~ left;
 #X obj 856 465 throw~ right;
@@ -65,11 +65,11 @@
 #X obj 922 134 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X msg 494 278 pack ../../changi_samplepack \, folder 4;
 #X obj 384 518 bop.delay~;
-#A saved time 0.5;
-#A saved feedback 0.235714;
-#A saved cutoff 20000;
+#A saved time 0.333;
+#A saved feedback 0.5;
+#A saved cutoff 1000;
 #A saved q 0.3;
-#A saved wet 0.55;
+#A saved wet 0.75;
 #A saved dry 1;
 #X connect 1 0 11 0;
 #X connect 2 0 3 0;
@@ -84,6 +84,7 @@
 #X connect 10 1 12 1;
 #X connect 11 0 30 0;
 #X connect 12 0 31 0;
+#X connect 12 1 31 1;
 #X connect 16 0 18 0;
 #X connect 18 0 17 0;
 #X connect 19 0 16 0;
