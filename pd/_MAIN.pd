@@ -1,4 +1,4 @@
-#N canvas 168 108 470 755 12;
+#N canvas 336 53 470 755 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 262 556 declare -path ./bop, f 24;
@@ -197,7 +197,7 @@
 #X f 19;
 #X obj 384 31 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 12 256;
 #X obj 266 92 nbx 5 17 0 50 0 1 sensitivity sensitivity sensitvity 0 -10 0 12 #fcfcfc #000000 #000000 9.5 256;
-#X obj 266 139 nbx 5 17 0 1 0 1 floor floor floor 0 -10 0 12 #fcfcfc #000000 #000000 0.075 256;
+#X obj 266 139 nbx 5 17 0 1 0 1 floor floor floor 0 -10 0 12 #fcfcfc #000000 #000000 0.08 256;
 #N canvas 25 280 456 520 feedback 0;
 #X obj 42 457 throw~ left;
 #X obj 143 458 throw~ right;
