@@ -37,7 +37,6 @@ SLIPEncodedSerial SLIPSerial(Serial); // Change to Serial1 or Serial2 etc. for b
 
 OSCErrorCode error;
 unsigned int ledState = LOW;              // LOW means led is *on*
-
 // WiFiUDP Udp;                                // A UDP instance to let us send and receive packets over UDP
 // const IPAddress outIp(255, 255, 255, 255);     // remote IP of your computer
 // const unsigned int outPort = 8000;          // remote port to receive OSC
