@@ -153,8 +153,8 @@
 #X text 667 28 pot2 \; volume2 \;;
 #X text 66 390 set sensitivity;
 #X text 350 384 debug sensors;
-#X obj 651 85 r loadbang;
 #X msg 651 109 0.5;
+#X obj 651 85 loadbang;
 #X connect 0 0 1 0;
 #X connect 1 0 29 0;
 #X connect 2 0 3 0;
@@ -190,9 +190,9 @@
 #X connect 40 1 44 0;
 #X connect 41 0 31 0;
 #X connect 42 0 12 0;
-#X connect 49 0 50 0;
-#X connect 50 0 0 0;
-#X connect 50 0 2 0;
+#X connect 49 0 0 0;
+#X connect 49 0 2 0;
+#X connect 50 0 49 0;
 #X restore 263 321 pd mapping;
 #X f 19;
 #X obj 384 31 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 12 256;
