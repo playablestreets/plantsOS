@@ -120,9 +120,9 @@
 #X obj 220 168 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X obj 349 259 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X obj 344 517 r sensor1;
-#X obj 357 423 r osc-in;
-#X obj 357 447 route debug;
-#X obj 357 471 route sensor1 sensor2;
+#X obj 427 423 r osc-in;
+#X obj 427 447 route debug;
+#X obj 427 471 route sensor1 sensor2;
 #X obj 356 549 babs.gate 0;
 #X obj 421 520 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X msg 356 578 sensor1 \$1;
@@ -150,9 +150,9 @@
 #X obj 63 491 s sensitivity;
 #X obj 140 465 s floor;
 #X text 566 30 pot1 \; volume1 \;;
-#X text 667 28 pot2 \; volume2 \;;
+#X text 747 28 pot2 \; volume2 \;;
 #X text 66 390 set sensitivity;
-#X text 350 384 debug sensors;
+#X text 420 384 debug sensors;
 #X msg 651 109 0.5;
 #X obj 651 85 loadbang;
 #X connect 0 0 1 0;
@@ -195,7 +195,7 @@
 #X connect 50 0 49 0;
 #X restore 263 321 pd mapping;
 #X f 19;
-#X obj 384 31 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 12 256;
+#X obj 384 31 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 13 256;
 #X obj 266 92 nbx 5 17 0 50 0 1 sensitivity sensitivity sensitvity 0 -10 0 12 #fcfcfc #000000 #000000 9.5 256;
 #X obj 266 139 nbx 5 17 0 1 0 1 floor floor floor 0 -10 0 12 #fcfcfc #000000 #000000 0.08 256;
 #N canvas 25 280 456 520 feedback 0;
