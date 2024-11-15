@@ -7,17 +7,17 @@
 #X msg 374 263 strum \$1;
 #X floatatom 846 228 15 0 1 0 - - - 0;
 #X obj 873 359 bop.strum;
-#A saved strum 0;
-#A saved chord 0;
-#A saved shuffle 1;
-#A saved root 52;
+#A saved strum 0.521739;
+#A saved chord 2;
+#A saved shuffle 0;
+#A saved root 48;
 #A saved octaves 4;
 #A saved velocity 0.888;
 #A saved duration 0.742857;
 #X msg 845 256 strum \$1;
 #X obj 845 333 bop.semisteps;
 #A saved semisteps 0.777;
-#A saved root 52;
+#A saved root 48;
 #A saved hold 0;
 #A saved duration 0.25;
 #A saved velocity 0.75;
@@ -25,7 +25,7 @@
 #A saved instrument 3;
 #X msg 454 438 stop;
 #X obj 366 426 bop.strum, f 11;
-#A saved strum 1;
+#A saved strum 0.993789;
 #A saved chord 2;
 #A saved shuffle 0;
 #A saved root 60;
@@ -46,7 +46,7 @@
 #A saved attack 0.1;
 #A saved release 0.3;
 #A saved gain 1;
-#X obj 363 509 throw~ left;
+#X obj 362 552 throw~ left;
 #X obj 856 448 throw~ right;
 #X obj 35 126 declare -path ./bop/babs;
 #X obj 42 190 == \$1;
@@ -64,6 +64,7 @@
 #X obj 899 124 r active-voice;
 #X obj 900 174 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X msg 423 380 pack ../../changi_samplepack \, folder 5;
+#X obj 362 512 *~ 2;
 #X connect 1 0 11 0;
 #X connect 2 0 3 0;
 #X connect 3 0 10 0;
@@ -75,7 +76,7 @@
 #X connect 9 0 12 1;
 #X connect 10 1 12 1;
 #X connect 11 0 30 0;
-#X connect 12 0 13 0;
+#X connect 12 0 31 0;
 #X connect 16 0 18 0;
 #X connect 18 0 17 0;
 #X connect 19 0 16 0;
@@ -90,3 +91,4 @@
 #X connect 28 0 27 0;
 #X connect 29 0 26 1;
 #X connect 30 0 10 1;
+#X connect 31 0 13 0;
