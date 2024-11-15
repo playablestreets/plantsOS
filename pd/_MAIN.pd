@@ -1,4 +1,4 @@
-#N canvas 517 150 462 651 12;
+#N canvas 366 116 462 651 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 262 556 declare -path ./bop, f 24;
@@ -103,7 +103,7 @@
 #X obj 37 547 *~;
 #X obj 55 513 r~ amp1;
 #X obj 157 516 r~ amp2;
-#N canvas 67 156 797 703 mapping 0;
+#N canvas 513 184 797 703 mapping 1;
 #X msg 567 116 \$1 10;
 #X obj 567 144 line~;
 #X msg 669 118 \$1 10;
@@ -153,7 +153,6 @@
 #X text 667 28 pot2 \; volume2 \;;
 #X text 66 390 set sensitivity;
 #X text 350 384 debug sensors;
-#X msg 627 113 0.5;
 #X connect 0 0 1 0;
 #X connect 1 0 29 0;
 #X connect 2 0 3 0;
@@ -189,8 +188,6 @@
 #X connect 40 1 44 0;
 #X connect 41 0 31 0;
 #X connect 42 0 12 0;
-#X connect 49 0 1 0;
-#X connect 49 0 3 0;
 #X restore 263 321 pd mapping;
 #X f 19;
 #X obj 384 31 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 9 256;
