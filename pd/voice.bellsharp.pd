@@ -7,11 +7,11 @@
 #X obj 648 51 r sensor2;
 #X floatatom 309 192 15 0 1 0 - - - 0;
 #X obj 307 326 bop.strum, f 11;
-#A saved strum 0.770186;
+#A saved strum 0.198758;
 #A saved chord 0;
 #A saved shuffle 0;
 #A saved root 52;
-#A saved octaves 3;
+#A saved octaves 1;
 #A saved velocity 0.888;
 #A saved duration 0.278571;
 #X msg 309 215 strum \$1;
