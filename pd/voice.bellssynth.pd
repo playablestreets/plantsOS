@@ -1,4 +1,4 @@
-#N canvas 237 405 1149 727 12;
+#N canvas 237 201 1149 727 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 35 91 declare -path ./bop;
@@ -48,7 +48,7 @@
 #X obj 653 301 bop.sequence;
 #A saved loop 0;
 #A saved scrub 0;
-#A saved internal-sequence stop \, 52 100 \; stop \, 52 100 \; stop \, 52 100 \; stop \, 52 100 \; stop \, 52 100 \; stop \, 52 100 \; stop \, 52 100 \; stop \, 55 100 \; stop \, 48 100 \; stop \, 50 100 \; stop \, 52 100 \; seq1 \;;
+#A saved internal-sequence stop \, 52 100 \; stop \, 55 100 \; stop \, 48 100 \; stop \, 50 100 \; stop \, 52 100 \; stop \; seq1 \;;
 #X msg 653 240 scrub \$1;
 #X msg 780 424 stop;
 #X obj 657 512 bop.instrument~;
