@@ -1,4 +1,4 @@
-#N canvas 47 247 785 565 12;
+#N canvas 7 271 1061 565 12;
 #X obj 20 73 bng 19 250 50 0 \$0-reboot empty reboot 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 33 354 bng 19 250 50 0 \$0-updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 20 111 bng 19 250 50 0 \$0-update empty update 25 10 0 12 #fcfcfc #000000 #000000;
