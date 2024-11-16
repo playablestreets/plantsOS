@@ -1,4 +1,4 @@
-#N canvas 201 274 1149 727 12;
+#N canvas 237 405 1149 727 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 35 91 declare -path ./bop;
@@ -7,7 +7,7 @@
 #X obj 648 51 r sensor2;
 #X floatatom 309 192 15 0 1 0 - - - 0;
 #X obj 307 326 bop.strum, f 11;
-#A saved strum 0.198758;
+#A saved strum 0;
 #A saved chord 0;
 #A saved shuffle 0;
 #A saved root 52;
@@ -64,6 +64,7 @@
 #X obj 746 333 route list symbol;
 #X text 875 332 separate midi notes and commands;
 #X text 879 369 trigger commands;
+#X obj 861 62 bop.ui;
 #X connect 1 0 15 0;
 #X connect 2 0 17 0;
 #X connect 3 0 21 0;
@@ -97,3 +98,4 @@
 #X connect 33 0 27 0;
 #X connect 34 0 28 1;
 #X connect 34 1 32 0;
+#X connect 37 0 25 1;
