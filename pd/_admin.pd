@@ -1,5 +1,5 @@
 #N canvas 843 42 508 800 12;
-#N canvas 298 40 365 864 osc 1;
+#N canvas 298 40 365 864 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
 #X obj 92 158 oscformat reboot;
