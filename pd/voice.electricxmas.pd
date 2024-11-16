@@ -1,4 +1,4 @@
-#N canvas 402 127 1728 1057 12;
+#N canvas 0 32 1728 1057 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 35 91 declare -path ./bop;
@@ -30,17 +30,17 @@
 #A saved root 60;
 #A saved octaves 3;
 #A saved velocity 1;
-#A saved duration 0.339077;
+#A saved duration 0.3;
 #X obj 325 439 bop.semisteps, f 14;
 #A saved semisteps 0.777;
 #A saved root 60;
 #A saved hold 0;
-#A saved duration 0.339077;
+#A saved duration 0.3;
 #A saved velocity 0.75;
 #X obj 335 472 bop.casio~, f 13;
 #A saved wave-1 1;
 #A saved wave-2 4;
-#A saved filter 0.339077;
+#A saved filter 0.3;
 #A saved attack 0.0214286;
 #A saved decay 0.178571;
 #A saved sustain 0.264286;
@@ -55,8 +55,8 @@
 #A saved osc2-tune 24;
 #A saved osc2-pulsewidth 0.964286;
 #A saved osc2-gain 0.842857;
-#A saved noise 0.535714;
-#A saved cutoff 4112.71;
+#A saved noise 0;
+#A saved cutoff 4000;
 #A saved q 0.207143;
 #A saved mono 0;
 #A saved slide 0;
@@ -64,7 +64,7 @@
 #A saved decay 0.314286;
 #A saved sustain 0.514286;
 #A saved release 0;
-#A saved gain 0.843883;
+#A saved gain 1;
 #X obj 336 506 throw~ left;
 #X obj 696 435 throw~ right;
 #X obj 34 118 declare -path ./bop/babs;
