@@ -7,7 +7,7 @@
 #X msg 374 263 strum \$1;
 #X floatatom 846 228 15 0 1 0 - - - 0;
 #X obj 873 359 bop.strum;
-#A saved strum 0.521739;
+#A saved strum 0;
 #A saved chord 2;
 #A saved shuffle 0;
 #A saved root 48;
@@ -25,7 +25,7 @@
 #A saved instrument 3;
 #X msg 454 438 stop;
 #X obj 366 426 bop.strum, f 11;
-#A saved strum 0.993789;
+#A saved strum 0;
 #A saved chord 2;
 #A saved shuffle 0;
 #A saved root 60;
