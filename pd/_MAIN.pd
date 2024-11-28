@@ -262,6 +262,11 @@
 #X obj 48 550 *~;
 #X obj 66 516 r~ amp1;
 #X obj 168 519 r~ amp2;
+#N canvas 63 100 326 123 notes 0;
+#X text 20 34 sensitivity 9.5;
+#X text 19 52 floor 0.09;
+#X text 18 13 good settings on batteries:;
+#X restore 356 97 pd notes;
 #X connect 25 0 24 0;
 #X connect 26 0 28 0;
 #X connect 27 0 29 0;
