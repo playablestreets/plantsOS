@@ -45,16 +45,16 @@ String macString = "";
 String oscAddress;
 
 //--------------   TOUCH VARIABLES
-#define NUMTOUCHES 8 // THIS SHOULD BE 12 INPUTS PER MPR
-Input touchInputs[NUMTOUCHES];
-// int touchPins[NUMTOUCHES] = {4, 15, 13, 12, 14, 27, 32, 33};
+#define NUMTOUCHES 12 // THIS SHOULD BE 12 INPUTS PER MPR
+Input touchInputsOne[NUMTOUCHES];
+Input touchInputsTwo[NUMTOUCHES];
 
 // MPR121 CapTouch Breakout Stuff
 #include <Wire.h>
 #include "Adafruit_MPR121.h"
 int i2cADDR[] = {0x5A, 0x5C};
-Adafruit_MPR121 capLeft = Adafruit_MPR121();  // ADDR not connected: 0x5A
-Adafruit_MPR121 capRight = Adafruit_MPR121(); // ADDR tied to SDA:   0x5C
+Adafruit_MPR121 MPROne = Adafruit_MPR121();  // ADDR not connected: 0x5A
+Adafruit_MPR121 MPRTwo = Adafruit_MPR121(); // ADDR tied to SDA:   0x5C
 
 //------------------  BUTTONS AND POTS
 //--------------   TOUCH VARIABLES
@@ -100,9 +100,12 @@ void setup() {
   }
 
   for (int i = 0; i < NUMTOUCHES; i++) {
-    // touchInputs[i].pin = touchPins[i];
-    touchInputs[i].currentValue = 0;
-    touchInputs[i].lastValue = 1;
+    // touchInputsOne[i].pin = touchPins[i];
+    touchInputsOne[i].currentValue = 0;
+    touchInputsOne[i].lastValue = 1;
+  
+    touchInputsTwo[i].currentValue = 0;
+    touchInputsTwo[i].lastValue = 1;
   }
 
 
@@ -117,25 +120,25 @@ void setup() {
 
  
   //INIT MPR121
-  bool capLeft_connected = false;
-  while (!capLeft_connected) {
-    if (!capLeft.begin(0x5A)) {
+  bool MPROne_connected = false;
+  while (!MPROne_connected) {
+    if (!MPROne.begin(0x5A)) {
       Serial.println("Left MPR121 not found, check wiring?");
       delay(100);
     } else {
       Serial.println("Left MPR121 found!");
-      capLeft_connected = true;
+      MPROne_connected = true;
     }
   }
 
-  bool capRight_connected = false;
-  while (!capRight_connected) {
-    if (!capRight.begin(0x5C)) {
+  bool MPRTwo_connected = false;
+  while (!MPRTwo_connected) {
+    if (!MPRTwo.begin(0x5C)) {
       Serial.println("Right MPR121 not found, check wiring?");
       delay(100);
     } else {
       Serial.println("Right MPR121 found!");
-      capRight_connected = true;
+      MPRTwo_connected = true;
     }
   }
 
@@ -173,7 +176,8 @@ void loop() {
   // Portal.handleClient();
   delay(25);
 
-  readTouches();
+  readTouchesOne();
+  readTouchesTwo();
   readButtons();
   readPots();
 }
@@ -245,27 +249,52 @@ void readPots(){
 }
 
 //-------------------- MPR TOUCH SENSORS
-void readTouches(){
+void readTouchesOne(){
     bool changeDetected = false;
 
-  // Read Touch Inputs from Left and Right MPR121 boards
-  touchInputs[0].currentValue = capLeft.filteredData(0);
-  touchInputs[1].currentValue = capRight.filteredData(0);
-
-  // Check for Changes
-  if ( touchInputs[0].currentValue != touchInputs[0].lastValue ||
-        touchInputs[1].currentValue != touchInputs[1].lastValue) {
-    changeDetected = true;
+  for(int i = 0; i < NUMTOUCHES; i++){
+    touchInputsOne[i].currentValue = MPROne.filteredData(i);
+    
+    if( touchInputsOne[i].currentValue != touchInputsOne[i].lastValue ){
+      changeDetected = true;
+    } 
+    
+    touchInputsOne[i].lastValue = touchInputsOne[i].currentValue;
   }
 
-  // Update History Value
-  touchInputs[0].lastValue = touchInputs[0].currentValue;
-  touchInputs[1].lastValue = touchInputs[1].currentValue;
 
   if (changeDetected) {
-    oscAddress = "/" + macString + "/touches";
+    oscAddress = "/" + macString + "/touchesOne";
     OSCMessage msg(oscAddress.c_str());
-    for (int i = 0; i < NUMTOUCHES; i++) msg.add( (unsigned int)touchInputs[i].currentValue );
+    for (int i = 0; i < NUMTOUCHES; i++) msg.add( (unsigned int)touchInputsOne[i].currentValue );
+    // Udp.beginPacket(outIp, outPort);
+    // msg.send(Udp);
+    // Udp.endPacket();
+    SLIPSerial.beginPacket();
+    msg.send(SLIPSerial);
+    SLIPSerial.endPacket();
+    msg.empty();
+  }
+}
+
+void readTouchesTwo(){
+    bool changeDetected = false;
+
+  for(int i = 0; i < NUMTOUCHES; i++){
+    touchInputsTwo[i].currentValue = MPRTwo.filteredData(i);
+    
+    if( touchInputsTwo[i].currentValue != touchInputsTwo[i].lastValue ){
+      changeDetected = true;
+    } 
+    
+    touchInputsTwo[i].lastValue = touchInputsTwo[i].currentValue;
+  }
+
+
+  if (changeDetected) {
+    oscAddress = "/" + macString + "/touchesTwo";
+    OSCMessage msg(oscAddress.c_str());
+    for (int i = 0; i < NUMTOUCHES; i++) msg.add( (unsigned int)touchInputsTwo[i].currentValue );
     // Udp.beginPacket(outIp, outPort);
     // msg.send(Udp);
     // Udp.endPacket();
