@@ -197,10 +197,10 @@
 #A saved gain 0.621429;
 #X obj 53 68 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X obj 51 360 bop.sequence;
-#A saved read ../../seq/start.txt;
+#A saved read ../../seq/shutdown.txt;
 #A saved loop 0;
 #A saved scrub 0;
-#A saved internal-sequence filter 0.5 0 0.5 500 0.2 2000 \; 78 127 \; - 300 \; 74 127 \; - 1200 \; stop \;;
+#A saved internal-sequence attack 0 \; 61 127 \; 67 127 \;;
 #X msg 52 100 read ../../seq/start.txt \, go;
 #X obj 89 131 r calibrate;
 #X obj 136 195 r reboot;
