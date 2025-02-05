@@ -35,7 +35,7 @@ jackd -P70 -p16 -t2000 -d alsa -dhw:DigiAMP -p 512 -n 2 -r 22050 -s -P &
 #jackd -P70 -p16 -t2000 -d alsa -dhw:IQaudIODAC -p 512 -n 2 -r 22050 -s -P &
 
 # leave enough time for jack to start before launching PD
-sleep 10
+sleep 15
 
 MACADDRESS=$(cat /sys/class/net/wlan0/address)
 # MACADDRESS=$(cat /sys/class/net/eth0/address)
