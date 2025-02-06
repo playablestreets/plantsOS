@@ -12,7 +12,7 @@
 #X obj 89 254 *~;
 #X obj 272 149 mtof~;
 #X obj 271 207 osc~;
-#X obj 87 143 babs.slide~ 50 50;
+#X obj 87 143 babs.slide~ 10 10;
 #X connect 0 0 2 0;
 #X connect 2 0 8 0;
 #X connect 3 0 2 1;
