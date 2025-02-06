@@ -49,8 +49,8 @@
 #X text 1291 168 total touch value 0 - 1;
 #X obj 529 139 babs.scale 0 12 0 1;
 #X text 541 165 total touch value 0 - 1;
-#X obj 392 594 *~ 0.9;
-#X obj 1105 632 *~ 0.9;
+#X obj 392 594 *~ 1;
+#X obj 1105 632 *~ 1;
 #X connect 3 0 5 0;
 #X connect 5 0 4 0;
 #X connect 6 0 3 0;
