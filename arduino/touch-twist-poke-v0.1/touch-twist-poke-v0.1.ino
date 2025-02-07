@@ -6,7 +6,7 @@
 // Buttons connected to 13, 12, 27
 // Two MPR121 modules connected to i2c, one on channel 0x5A, one on 0x5C
 
-// #include <Wire.h>
+#include <Wire.h> // is this actually required??
 #include "Adafruit_MPR121.h"
 // #include <WiFiUdp.h>
 #include <OSCMessage.h>
