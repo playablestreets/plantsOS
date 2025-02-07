@@ -1,11 +1,18 @@
 //Required libraries:
-// - AutoConnect (Hieromon Ikasamo)
 // - OSC (Adrian Freed)
 // - Adafruit_MPR121 (Adafruit)
 
 // Pots connected to A2, A3, A4, A5
 // Buttons connected to 13, 12, 27
 // Two MPR121 modules connected to i2c, one on channel 0x5A, one on 0x5C
+
+// #include <Wire.h>
+#include "Adafruit_MPR121.h"
+// #include <WiFiUdp.h>
+#include <OSCMessage.h>
+#include <OSCBundle.h>
+#include <OSCData.h>
+
 
 typedef struct
 {
@@ -14,12 +21,6 @@ typedef struct
   int lastValue;
 } Input;
 
-// #include <WiFi.h>
-// #include <WebServer.h>
-// #include <AutoConnect.h>
-
-// WebServer Server;
-// AutoConnect Portal(Server);
 
 #ifdef BOARD_HAS_USB_SERIAL
 #include <SLIPEncodedUSBSerial.h>
@@ -30,17 +31,10 @@ SLIPEncodedSerial SLIPSerial(Serial); // Change to Serial1 or Serial2 etc. for b
 #endif
 
 //----------------- OSC STUFF
-#include <WiFiUdp.h>
-#include <OSCMessage.h>
-#include <OSCBundle.h>
-#include <OSCData.h>
 
 OSCErrorCode error;
 unsigned int ledState = LOW;              // LOW means led is *on*
-// WiFiUDP Udp;                                // A UDP instance to let us send and receive packets over UDP
-// const IPAddress outIp(255, 255, 255, 255);     // remote IP of your computer
-// const unsigned int outPort = 8000;          // remote port to receive OSC
-// const unsigned int localPort = 9000;        // local port to listen for OSC packets
+
 String macString = "";
 String oscAddress;
 
@@ -50,8 +44,6 @@ Input touchInputsOne[NUMTOUCHES];
 Input touchInputsTwo[NUMTOUCHES];
 
 // MPR121 CapTouch Breakout Stuff
-#include <Wire.h>
-#include "Adafruit_MPR121.h"
 int i2cADDR[] = {0x5A, 0x5C};
 Adafruit_MPR121 MPROne = Adafruit_MPR121();  // ADDR not connected: 0x5A
 Adafruit_MPR121 MPRTwo = Adafruit_MPR121(); // ADDR tied to SDA:   0x5C
@@ -73,10 +65,6 @@ int buttonPins[NUMBUTTONS] = {BUTTON_PIN1, BUTTON_PIN2, BUTTON_PIN3};
 Input potInputs[NUMPOTS];
 int potPins[NUMPOTS] = {POT_PIN1, POT_PIN2, POT_PIN3, POT_PIN4};
 
-// void rootPage() {
-//   char content[] = "Hello, world";
-//   Server.send(200, "text/plain", content);
-// }
 
 // ------------------------------------------  SETUP
 void setup() {
@@ -100,7 +88,6 @@ void setup() {
   }
 
   for (int i = 0; i < NUMTOUCHES; i++) {
-    // touchInputsOne[i].pin = touchPins[i];
     touchInputsOne[i].currentValue = 0;
     touchInputsOne[i].lastValue = 1;
   
@@ -145,28 +132,10 @@ void setup() {
 
   Serial.println("done :)");
 
-
-  // NETWORKING
-  //get mac
-  // byte macBytes[6];
-  // WiFi.macAddress(macBytes);
-  // char macChars[19];
-  // sprintf(macChars, "%02X-%02X-%02X-%02X-%02X-%02X", macBytes[0], macBytes[1], macBytes[2], macBytes[3], macBytes[4], macBytes[5]);
-  // macString = String(macChars);
-    macString = "usb";
-  // Serial.println("hey there.  I am " + macString);
+  macString = "usb";
   Serial.println("hey there.  I am not connected to wifi.");
   oscAddress = "/" + macString + "/touches";
   Serial.println("I will output osc to " + oscAddress + " on port 8000 as well as over serial.");
-
-  // Server.on("/", rootPage);
-  // if (Portal.begin()) {
-  //   Serial.println("WiFi connected: " + WiFi.localIP().toString()); //this line was hanging
-
-  //   Serial.println("Starting UDP");
-  //   Udp.begin(localPort);
-  //   Serial.println("Started!");
-  // }
 }
 
 
@@ -200,19 +169,19 @@ void readButtons(){
     if(changeDetected){
       oscAddress = "/" + macString + "/buttons";
       OSCMessage msg(oscAddress.c_str());
-      for (int i = 0; i < NUMBUTTONS; i++) 
+      for (int i = 0; i < NUMBUTTONS; i++){ 
         msg.add( (unsigned int)(1 - buttonInputs[i].currentValue) );
-      // Udp.beginPacket(outIp, outPort);
-      // msg.send(Udp);
-      // Udp.endPacket();
+      }
+
       SLIPSerial.beginPacket();
       msg.send(SLIPSerial);
       SLIPSerial.endPacket();
       msg.empty();
     }
 
-    for(int i = 0; i < NUMBUTTONS; i++)
+    for(int i = 0; i < NUMBUTTONS; i++){
       buttonInputs[i].lastValue = buttonInputs[i].currentValue;
+    }
 
 }
 
@@ -224,27 +193,27 @@ void readPots(){
     for(int i = 0; i < NUMPOTS; i++){
       potInputs[i].currentValue = analogRead(potPins[i]);
 
-      if(potInputs[i].currentValue != potInputs[i].lastValue)
+      if(potInputs[i].currentValue != potInputs[i].lastValue){
         changeDetected = true;
-
+      }
     }
     
     if(changeDetected){
       oscAddress = "/" + macString + "/pots";
       OSCMessage msg(oscAddress.c_str());
-      for (int i = 0; i < NUMPOTS; i++) 
+      for (int i = 0; i < NUMPOTS; i++){ 
         msg.add( (unsigned int)(potInputs[i].currentValue) );
-      // Udp.beginPacket(outIp, outPort);
-      // msg.send(Udp);
-      // Udp.endPacket();
+      }
+
       SLIPSerial.beginPacket();
       msg.send(SLIPSerial);
       SLIPSerial.endPacket();
       msg.empty();
     }
 
-    for(int i = 0; i < NUMPOTS; i++)
+    for(int i = 0; i < NUMPOTS; i++){
       potInputs[i].lastValue = potInputs[i].currentValue;
+    }
 
 }
 
@@ -266,10 +235,11 @@ void readTouchesOne(){
   if (changeDetected) {
     oscAddress = "/" + macString + "/touchesOne";
     OSCMessage msg(oscAddress.c_str());
-    for (int i = 0; i < NUMTOUCHES; i++) msg.add( (unsigned int)touchInputsOne[i].currentValue );
-    // Udp.beginPacket(outIp, outPort);
-    // msg.send(Udp);
-    // Udp.endPacket();
+
+    for (int i = 0; i < NUMTOUCHES; i++){
+      msg.add( (unsigned int)touchInputsOne[i].currentValue );
+    }
+
     SLIPSerial.beginPacket();
     msg.send(SLIPSerial);
     SLIPSerial.endPacket();
@@ -294,10 +264,11 @@ void readTouchesTwo(){
   if (changeDetected) {
     oscAddress = "/" + macString + "/touchesTwo";
     OSCMessage msg(oscAddress.c_str());
-    for (int i = 0; i < NUMTOUCHES; i++) msg.add( (unsigned int)touchInputsTwo[i].currentValue );
-    // Udp.beginPacket(outIp, outPort);
-    // msg.send(Udp);
-    // Udp.endPacket();
+
+    for (int i = 0; i < NUMTOUCHES; i++){
+      msg.add( (unsigned int)touchInputsTwo[i].currentValue );
+    }
+
     SLIPSerial.beginPacket();
     msg.send(SLIPSerial);
     SLIPSerial.endPacket();
