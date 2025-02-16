@@ -1,6 +1,6 @@
 [submodule "pd/bop"]
 	path = pd/bop
 	url = https://github.com/zealtv/bop
-[submodule "pd/changi_samplepack"]
-	path = pd/changi_samplepack
-	url = https://github.com/playablestreets/changi_samplepack
+[submodule "samples/coldvoice_samplepack"]
+	path = samples/coldvoice_samplepack
+	url = https://github.com/playablestreets/coldvoice_samplepack.git
