@@ -36,10 +36,10 @@
 #X floatatom 17 47 12 0 0 0 - active-voice - 0;
 #X obj 190 426 t b f, f 16;
 #X obj 17 18 bng 19 250 50 0 \$0-nextvoice \$0-nextvoice next\ voice 24 10 0 12 #fcfcfc #000000 #000000;
-#X obj 190 577 % 2;
 #X obj 205 350 r set-voice;
 #X text 297 351 receive from mapping;
-#X connect 0 0 30 0;
+#X obj 190 577 % 3;
+#X connect 0 0 32 0;
 #X connect 2 0 3 0;
 #X connect 3 0 5 0;
 #X connect 4 0 2 0;
@@ -67,8 +67,8 @@
 #X connect 25 0 0 0;
 #X connect 28 0 24 0;
 #X connect 28 1 0 1;
-#X connect 30 0 19 0;
-#X connect 31 0 11 0;
+#X connect 30 0 11 0;
+#X connect 32 0 19 0;
 #X coords 0 -1 1 1 115 65 2 10 10;
 #X restore 51 157 pd getvoice;
 #X obj 288 103 nbx 4 17 0 50 0 1 sensitivity sensitivity sensitvity 55 8 0 12 #fcfcfc #000000 #000000 30 256;
@@ -272,6 +272,7 @@
 #X listbox 51 129 31 0 0 2 sensorsTwo sensorsTwo - 0;
 #X obj 48 564 clip~ -1 1;
 #X obj 150 564 clip~ -1 1;
+#X obj 38 312 voice.2 2, f 23;
 #X connect 17 0 16 0;
 #X connect 18 0 20 0;
 #X connect 19 0 21 0;
