@@ -84,8 +84,6 @@
 #X text 1293 583 (samplepack already param set and saved :);
 #X obj 529 139 babs.scale 0 6 0 1;
 #X obj 1283 146 babs.scale 0 6 0 1;
-#X obj 50 530 bop.ui;
-#X obj 1508 323 bop.ui;
 #X obj 486 466 trigger-note 3 45;
 #X obj 235 517 trigger-note 4 48;
 #X obj 487 501 trigger-note 5 41;
@@ -107,9 +105,9 @@
 #X connect 19 0 44 0;
 #X connect 19 0 43 0;
 #X connect 19 0 42 0;
+#X connect 19 0 59 0;
+#X connect 19 0 60 0;
 #X connect 19 0 61 0;
-#X connect 19 0 62 0;
-#X connect 19 0 63 0;
 #X connect 20 0 57 0;
 #X connect 21 0 20 0;
 #X connect 22 0 58 0;
@@ -118,9 +116,9 @@
 #X connect 25 0 47 0;
 #X connect 25 0 46 0;
 #X connect 25 0 45 0;
+#X connect 25 0 62 0;
+#X connect 25 0 63 0;
 #X connect 25 0 64 0;
-#X connect 25 0 65 0;
-#X connect 25 0 66 0;
 #X connect 33 0 2 0;
 #X connect 34 0 33 1;
 #X connect 35 0 33 1;
@@ -138,11 +136,9 @@
 #X connect 51 0 49 1;
 #X connect 54 0 49 1;
 #X connect 55 0 49 1;
-#X connect 59 0 33 1;
-#X connect 60 0 49 1;
+#X connect 59 0 33 0;
+#X connect 60 0 33 0;
 #X connect 61 0 33 0;
-#X connect 62 0 33 0;
-#X connect 63 0 33 0;
+#X connect 62 0 49 0;
+#X connect 63 0 49 0;
 #X connect 64 0 49 0;
-#X connect 65 0 49 0;
-#X connect 66 0 49 0;

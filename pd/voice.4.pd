@@ -90,8 +90,6 @@
 #X text 1293 583 (samplepack already param set and saved :);
 #X obj 529 139 babs.scale 0 6 0 1;
 #X obj 1283 146 babs.scale 0 6 0 1;
-#X obj 42 575 bop.ui;
-#X obj 854 503 bop.ui;
 #X connect 3 0 5 0;
 #X connect 5 0 4 0;
 #X connect 6 0 3 0;
@@ -144,5 +142,3 @@
 #X connect 57 0 55 1;
 #X connect 60 0 55 1;
 #X connect 61 0 55 1;
-#X connect 65 0 33 1;
-#X connect 66 0 55 1;
