@@ -1,4 +1,4 @@
-#N canvas 0 0 1920 1052 12;
+#N canvas 0 25 1920 1052 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 35 91 declare -path ./bop;
@@ -91,13 +91,8 @@
 #X obj 1298 544 trigger-note 5 78;
 #X obj 1278 578 trigger-note 3 76;
 #X obj 1267 613 trigger-note 1 74;
-#X obj 759 886 lop~;
-#X floatatom 410 901 8 0 0 0 - - - 0;
-#X obj 413 876 hsl 169 18 100 5000 0 0 empty empty empty -2 -10 0 12 #dfdfdf #000000 #000000 0 1;
 #X obj 368 923 hip~;
 #X obj 529 139 babs.scale 0 6 0 5000;
-#X floatatom 1132 861 8 0 0 0 - - - 0;
-#X obj 1135 836 hsl 169 18 100 5000 0 0 empty empty empty -2 -10 0 12 #dfdfdf #000000 #000000 0 1;
 #X obj 1090 883 hip~;
 #X obj 1283 146 babs.scale 0 6 0 5000;
 #X connect 3 0 5 0;
@@ -124,12 +119,12 @@
 #X connect 20 0 64 0;
 #X connect 20 0 63 0;
 #X connect 20 0 62 0;
-#X connect 21 0 90 0;
+#X connect 21 0 87 0;
 #X connect 22 0 21 0;
 #X connect 23 0 66 0;
 #X connect 24 0 66 0;
 #X connect 25 0 66 0;
-#X connect 26 0 94 0;
+#X connect 26 0 89 0;
 #X connect 27 0 26 0;
 #X connect 28 0 41 0;
 #X connect 28 0 42 0;
@@ -153,7 +148,7 @@
 #X connect 41 0 46 0;
 #X connect 42 0 46 0;
 #X connect 43 0 46 0;
-#X connect 46 0 93 0;
+#X connect 46 0 88 0;
 #X connect 47 0 48 1;
 #X connect 48 0 65 0;
 #X connect 49 0 47 0;
@@ -179,7 +174,7 @@
 #X connect 64 0 57 0;
 #X connect 64 0 61 0;
 #X connect 65 0 2 0;
-#X connect 66 0 89 0;
+#X connect 66 0 86 0;
 #X connect 67 0 68 1;
 #X connect 68 0 79 0;
 #X connect 69 0 67 0;
@@ -205,11 +200,7 @@
 #X connect 84 0 74 0;
 #X connect 85 0 74 0;
 #X connect 85 0 78 0;
-#X connect 87 0 89 1;
-#X connect 88 0 87 0;
-#X connect 89 0 2 0;
-#X connect 90 0 88 0;
-#X connect 91 0 93 1;
-#X connect 92 0 91 0;
-#X connect 93 0 18 0;
-#X connect 94 0 92 0;
+#X connect 86 0 2 0;
+#X connect 87 0 86 1;
+#X connect 88 0 18 0;
+#X connect 89 0 88 1;
