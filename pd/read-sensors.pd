@@ -1,4 +1,4 @@
-#N canvas 780 301 961 746 12;
+#N canvas 749 301 961 746 12;
 #X declare -path ./bop/babs;
 #X obj 75 18 loadbang;
 #X obj 75 153 oscparse;
