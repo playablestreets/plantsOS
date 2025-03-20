@@ -14,8 +14,8 @@ import os
 from pyOSC3 import OSCServer, OSCClient, OSCMessage
 
 # OSC client configuration
-# OSC_IP = "127.0.0.1"  # localhost
-OSC_IP = "255.255.255.255"  # localhost
+OSC_IP = "127.0.0.1"  # localhost
+# OSC_IP = "255.255.255.255"  # broadcast
 OSC_PORT = 6662
 
 def find_keyboard():
