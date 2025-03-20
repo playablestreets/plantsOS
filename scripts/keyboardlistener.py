@@ -11,9 +11,7 @@ import time
 import sys
 import os
 
-# Import pyOSC3
-sys.path.append('/path/to/pyOSC3')  # Adjust this path if needed
-import OSC3
+from pyOSC3 import OSCServer, OSCClient, OSCMessage
 
 # OSC client configuration
 OSC_IP = "127.0.0.1"  # localhost
