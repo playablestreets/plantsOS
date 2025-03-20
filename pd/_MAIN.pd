@@ -258,10 +258,10 @@
 #X restore 82 111 pd keys;
 #X obj 151 548 *~;
 #X obj 169 514 r~ amp1;
-#X obj 38 272 voice 0, f 23;
-#X obj 38 291 voice 1, f 23;
-#X obj 38 310 voice 2, f 23;
-#X obj 38 329 voice 3, f 23;
+#X obj 38 272 voice 0 91, f 23;
+#X obj 38 291 voice 1 50, f 23;
+#X obj 38 310 voice 2 16, f 23;
+#X obj 38 329 voice 3 16, f 23;
 #X connect 14 0 13 0;
 #X connect 15 0 16 0;
 #X connect 15 0 17 0;
