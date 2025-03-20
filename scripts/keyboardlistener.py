@@ -75,7 +75,7 @@ def main():
     """Main function to run the keyboard listener with OSC forwarding."""
     try:
         # Initialize OSC client using pyOSC3
-        osc_client = OSC3.OSCClient()
+        osc_client = OSCClient()
         osc_client.connect((OSC_IP, OSC_PORT))
         print(f"OSC client initialized, forwarding to {OSC_IP}:{OSC_PORT}")
         
