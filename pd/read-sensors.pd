@@ -1,6 +1,6 @@
 #N canvas 51 270 961 746 12;
 #X declare -path ./bop/babs;
-#X obj 75 18 loadbang;
+#X obj 110 15 loadbang;
 #X obj 75 153 oscparse;
 #X obj 75 180 route list;
 #X msg 129 72 close;
@@ -37,7 +37,7 @@
 #X obj 252 37 r ports;
 #X obj 205 123 route ports;
 #X obj 205 147 list prepend ports;
-#X connect 0 0 11 0;
+#X connect 0 0 12 0;
 #X connect 1 0 2 0;
 #X connect 2 0 6 0;
 #X connect 3 0 4 0;
