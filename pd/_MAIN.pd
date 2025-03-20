@@ -72,7 +72,7 @@
 #X connect 30 0 11 0;
 #X connect 33 0 19 0;
 #X coords 0 -1 1 1 115 65 2 10 10;
-#X restore 51 142 pd getvoice;
+#X restore 51 112 pd getvoice;
 #X obj 288 88 nbx 4 17 0 50 0 1 sensitivity sensitivity sensitvity 55 8 0 12 #fcfcfc #000000 #000000 9.5 256;
 #X obj 288 117 nbx 4 17 0 1 0 1 floor floor floor 55 8 0 12 #fcfcfc #000000 #000000 0.09 256;
 #X obj 32 244 cnv 19 400 150 empty empty empty 20 12 0 12 #c6feff #404040 0;
@@ -265,8 +265,12 @@
 #X text 22 143 floor 0.4;
 #X text 19 101 for noisy supply:;
 #X restore 288 183 pd notes;
-#X obj 52 79 r key;
-#X listbox 52 110 20 0 0 0 - - - 0;
+#X listbox 185 185 9 0 0 1 key key - 0;
+#X obj 185 90 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
+#X msg 185 124 w \$1;
+#X obj 185 151 s key;
+#X obj 229 90 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
+#X msg 229 124 h \$1;
 #X connect 19 0 18 0;
 #X connect 20 0 22 0;
 #X connect 21 0 23 0;
@@ -276,4 +280,7 @@
 #X connect 26 0 17 0;
 #X connect 27 0 26 1;
 #X connect 28 0 25 1;
-#X connect 30 0 31 0;
+#X connect 31 0 32 0;
+#X connect 32 0 33 0;
+#X connect 34 0 35 0;
+#X connect 35 0 33 0;
