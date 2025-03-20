@@ -55,7 +55,7 @@ def process_key_event(event, osc_client):
         osc_client.send(msg)
         
         # Send key-specific message
-        key_msg = OSC3.OSCMessage()
+        key_msg = OSCMessage()
         key_msg.setAddress(f"/keyboard/{key_name}")
         key_msg.append(key_state)
         osc_client.send(key_msg)
