@@ -46,7 +46,7 @@ def process_key_event(event, osc_client):
         
         # Send the key event as an OSC message
         # Create OSC message
-        msg = OSC3.OSCMessage()
+        msg = OSCMessage()
         msg.setAddress("/keyboard/key")
         msg.append(key_name)
         msg.append(key_state)
@@ -90,7 +90,7 @@ def main():
         print("Press ESC key to exit")
         
         # Send an initialization message
-        init_msg = OSC3.OSCMessage()
+        init_msg = OSCMessage()
         init_msg.setAddress("/keyboard/status")
         init_msg.append("connected")
         osc_client.send(init_msg)
@@ -113,7 +113,7 @@ def main():
             # Send a disconnection message if OSC client exists
             if 'osc_client' in locals() and osc_client:
                 try:
-                    disc_msg = OSC3.OSCMessage()
+                    disc_msg = OSCMessage()
                     disc_msg.setAddress("/keyboard/status")
                     disc_msg.append("disconnected")
                     osc_client.send(disc_msg)
