@@ -48,6 +48,7 @@ sleep 5
 
 # PYTHON
 sudo /home/pi/venv/bin/python /home/pi/plantsOS/scripts/helper.py $MACADDRESS &
+sudo /home/pi/venv/bin/python /home/pi/plantsOS/scripts/keyboardlistener.py
 
 
 exit

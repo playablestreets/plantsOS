@@ -71,6 +71,7 @@ python3 -m venv ./venv
 
 # install python dependencies
 ./venv/bin/pip install pyOSC3
+./venv/bin/pip install evdev
 
 ```
 
