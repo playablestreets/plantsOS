@@ -20,7 +20,7 @@
 #A saved loop 1;
 #A saved loop-start 0;
 #A saved loop-length 1;
-#A saved attack 0.1;
+#A saved attack 0;
 #A saved release 2;
 #A saved gain 1;
 #X obj 328 160 babs.gate;
@@ -40,12 +40,12 @@
 #X msg 379 533 \$1 127;
 #X msg 260 524 stop;
 #X obj 443 246 loadbang;
-#X msg 464 546 pack ../../duet_samplepack \, folder 5 \, release 2;
 #X obj 367 408 % 51;
+#X msg 464 546 pack ../../duet_samplepack \, folder 5 \, release 5;
 #X connect 2 0 4 0;
 #X connect 4 0 3 0;
 #X connect 5 0 2 0;
-#X connect 6 0 27 0;
+#X connect 6 0 28 0;
 #X connect 9 0 7 0;
 #X connect 9 0 8 0;
 #X connect 10 0 15 0;
@@ -56,7 +56,7 @@
 #X connect 15 0 23 0;
 #X connect 16 0 10 0;
 #X connect 17 0 18 0;
-#X connect 18 0 28 0;
+#X connect 18 0 27 0;
 #X connect 19 0 17 1;
 #X connect 20 0 21 1;
 #X connect 20 1 24 0;
@@ -67,5 +67,5 @@
 #X connect 24 0 9 1;
 #X connect 25 0 9 0;
 #X connect 26 0 19 0;
-#X connect 27 0 9 1;
-#X connect 28 0 20 0;
+#X connect 27 0 20 0;
+#X connect 28 0 9 1;
