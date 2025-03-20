@@ -1,3 +1,6 @@
 [submodule "pd/bop"]
 	path = pd/bop
 	url = https://github.com/zealtv/bop
+[submodule "pd/duet_samplepack"]
+	path = pd/duet_samplepack
+	url = https://github.com/playablestreets/duet_samplepack
