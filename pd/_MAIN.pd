@@ -38,7 +38,7 @@
 #X obj 203 359 route voice;
 #X text 275 334 receive voice as OSC command;
 #X obj 17 18 bng 19 250 50 0 \$0-nextvoice \$0-nextvoice next\ voice 24 10 0 12 #fcfcfc #000000 #000000;
-#X obj 190 577 % 4;
+#X obj 190 577 % 2;
 #X connect 0 0 33 0;
 #X connect 2 0 3 0;
 #X connect 3 0 5 0;
