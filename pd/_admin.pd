@@ -1,4 +1,4 @@
-#N canvas 697 131 504 538 12;
+#N canvas 898 80 554 478 12;
 #N canvas 298 40 365 864 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -54,13 +54,13 @@
 #X text 28 37 PD listening on 6660;
 #X text 28 54 PD reporting on 5550;
 #X text 29 7 on devices:;
-#X obj 26 277 device-dashboard 1;
-#X obj 326 17 device-dashboard 0;
-#X obj 26 147 cnv 19 250 80 empty empty all\ devices 10 10 0 12 #c6feff #404040 0;
-#X obj 37 177 bng 19 250 50 0 reboot empty reboot 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 147 196 bng 19 250 50 0 updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 147 177 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 37 196 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 325 184 device-dashboard 1;
+#X obj 56 185 device-dashboard 0;
+#X obj 251 54 cnv 19 250 80 empty empty all\ devices 10 10 0 12 #c6feff #404040 0;
+#X obj 262 84 bng 19 250 50 0 reboot empty reboot 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 372 103 bng 19 250 50 0 updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 372 84 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 262 103 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
 #N canvas 655 195 191 197 message 1;
 #X text 11 5 available messages;
 #X text 9 33 aloha \; admin update \; admin updatesamples \; admin shutdown \; admin reboot \; debug sensor1 [0 \, 1] \; debug sensor2 [0 \, 1] \; sensitivity [0 - 50] \; sens [0 - 50] \; floor [0 - 1] \; ports \;;
