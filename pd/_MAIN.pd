@@ -262,7 +262,6 @@
 #X obj 38 291 voice 1 50, f 23;
 #X obj 49 581 hip~ 60;
 #X obj 151 582 hip~ 60;
-#X obj 38 310 voice 2 14, f 23;
 #X connect 14 0 13 0;
 #X connect 15 0 16 0;
 #X connect 15 0 17 0;
