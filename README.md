@@ -8,11 +8,14 @@
 
 ## Installation
 
-```
-#Clone repo and include submodules:
-https://github.com/playablestreets/plantsOS.git --recursive
 
-# Checkout testing branch
+Clone repo and include submodules:
+```
+https://github.com/playablestreets/plantsOS.git --recursive
+```
+
+Checkout testing branch
+```
 cd plantsOS
 git checkout testing
 ```
