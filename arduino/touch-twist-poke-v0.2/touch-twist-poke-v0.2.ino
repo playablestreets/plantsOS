@@ -128,7 +128,13 @@ void setup() {
       MPRTwo_connected = true;
     }
   }
-
+  
+  // Setting charge time to 8 uS and increasing the number of samples in the first filter stage
+  MPROne.writeRegister(MPR121_CONFIG1, 0b11010000);
+  MPROne.writeRegister(MPR121_CONFIG2, 0b10000100);
+  
+  MPRTwo.writeRegister(MPR121_CONFIG1, 0b11010000);
+  MPRTwo.writeRegister(MPR121_CONFIG2, 0b10000100);
 
   Serial.println("done :)");
 
