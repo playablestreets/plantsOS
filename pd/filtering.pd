@@ -1,0 +1,10 @@
+#N canvas 247 117 450 300 12;
+#X declare -path ./bob/babs;
+#X obj 195 131 inlet;
+#X obj 196 232 outlet;
+#X obj 196 162 babs.scale 1024 2 0 1;
+#X obj 195 198 clip 0 1;
+#X obj 173 61 declare -path ./bob/babs;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 1 0;

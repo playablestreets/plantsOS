@@ -30,18 +30,18 @@ ESP32 outputs SLIP encoded OSC over serial to PD as per schema:
 
 
 ### Touch Sensors
-- Output normalised values from 0.0 to 1.0, 1 = touched and 0 = floor
+- Output an array of values normalised between 0.0 and 1.0; 1 = touched and 0 = floor
 
 ```
-/t iif
-/t [sensorIndex] [touchIndex] (float)0.0 - 1.0
+/t i f ...
+/t [sensorIndex] [t0 ... tn]
 ```
 *Example: /t 1 0 0.5*
 
-- Output raw values from MPR
+- Output an array of raw values from MPR
 ```
-/traw iii
-/traw [sensorIndex] [touchIndex] (int)0 - 4096
+  // /traw i i ...
+  // /traw [sensorIndex] [t0 ... tn]
 ```
 *Example: /traw 0 1 1500*
 
