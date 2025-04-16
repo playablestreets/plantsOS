@@ -125,19 +125,41 @@ void setup() {
       MPRTwo_connected = true;
     }
   }
+ 
+  uint8_t config1 = 0;
+  uint8_t FFI = 0x03;
+  uint8_t CDC = 0x10;
+  config1 = (FFI << 6) | CDC;
+
+  uint8_t config2 = 0;
+  uint8_t CDT = 0x04; // 16 uS
+  uint8_t SFI = 0x00;
+  uint8_t ESI = 0x04;
+
+  config2 = (SFI << 3) | ESI;
+  config2 = config2 | (CDT << 5);
+
+
+  // Setting charge time to 16 uS and increasing the number of samples in the first filter stage
   
-  // Setting charge time to 8 uS and increasing the number of samples in the first filter stage
+  MPROne.writeRegister(MPR121_CONFIG1, config1);
+  MPROne.writeRegister(MPR121_CONFIG2, config2);
+  
+  MPRTwo.writeRegister(MPR121_CONFIG1, config1);
+  MPRTwo.writeRegister(MPR121_CONFIG2, config2);
+ 
+
+  /*
   MPROne.writeRegister(MPR121_CONFIG1, 0b11010000);
   MPROne.writeRegister(MPR121_CONFIG2, 0b10000100);
   
   MPRTwo.writeRegister(MPR121_CONFIG1, 0b11010000);
-  MPRTwo.writeRegister(MPR121_CONFIG2, 0b10000100);
+  MPRTwo.writeRegister(MPR121_CONFIG2, 0b10000100); 
 
+  */
   Serial.println("done :)");
 
 }
-
-
 
 //-------------------- MAIN LOOP
 void loop() {
