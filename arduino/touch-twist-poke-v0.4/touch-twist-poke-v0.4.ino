@@ -6,8 +6,8 @@
 // Buttons connected to 13, 12, 27
 // Two MPR121 modules connected to i2c, one on channel 0x5A, one on 0x5C
 
-#include <Wire.h> // is this actually required??
-#include "Adafruit_MPR121.h"
+// #include <Wire.h> // is this actually required??
+#include "plant-sense.h"
 // #include <WiFiUdp.h>
 #include <OSCMessage.h>
 #include <OSCBundle.h>
@@ -44,9 +44,7 @@ Input touchInputsOne[NUMTOUCHES];
 Input touchInputsTwo[NUMTOUCHES];
 
 // MPR121 CapTouch Breakout Stuff
-int i2cADDR[] = {0x5A, 0x5C};
-Adafruit_MPR121 MPROne = Adafruit_MPR121();  // ADDR not connected: 0x5A
-Adafruit_MPR121 MPRTwo = Adafruit_MPR121(); // ADDR tied to SDA:   0x5C
+Plant_Sense plants = Plant_Sense();
 
 //------------------  BUTTONS AND POTS
 //--------------   TOUCH VARIABLES
@@ -103,60 +101,8 @@ void setup() {
   
   Serial.println("connecting and configuring to MPRs...");
 
-  //INIT MPR121
-  bool MPROne_connected = false;
-  while (!MPROne_connected) {
-    if (!MPROne.begin(0x5A)) {
-      Serial.println("Left MPR121 not found, check wiring?");
-      delay(100);
-    } else {
-      Serial.println("Left MPR121 found!");
-      MPROne_connected = true;
-    }
-  }
+  plants.init(); 
 
-  bool MPRTwo_connected = false;
-  while (!MPRTwo_connected) {
-    if (!MPRTwo.begin(0x5C)) {
-      Serial.println("Right MPR121 not found, check wiring?");
-      delay(100);
-    } else {
-      Serial.println("Right MPR121 found!");
-      MPRTwo_connected = true;
-    }
-  }
- 
-  uint8_t config1 = 0;
-  uint8_t FFI = 0x03;
-  uint8_t CDC = 0x10;
-  config1 = (FFI << 6) | CDC;
-
-  uint8_t config2 = 0;
-  uint8_t CDT = 0x04; // 16 uS
-  uint8_t SFI = 0x00;
-  uint8_t ESI = 0x04;
-
-  config2 = (SFI << 3) | ESI;
-  config2 = config2 | (CDT << 5);
-
-
-  // Setting charge time to 16 uS and increasing the number of samples in the first filter stage
-  
-  MPROne.writeRegister(MPR121_CONFIG1, config1);
-  MPROne.writeRegister(MPR121_CONFIG2, config2);
-  
-  MPRTwo.writeRegister(MPR121_CONFIG1, config1);
-  MPRTwo.writeRegister(MPR121_CONFIG2, config2);
- 
-
-  /*
-  MPROne.writeRegister(MPR121_CONFIG1, 0b11010000);
-  MPROne.writeRegister(MPR121_CONFIG2, 0b10000100);
-  
-  MPRTwo.writeRegister(MPR121_CONFIG1, 0b11010000);
-  MPRTwo.writeRegister(MPR121_CONFIG2, 0b10000100); 
-
-  */
   Serial.println("done :)");
 
 }
@@ -244,7 +190,7 @@ void readTouchesOne(){
   // SENDING "RAW" (not normalized) DATA
   for(int i = 0; i < NUMTOUCHES; i++){
     touchInputsOne[i].lastValue = touchInputsOne[i].currentValue;
-    touchInputsOne[i].currentValue = MPROne.filteredData(i);
+    touchInputsOne[i].currentValue = plants.read(MPR_ONE, i);
   }
 
   oscAddress = "/traw";
@@ -273,7 +219,7 @@ void readTouchesTwo(){
   // SENDING "RAW" (not normalized) DATA
   for(int i = 0; i < NUMTOUCHES; i++){
     touchInputsTwo[i].lastValue = touchInputsTwo[i].currentValue;
-    touchInputsTwo[i].currentValue = MPRTwo.filteredData(i);
+    touchInputsTwo[i].currentValue = plants.read(MPR_TWO, i);
   }
 
   oscAddress = "/traw";
