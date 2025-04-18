@@ -6,7 +6,7 @@
 // Buttons connected to 13, 12, 27
 // Two MPR121 modules connected to i2c, one on channel 0x5A, one on 0x5C
 
-// #include <Wire.h> // is this actually required??
+#include <Wire.h> // is this actually required??
 #include "plant-sense.h"
 // #include <WiFiUdp.h>
 #include <OSCMessage.h>
@@ -44,7 +44,7 @@ Input touchInputsOne[NUMTOUCHES];
 Input touchInputsTwo[NUMTOUCHES];
 
 // MPR121 CapTouch Breakout Stuff
-Plant_Sense plants = Plant_Sense();
+PlantSense plants = PlantSense();
 
 //------------------  BUTTONS AND POTS
 //--------------   TOUCH VARIABLES
@@ -102,8 +102,15 @@ void setup() {
   Serial.println("connecting and configuring to MPRs...");
 
   plants.init(); 
-
   Serial.println("done :)");
+  
+  /* CONFIG1 and CONFIG2 registers parameterized here
+   * Attach your OSC stuff to this
+   * All the enums are at the top of the header file :-) 
+   */
+
+  plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_CURRENT, 16);
+  plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_TIME, 2);
 
 }
 
@@ -190,7 +197,7 @@ void readTouchesOne(){
   // SENDING "RAW" (not normalized) DATA
   for(int i = 0; i < NUMTOUCHES; i++){
     touchInputsOne[i].lastValue = touchInputsOne[i].currentValue;
-    touchInputsOne[i].currentValue = plants.read(MPR_ONE, i);
+    touchInputsOne[i].currentValue = plants.read(PlantSense::MPR_ONE, i);
   }
 
   oscAddress = "/traw";
@@ -219,7 +226,7 @@ void readTouchesTwo(){
   // SENDING "RAW" (not normalized) DATA
   for(int i = 0; i < NUMTOUCHES; i++){
     touchInputsTwo[i].lastValue = touchInputsTwo[i].currentValue;
-    touchInputsTwo[i].currentValue = plants.read(MPR_TWO, i);
+    touchInputsTwo[i].currentValue = plants.read(PlantSense::MPR_TWO, i);
   }
 
   oscAddress = "/traw";
