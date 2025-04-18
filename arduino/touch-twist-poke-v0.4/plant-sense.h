@@ -38,8 +38,8 @@ class PlantSense
             MPROne = Adafruit_MPR121();  // ADDR not connected: 0x5A
             MPRTwo = Adafruit_MPR121();  // ADDR tied to SDA:   0x5C
 
-            MPROne_connected = false;
-            MPRTwo_connected = false;
+            bool MPROne_connected = false;
+            bool MPRTwo_connected = false;
 
             //INIT MPR121
             while (!MPROne_connected) {
@@ -66,18 +66,14 @@ class PlantSense
                 }
             }
             
-
+            // Some healthy defaults
             mpr_one_params.FFI = 3;
             mpr_one_params.CDC = 18;
             mpr_one_params.CDT = 4; 
             mpr_one_params.SFI = 0;
             mpr_one_params.ESI = 2;
 
-            mpr_two_params.FFI = 3;
-            mpr_two_params.CDC = 18;
-            mpr_two_params.CDT = 4; 
-            mpr_two_params.SFI = 0;
-            mpr_two_params.ESI = 2;
+            mpr_two_params = mpr_one_params;
 
             MPROne.writeRegister(
                     CONFIG1, 
@@ -107,8 +103,8 @@ class PlantSense
                     );
         }
 
-        /* These getters are passing values through for now
-         * but they can provide the opportunity for inserting
+        /* This getter is passing values through for now
+         * but it can provide the opportunity for inserting
          * more signal conditioning later without disrupting 
          * existing code flow
          */
@@ -124,7 +120,6 @@ class PlantSense
 
         void config(MPR MPR_select, config_field param, uint8_t value)
         {
-            uint8_t config_bitfield = 0;
 
             active_config = (MPR_select == PlantSense::MPR_ONE) 
                             ? mpr_one_params 
@@ -158,6 +153,8 @@ class PlantSense
                     return;
             }
 
+            uint8_t config_bitfield;
+
             if (reg == CONFIG1) {
                 config_bitfield = pack_config1(
                         active_config.CDC, 
@@ -178,7 +175,7 @@ class PlantSense
                 mpr_one_params = active_config;
                 MPROne.writeRegister(reg, config_bitfield);
             }
-            else 
+            if (MPR_select == MPR_TWO) 
             {
                 mpr_two_params = active_config;
                 MPRTwo.writeRegister(reg, config_bitfield);
@@ -189,10 +186,10 @@ class PlantSense
         uint8_t clip(uint8_t value, uint8_t min, uint8_t max) 
         {
             value = (value > max) ? max : value;
-            value = (value < min) ? min : value;
-            return value;
+            return (value < min) ? min : value;
         }
-
+        
+        // Packin' a cheeky bowl of bits
         uint8_t pack_config1(uint8_t CDC, uint8_t FFI) 
         {
             return (FFI << 6) | CDC; 
@@ -203,8 +200,6 @@ class PlantSense
             return ((SFI << 3) | ESI) | (CDT << 5);
         }
 
-        // Some healthy defaults
-
         struct 
         {
             uint8_t FFI;
@@ -214,14 +209,8 @@ class PlantSense
             uint8_t ESI;
         } mpr_one_params, mpr_two_params, active_config;
 
-
-        // MPR121 CapTouch Breakout Stuff
         Adafruit_MPR121 MPROne;  // ADDR not connected: 0x5A
         Adafruit_MPR121 MPRTwo;  // ADDR tied to SDA:   0x5C
-
-        bool MPROne_connected;
-        bool MPRTwo_connected;
-
 
 };
 
