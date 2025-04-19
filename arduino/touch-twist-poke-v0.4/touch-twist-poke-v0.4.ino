@@ -31,7 +31,6 @@ SLIPEncodedSerial SLIPSerial(Serial); // Change to Serial1 or Serial2 etc. for b
 #endif
 
 //----------------- OSC STUFF
-
 OSCErrorCode error;
 unsigned int ledState = LOW;              // LOW means led is *on*
 
@@ -39,7 +38,7 @@ String macString = "";
 String oscAddress;
 
 //--------------   TOUCH VARIABLES
-#define NUMTOUCHES 12 // THIS SHOULD BE 12 INPUTS PER MPR
+#define NUMTOUCHES 12 
 Input touchInputsOne[NUMTOUCHES];
 Input touchInputsTwo[NUMTOUCHES];
 
@@ -47,7 +46,6 @@ Input touchInputsTwo[NUMTOUCHES];
 PlantSense plants = PlantSense();
 
 //------------------  BUTTONS AND POTS
-//--------------   TOUCH VARIABLES
 #define BUTTON_PIN1 13
 #define BUTTON_PIN2 12
 #define BUTTON_PIN3 27
@@ -64,6 +62,47 @@ Input potInputs[NUMPOTS];
 int potPins[NUMPOTS] = {POT_PIN1, POT_PIN2, POT_PIN3, POT_PIN4};
 
 
+
+// ------------------------------------------  OSC HOOKS
+void ping(OSCMessage &msgIn){
+
+  oscAddress = "/ping";
+  OSCMessage msgOut(oscAddress.c_str());
+
+  msgOut.add( (unsigned int) 1);
+
+  SLIPSerial.beginPacket();
+  msgOut.send(SLIPSerial);
+  SLIPSerial.endPacket();
+  msgOut.empty();
+
+}
+
+void setFFI(OSCMessage &msgIn){
+  // /ffi [MPRIndex] (int)0-3
+}
+
+void setCDC(OSCMessage &msgIn){
+  // /cdc [MPRIndex] (int)1-63
+}
+
+void setCDT(OSCMessage &msgIn){
+  // /cdc [MPRIndex] (int)1-63
+}
+
+void setSFI(OSCMessage &msgIn){
+  // /sfi [MPRIndex] (int)0-3
+}
+
+void ESI(OSCMessage &msgIn){
+  // /esi [MPRIndex] (int)0-7
+}
+
+
+
+
+// ------------------------------------------  SETUP
+// ------------------------------------------  SETUP
 // ------------------------------------------  SETUP
 void setup() {
   delay(1000);
@@ -109,9 +148,17 @@ void setup() {
    * All the enums are at the top of the header file :-) 
    */
 
-  plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_CURRENT, 16);
-  plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_TIME, 2);
-
+  plants.config(PlantSense::MPR_ONE, PlantSense::FIRST_FILTER_ITERATION, 3);
+  plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_CURRENT, 18); 
+  plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_TIME, 4);
+  plants.config(PlantSense::MPR_ONE, PlantSense::SECOND_FILTER_ITERATION, 0); ;
+  plants.config(PlantSense::MPR_ONE, PlantSense::ELECTRODE_SAMPLE_INTERVAL, 2); 
+  
+  plants.config(PlantSense::MPR_TWO, PlantSense::FIRST_FILTER_ITERATION, 3);
+  plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_CURRENT, 18); 
+  plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_TIME, 4);
+  plants.config(PlantSense::MPR_TWO, PlantSense::SECOND_FILTER_ITERATION, 0); ;
+  plants.config(PlantSense::MPR_TWO, PlantSense::ELECTRODE_SAMPLE_INTERVAL, 2); 
 }
 
 //-------------------- MAIN LOOP
@@ -122,6 +169,32 @@ void loop() {
   readTouchesTwo();
   readButtons();
   readPots();
+  // readOSC();
+}
+
+
+//-------------------- READ SERIAL OSC
+void readOSC(){
+  OSCBundle bundleIN;
+  int slipsize;
+
+  while(!SLIPSerial.endofPacket()){
+    if( (slipsize =SLIPSerial.available()) > 0)
+    {
+       while(slipsize--)
+          bundleIN.fill(SLIPSerial.read());
+     }
+  }
+  if(!bundleIN.hasError()){
+
+    // -------------------------------- OSC HOOKS
+    bundleIN.dispatch("/ping", ping);
+    bundleIN.dispatch("/ffi", setFFI);
+    bundleIN.dispatch("/cdc", setCDC);
+    bundleIN.dispatch("/cdt", setCDT);
+    bundleIN.dispatch("/sfi", setSFI);
+    bundleIN.dispatch("/esi", ESI);
+  }
 }
 
 
@@ -136,7 +209,6 @@ void readButtons(){
 
       if(buttonInputs[i].currentValue != buttonInputs[i].lastValue)
         changeDetected = true;
-
     }
     
     if(changeDetected){
@@ -204,7 +276,7 @@ void readTouchesOne(){
   OSCMessage msg(oscAddress.c_str());
   
   //MPR #1
-  msg.add( (unsigned int)1 );
+  msg.add( (unsigned int)0 );
 
   for (int i = 0; i < NUMTOUCHES; i++){
     msg.add( (unsigned int)touchInputsOne[i].currentValue );
@@ -232,8 +304,8 @@ void readTouchesTwo(){
   oscAddress = "/traw";
   OSCMessage msg(oscAddress.c_str());
 
-  //MPR #1
-  msg.add( (unsigned int)2 );
+  //MPR #2
+  msg.add( (unsigned int)1 );
 
   for (int i = 0; i < NUMTOUCHES; i++){
     msg.add( (unsigned int)touchInputsTwo[i].currentValue );
