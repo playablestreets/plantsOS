@@ -73,25 +73,53 @@ void onOscMessageReceived(MicroOscMessage& oscMessage) {
     myMicroOsc.sendMessage("/rpt/ffi", "ii", MPRIndex, value);
   } 
 
+  // /cdc [MPRIndex] (int)1-63
+  else if (oscMessage.checkOscAddressAndTypeTags("/cdc", "ii")) {
+    int MPRIndex = oscMessage.nextAsInt();
+    int value = oscMessage.nextAsInt();
+    if (MPRIndex == 0)
+      plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_CURRENT, value);
+    else if (MPRIndex == 1)
+      plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_CURRENT, value);
+    // echo change
+    myMicroOsc.sendMessage("/rpt/cdc", "ii", MPRIndex, value);
+  }
 
+  // /cdt [MPRIndex] (int)1-63
+  else if (oscMessage.checkOscAddressAndTypeTags("/cdt", "ii")) {
+    int MPRIndex = oscMessage.nextAsInt();
+    int value = oscMessage.nextAsInt();
+    if (MPRIndex == 0)
+      plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_TIME, value);
+    else if (MPRIndex == 1)
+      plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_TIME, value);
+    // echo change
+    myMicroOsc.sendMessage("/rpt/cdt", "ii", MPRIndex, value);
+  }
 
-// todo: implement sensor config via osc
+  // /sfi [MPRIndex] (int)0-3
+  else if (oscMessage.checkOscAddressAndTypeTags("/sfi", "ii")) {
+    int MPRIndex = oscMessage.nextAsInt();
+    int value = oscMessage.nextAsInt();
+    if (MPRIndex == 0)
+      plants.config(PlantSense::MPR_ONE, PlantSense::SECOND_FILTER_ITERATION, value);
+    else if (MPRIndex == 1)
+      plants.config(PlantSense::MPR_TWO, PlantSense::SECOND_FILTER_ITERATION, value);
+    // echo change
+    myMicroOsc.sendMessage("/rpt/sfi", "ii", MPRIndex, value);
+  }
 
-// void setCDC(OSCMessage &msgIn){
-//   // /cdc [MPRIndex] (int)1-63
-// }
-
-// void setCDT(OSCMessage &msgIn){
-//   // /cdc [MPRIndex] (int)1-63
-// }
-
-// void setSFI(OSCMessage &msgIn){
-//   // /sfi [MPRIndex] (int)0-3
-// }
-
-// void ESI(OSCMessage &msgIn){
-//   // /esi [MPRIndex] (int)0-7
-// }
+  // /esi [MPRIndex] (int)0-7
+  if (oscMessage.checkOscAddressAndTypeTags("/esi", "ii")) {
+    int MPRIndex = oscMessage.nextAsInt();
+    int value = oscMessage.nextAsInt();
+    if (MPRIndex == 0)
+      plants.config(PlantSense::MPR_ONE, PlantSense::ELECTRODE_SAMPLE_INTERVAL, value);
+    else if (MPRIndex == 1)
+      plants.config(PlantSense::MPR_TWO, PlantSense::ELECTRODE_SAMPLE_INTERVAL, value);
+    // echo change
+    myMicroOsc.sendMessage("/rpt/esi", "ii", MPRIndex, value);
+  }
 
 
 }
