@@ -62,7 +62,8 @@ ESP32 outputs SLIP encoded OSC over serial to PD as per schema:
 
 
 
-## To Arduino
+## To ESP32
+From PD to ESP via comport, slip encoded OSC as per schema:
 
 ### First Filter Iteration
 ```

@@ -1,18 +1,18 @@
 //Required libraries:
-// - OSC (Adrian Freed)
-// - Adafruit_MPR121 (Adafruit)
+// - Micro OSC 0.1.7 (https://github.com/thomasfredericks/MicroOsc)
+// - Adafruit_MPR121 1.1.3 (Adafruit)
 
 // Pots connected to A2, A3, A4, A5
 // Buttons connected to 13, 12, 27
 // Two MPR121 modules connected to i2c, one on channel 0x5A, one on 0x5C
 
-#include <Wire.h> // is this actually required??
+#include <MicroOscSlip.h>
 #include "plant-sense.h"
-// #include <WiFiUdp.h>
-#include <OSCMessage.h>
-#include <OSCBundle.h>
-#include <OSCData.h>
 
+// THE NUMBER 64 BETWEEN THE < > SYMBOLS  BELOW IS THE MAXIMUM NUMBER OF BYTES RESERVED FOR INCOMMING MESSAGES.
+// MAKE SURE THIS NUMBER OF BYTES CAN HOLD THE SIZE OF THE MESSAGE YOUR ARE RECEIVING IN ARDUINO.
+// OUTGOING MESSAGES ARE WRITTEN DIRECTLY TO THE OUTPUT AND DO NOT NEED ANY RESERVED BYTES.
+MicroOscSlip<64> myMicroOsc(&Serial);  // CREATE AN INSTANCE OF MicroOsc FOR SLIP MESSAGES
 
 typedef struct
 {
@@ -21,29 +21,15 @@ typedef struct
   int lastValue;
 } Input;
 
-
-#ifdef BOARD_HAS_USB_SERIAL
-#include <SLIPEncodedUSBSerial.h>
-SLIPEncodedUSBSerial SLIPSerial( thisBoardsSerialUSB );
-#else
-#include <SLIPEncodedSerial.h>
-SLIPEncodedSerial SLIPSerial(Serial); // Change to Serial1 or Serial2 etc. for boards with multiple serial ports that don’t have Serial
-#endif
-
-//----------------- OSC STUFF
-OSCErrorCode error;
-unsigned int ledState = LOW;              // LOW means led is *on*
-
-String macString = "";
-String oscAddress;
-
 //--------------   TOUCH VARIABLES
 #define NUMTOUCHES 12 
 Input touchInputsOne[NUMTOUCHES];
 Input touchInputsTwo[NUMTOUCHES];
 
-// MPR121 CapTouch Breakout Stuff
+
+//--------------   MPR121 CapTouch Breakout Stuff
 PlantSense plants = PlantSense();
+
 
 //------------------  BUTTONS AND POTS
 #define BUTTON_PIN1 13
@@ -64,46 +50,52 @@ int potPins[NUMPOTS] = {POT_PIN1, POT_PIN2, POT_PIN3, POT_PIN4};
 
 
 // ------------------------------------------  OSC HOOKS
-void ping(OSCMessage &msgIn){
+// ------------------------------------------  OSC HOOKS
+// ------------------------------------------  OSC HOOKS
+void onOscMessageReceived(MicroOscMessage& oscMessage) {
 
-  oscAddress = "/ping";
-  OSCMessage msgOut(oscAddress.c_str());
 
-  msgOut.add( (unsigned int) 1);
+  if (oscMessage.checkOscAddressAndTypeTags("/ping", "i")) {   
+    int intArgument = oscMessage.nextAsInt();
+    myMicroOsc.sendMessage("/ping", "i", intArgument);
+  } 
 
-  SLIPSerial.beginPacket();
-  msgOut.send(SLIPSerial);
-  SLIPSerial.endPacket();
-  msgOut.empty();
+// todo: implement sensor config via osc
+
+// void setFFI(OSCMessage &msgIn){
+//   // /ffi [MPRIndex] (int)0-3
+// }
+
+// void setCDC(OSCMessage &msgIn){
+//   // /cdc [MPRIndex] (int)1-63
+// }
+
+// void setCDT(OSCMessage &msgIn){
+//   // /cdc [MPRIndex] (int)1-63
+// }
+
+// void setSFI(OSCMessage &msgIn){
+//   // /sfi [MPRIndex] (int)0-3
+// }
+
+// void ESI(OSCMessage &msgIn){
+//   // /esi [MPRIndex] (int)0-7
+// }
+// bundleIN.dispatch("/ffi", setFFI);
+// bundleIN.dispatch("/cdc", setCDC);
+// bundleIN.dispatch("/cdt", setCDT);
+// bundleIN.dispatch("/sfi", setSFI);
+// bundleIN.dispatch("/esi", ESI);
+
 
 }
 
-void setFFI(OSCMessage &msgIn){
-  // /ffi [MPRIndex] (int)0-3
-}
-
-void setCDC(OSCMessage &msgIn){
-  // /cdc [MPRIndex] (int)1-63
-}
-
-void setCDT(OSCMessage &msgIn){
-  // /cdc [MPRIndex] (int)1-63
-}
-
-void setSFI(OSCMessage &msgIn){
-  // /sfi [MPRIndex] (int)0-3
-}
-
-void ESI(OSCMessage &msgIn){
-  // /esi [MPRIndex] (int)0-7
-}
 
 
 
-
-// ------------------------------------------  SETUP
-// ------------------------------------------  SETUP
-// ------------------------------------------  SETUP
+//-------------------- -------------------- -------------------- --------------------SETUP
+//-------------------- -------------------- -------------------- --------------------SETUP
+//-------------------- -------------------- -------------------- --------------------SETUP
 void setup() {
   delay(1000);
 
@@ -134,9 +126,8 @@ void setup() {
 
 
   //SERIAL
+  // myMicroOSC attaches to Serial
   Serial.begin(115200);
-  //begin SLIPSerial just like Serial
-  SLIPSerial.begin(115200);   // set this as high as you can reliably run on your platform
   
   Serial.println("connecting and configuring to MPRs...");
 
@@ -161,40 +152,24 @@ void setup() {
   plants.config(PlantSense::MPR_TWO, PlantSense::ELECTRODE_SAMPLE_INTERVAL, 2); 
 }
 
-//-------------------- MAIN LOOP
+//-------------------- -------------------- -------------------- -------------------- MAIN LOOP
+//-------------------- -------------------- -------------------- -------------------- MAIN LOOP
+//-------------------- -------------------- -------------------- -------------------- MAIN LOOP
 void loop() {
   delay(25);
-
+  myMicroOsc.onOscMessageReceived(onOscMessageReceived);
   readTouchesOne();
   readTouchesTwo();
   readButtons();
   readPots();
-  // readOSC();
+  readOSC();
 }
 
 
 //-------------------- READ SERIAL OSC
 void readOSC(){
-  OSCBundle bundleIN;
-  int slipsize;
-
-  while(!SLIPSerial.endofPacket()){
-    if( (slipsize =SLIPSerial.available()) > 0)
-    {
-       while(slipsize--)
-          bundleIN.fill(SLIPSerial.read());
-     }
-  }
-  if(!bundleIN.hasError()){
-
-    // -------------------------------- OSC HOOKS
-    bundleIN.dispatch("/ping", ping);
-    bundleIN.dispatch("/ffi", setFFI);
-    bundleIN.dispatch("/cdc", setCDC);
-    bundleIN.dispatch("/cdt", setCDT);
-    bundleIN.dispatch("/sfi", setSFI);
-    bundleIN.dispatch("/esi", ESI);
-  }
+  // TRIGGER onOscMessageReceived() IF AN OSC MESSAGE IS RECEIVED :
+  myMicroOsc.onOscMessageReceived(onOscMessageReceived);
 }
 
 
@@ -207,27 +182,21 @@ void readButtons(){
     for(int i = 0; i < NUMBUTTONS; i++){
       buttonInputs[i].currentValue = digitalRead(buttonPins[i]);
 
-      if(buttonInputs[i].currentValue != buttonInputs[i].lastValue)
+      if(buttonInputs[i].currentValue != buttonInputs[i].lastValue){
         changeDetected = true;
+      }
     }
     
     if(changeDetected){
-      oscAddress = "/b";
-      OSCMessage msg(oscAddress.c_str());
-      for (int i = 0; i < NUMBUTTONS; i++){ 
-        msg.add( (unsigned int)(1 - buttonInputs[i].currentValue) );
-      }
-
-      SLIPSerial.beginPacket();
-      msg.send(SLIPSerial);
-      SLIPSerial.endPacket();
-      msg.empty();
+      myMicroOsc.sendMessage("/b", "iii", 
+      buttonInputs[0].currentValue, 
+      buttonInputs[1].currentValue, 
+      buttonInputs[2].currentValue);
     }
 
     for(int i = 0; i < NUMBUTTONS; i++){
       buttonInputs[i].lastValue = buttonInputs[i].currentValue;
     }
-
 }
 
 //-------------------- POTS
@@ -244,22 +213,15 @@ void readPots(){
     }
     
     if(changeDetected){
-      oscAddress = "/p";
-      OSCMessage msg(oscAddress.c_str());
-      for (int i = 0; i < NUMPOTS; i++){ 
-        msg.add( (unsigned int)(potInputs[i].currentValue) );
-      }
-
-      SLIPSerial.beginPacket();
-      msg.send(SLIPSerial);
-      SLIPSerial.endPacket();
-      msg.empty();
+      myMicroOsc.sendMessage("/p", "iii", 
+      potInputs[0].currentValue, 
+      potInputs[1].currentValue, 
+      potInputs[2].currentValue);
     }
 
     for(int i = 0; i < NUMPOTS; i++){
       potInputs[i].lastValue = potInputs[i].currentValue;
     }
-
 }
 
 //-------------------- MPR TOUCH SENSORS
@@ -272,20 +234,22 @@ void readTouchesOne(){
     touchInputsOne[i].currentValue = plants.read(PlantSense::MPR_ONE, i);
   }
 
-  oscAddress = "/traw";
-  OSCMessage msg(oscAddress.c_str());
-  
-  //MPR #1
-  msg.add( (unsigned int)0 );
+  int thisMPR = 0;
 
-  for (int i = 0; i < NUMTOUCHES; i++){
-    msg.add( (unsigned int)touchInputsOne[i].currentValue );
-  }
-
-  SLIPSerial.beginPacket();
-  msg.send(SLIPSerial);
-  SLIPSerial.endPacket();
-  msg.empty();
+  myMicroOsc.sendMessage("/traw", "iiiiiiiiiiiii", 
+  thisMPR, 
+  touchInputsOne[0].currentValue, 
+  touchInputsOne[1].currentValue, 
+  touchInputsOne[2].currentValue,
+  touchInputsOne[3].currentValue, 
+  touchInputsOne[4].currentValue, 
+  touchInputsOne[5].currentValue,
+  touchInputsOne[6].currentValue, 
+  touchInputsOne[7].currentValue,
+  touchInputsOne[8].currentValue, 
+  touchInputsOne[9].currentValue,
+  touchInputsOne[10].currentValue, 
+  touchInputsOne[11].currentValue);
 
   // -----
   // SEND normalised data...
@@ -294,27 +258,29 @@ void readTouchesOne(){
 
 void readTouchesTwo(){
 
-  // -----
+   // -----
   // SENDING "RAW" (not normalized) DATA
   for(int i = 0; i < NUMTOUCHES; i++){
     touchInputsTwo[i].lastValue = touchInputsTwo[i].currentValue;
     touchInputsTwo[i].currentValue = plants.read(PlantSense::MPR_TWO, i);
   }
 
-  oscAddress = "/traw";
-  OSCMessage msg(oscAddress.c_str());
+  int thisMPR = 1;
 
-  //MPR #2
-  msg.add( (unsigned int)1 );
-
-  for (int i = 0; i < NUMTOUCHES; i++){
-    msg.add( (unsigned int)touchInputsTwo[i].currentValue );
-  }
-
-  SLIPSerial.beginPacket();
-  msg.send(SLIPSerial);
-  SLIPSerial.endPacket();
-  msg.empty();
+  myMicroOsc.sendMessage("/traw", "iiiiiiiiiiiii", 
+  thisMPR, 
+  touchInputsTwo[0].currentValue, 
+  touchInputsTwo[1].currentValue, 
+  touchInputsTwo[2].currentValue,
+  touchInputsTwo[3].currentValue, 
+  touchInputsTwo[4].currentValue, 
+  touchInputsTwo[5].currentValue,
+  touchInputsTwo[6].currentValue, 
+  touchInputsTwo[7].currentValue,
+  touchInputsTwo[8].currentValue, 
+  touchInputsTwo[9].currentValue,
+  touchInputsTwo[10].currentValue, 
+  touchInputsTwo[11].currentValue);
 
   // -----
   // SEND normalised data...
