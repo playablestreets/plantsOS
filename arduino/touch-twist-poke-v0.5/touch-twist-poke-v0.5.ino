@@ -55,16 +55,27 @@ int potPins[NUMPOTS] = {POT_PIN1, POT_PIN2, POT_PIN3, POT_PIN4};
 void onOscMessageReceived(MicroOscMessage& oscMessage) {
 
 
+// /ping (int)0-1
   if (oscMessage.checkOscAddressAndTypeTags("/ping", "i")) {   
     int intArgument = oscMessage.nextAsInt();
     myMicroOsc.sendMessage("/ping", "i", intArgument);
   } 
 
-// todo: implement sensor config via osc
+// /ffi [MPRIndex] (int)0-3
+  else if (oscMessage.checkOscAddressAndTypeTags("/ffi", "ii")) {   
+    int MPRIndex = oscMessage.nextAsInt(); 
+    int value = oscMessage.nextAsInt();
+    if(MPRIndex == 0)
+      plants.config(PlantSense::MPR_ONE, PlantSense::FIRST_FILTER_ITERATION, value);
+    else if(MPRIndex == 1)
+      plants.config(PlantSense::MPR_TWO, PlantSense::FIRST_FILTER_ITERATION, value);
+    //echo change
+    myMicroOsc.sendMessage("/rpt/ffi", "ii", MPRIndex, value);
+  } 
 
-// void setFFI(OSCMessage &msgIn){
-//   // /ffi [MPRIndex] (int)0-3
-// }
+
+
+// todo: implement sensor config via osc
 
 // void setCDC(OSCMessage &msgIn){
 //   // /cdc [MPRIndex] (int)1-63
@@ -81,11 +92,6 @@ void onOscMessageReceived(MicroOscMessage& oscMessage) {
 // void ESI(OSCMessage &msgIn){
 //   // /esi [MPRIndex] (int)0-7
 // }
-// bundleIN.dispatch("/ffi", setFFI);
-// bundleIN.dispatch("/cdc", setCDC);
-// bundleIN.dispatch("/cdt", setCDT);
-// bundleIN.dispatch("/sfi", setSFI);
-// bundleIN.dispatch("/esi", ESI);
 
 
 }
