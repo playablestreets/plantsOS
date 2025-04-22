@@ -23,8 +23,7 @@ typedef struct
 
 //--------------   TOUCH VARIABLES
 #define NUMTOUCHES 12 
-Input touchInputsOne[NUMTOUCHES];
-Input touchInputsTwo[NUMTOUCHES];
+Input MPR[2][NUMTOUCHES];
 
 
 //--------------   MPR121 CapTouch Breakout Stuff
@@ -150,14 +149,6 @@ void setup() {
     potInputs[i].lastValue = 0;
   }
 
-  for (int i = 0; i < NUMTOUCHES; i++) {
-    touchInputsOne[i].currentValue = 0;
-    touchInputsOne[i].lastValue = 1;
-  
-    touchInputsTwo[i].currentValue = 0;
-    touchInputsTwo[i].lastValue = 1;
-  }
-
 
   //SERIAL
   // myMicroOSC attaches to Serial
@@ -191,9 +182,8 @@ void setup() {
 //-------------------- -------------------- -------------------- -------------------- MAIN LOOP
 void loop() {
   delay(25);
-  // myMicroOsc.onOscMessageReceived(onOscMessageReceived);
-  readTouchesOne();
-  readTouchesTwo();
+  readMPR(0);
+  readMPR(1);
   readButtons();
   readPots();
   readOSC();
@@ -202,7 +192,6 @@ void loop() {
 
 //-------------------- READ SERIAL OSC
 void readOSC(){
-  // TRIGGER onOscMessageReceived() IF AN OSC MESSAGE IS RECEIVED :
   myMicroOsc.onOscMessageReceived(onOscMessageReceived);
 }
 
@@ -259,64 +248,34 @@ void readPots(){
 }
 
 //-------------------- MPR TOUCH SENSORS
-void readTouchesOne(){
-
-  // -----
-  // SENDING "RAW" (not normalized) DATA
+void readMPR(int MPRIndex){
+  
   for(int i = 0; i < NUMTOUCHES; i++){
-    touchInputsOne[i].lastValue = touchInputsOne[i].currentValue;
-    touchInputsOne[i].currentValue = plants.read(PlantSense::MPR_ONE, i);
+    MPR[MPRIndex][i].lastValue = MPR[MPRIndex][i].currentValue;
+
+    if(MPRIndex == 0)
+      MPR[MPRIndex][i].currentValue = plants.read(PlantSense::MPR_ONE, i);
+    else if(MPRIndex == 1)
+      MPR[MPRIndex][i].currentValue = plants.read(PlantSense::MPR_TWO, i);
   }
 
-  int thisMPR = 0;
-
+  // SEND "RAW" (not normalized) DATA
   myMicroOsc.sendMessage("/traw", "iiiiiiiiiiiii", 
-  thisMPR, 
-  touchInputsOne[0].currentValue, 
-  touchInputsOne[1].currentValue, 
-  touchInputsOne[2].currentValue,
-  touchInputsOne[3].currentValue, 
-  touchInputsOne[4].currentValue, 
-  touchInputsOne[5].currentValue,
-  touchInputsOne[6].currentValue, 
-  touchInputsOne[7].currentValue,
-  touchInputsOne[8].currentValue, 
-  touchInputsOne[9].currentValue,
-  touchInputsOne[10].currentValue, 
-  touchInputsOne[11].currentValue);
+  MPRIndex, 
+  MPR[MPRIndex][0].currentValue, 
+  MPR[MPRIndex][1].currentValue, 
+  MPR[MPRIndex][2].currentValue,
+  MPR[MPRIndex][3].currentValue, 
+  MPR[MPRIndex][4].currentValue, 
+  MPR[MPRIndex][5].currentValue,
+  MPR[MPRIndex][6].currentValue, 
+  MPR[MPRIndex][7].currentValue,
+  MPR[MPRIndex][8].currentValue, 
+  MPR[MPRIndex][9].currentValue,
+  MPR[MPRIndex][10].currentValue, 
+  MPR[MPRIndex][11].currentValue);
 
-  // -----
+  
   // SEND normalised data...
-
-}
-
-void readTouchesTwo(){
-
-   // -----
-  // SENDING "RAW" (not normalized) DATA
-  for(int i = 0; i < NUMTOUCHES; i++){
-    touchInputsTwo[i].lastValue = touchInputsTwo[i].currentValue;
-    touchInputsTwo[i].currentValue = plants.read(PlantSense::MPR_TWO, i);
-  }
-
-  int thisMPR = 1;
-
-  myMicroOsc.sendMessage("/traw", "iiiiiiiiiiiii", 
-  thisMPR, 
-  touchInputsTwo[0].currentValue, 
-  touchInputsTwo[1].currentValue, 
-  touchInputsTwo[2].currentValue,
-  touchInputsTwo[3].currentValue, 
-  touchInputsTwo[4].currentValue, 
-  touchInputsTwo[5].currentValue,
-  touchInputsTwo[6].currentValue, 
-  touchInputsTwo[7].currentValue,
-  touchInputsTwo[8].currentValue, 
-  touchInputsTwo[9].currentValue,
-  touchInputsTwo[10].currentValue, 
-  touchInputsTwo[11].currentValue);
-
-  // -----
-  // SEND normalised data...
-
+  // myMicroOsc.sendMessage("/t", "iiiiiiiiiiiii", ... );
 }
