@@ -163,7 +163,7 @@ void setup() {
   // myMicroOSC attaches to Serial
   Serial.begin(115200);
   
-  Serial.println("connecting and configuring to MPRs...");
+  Serial.println("connecting and configuring MPRs...");
 
   plants.init(); 
   Serial.println("done :)");
@@ -191,7 +191,7 @@ void setup() {
 //-------------------- -------------------- -------------------- -------------------- MAIN LOOP
 void loop() {
   delay(25);
-  myMicroOsc.onOscMessageReceived(onOscMessageReceived);
+  // myMicroOsc.onOscMessageReceived(onOscMessageReceived);
   readTouchesOne();
   readTouchesTwo();
   readButtons();
