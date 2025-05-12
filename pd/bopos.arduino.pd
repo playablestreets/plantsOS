@@ -1,4 +1,4 @@
-#N canvas 73 158 1398 812 12;
+#N canvas 73 158 1230 810 12;
 #X declare -path ./bop/babs;
 #X obj 996 82 declare -path ./bop/babs;
 #X msg 909 226 close;
@@ -15,7 +15,7 @@
 #X text 967 117 4;
 #X text 987 118 5;
 #X text 1006 115 6;
-#X text 857 110 7;
+#X text 1027 114 7;
 #X text 740 133 2.) connect to target device, f 15;
 #X obj 104 355 babs.slipencode;
 #X msg 97 177 1;
@@ -37,6 +37,7 @@
 #X obj 200 162 s \$0-to-comport;
 #X msg 123 123 devices;
 #X obj 104 462 comport 0 115200;
+#X obj 526 189 s \$0-osc-to-arduino;
 #X connect 1 0 27 0;
 #X connect 2 0 27 0;
 #X connect 3 0 27 0;
@@ -53,6 +54,7 @@
 #X connect 28 0 36 0;
 #X connect 30 0 29 0;
 #X connect 31 0 20 0;
+#X connect 31 1 37 0;
 #X connect 32 0 18 0;
 #X connect 32 0 35 0;
 #X connect 32 1 33 0;
