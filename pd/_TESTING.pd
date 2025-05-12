@@ -170,6 +170,11 @@
 #X obj 639 528 change;
 #X msg 639 631 strum \$1 2000;
 #X obj 401 179 comport 0 115200;
+#X obj 579 713 loadbang;
+#X obj 579 737 delay 1000;
+#X obj 576 790 makenote 100 500;
+#X msg 578 764 60;
+#X obj 578 817 pack;
 #X connect 8 0 7 0;
 #X connect 9 0 13 0;
 #X connect 10 0 12 0;
@@ -251,3 +256,10 @@
 #X connect 104 0 105 0;
 #X connect 105 0 43 1;
 #X connect 106 0 18 0;
+#X connect 107 0 108 0;
+#X connect 108 0 110 0;
+#X connect 109 0 111 0;
+#X connect 109 1 111 1;
+#X connect 110 0 109 0;
+#X connect 111 0 43 1;
+#X connect 111 0 41 1;
