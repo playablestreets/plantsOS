@@ -2,8 +2,8 @@
 #define PLANT_SENSE
 
 #include <Arduino.h>
-#include <EEPROM.h>
 #include <cstdint>
+#include <Preferences.h>
 
 #define NUMTOUCHES 12
 
@@ -68,9 +68,10 @@ class PlantSense
                 }
             }
            
-			bool eeprom_isset = false;
-			eeprom_isset = read_eeprom_to_param_structs();
-			if (eeprom_isset) {
+			bool prefs_isset = false;
+			prefs_isset = read_prefs_to_param_structs();
+
+			if (!prefs_isset) {
 			
 				// Some healthy defaults
 				mpr_one_params.FFI = 3;
@@ -81,6 +82,7 @@ class PlantSense
 
 				mpr_two_params = mpr_one_params;
 			}
+
 
             MPROne.writeRegister(
                     CONFIG1, 
@@ -116,34 +118,43 @@ class PlantSense
          * existing code flow
          */
 
-		void write_eeprom()
+		void store_parameters()
 		{
-			uint16_t write_address = 0;
-			bool eeprom_isset = true;
-			EEPROM.put(write_address, eeprom_isset);
-			write_address += sizeof(eeprom_isset);
+			mpr_persist.begin("MPR_Settings");
 
-			EEPROM.put(write_address, mpr_one_params);
-			write_address += 10;
+			mpr_persist.putBytes(
+					"MPR_One", 
+					(byte*)(&mpr_one_params), 
+					sizeof(mpr_one_params)
+					);
 
-			EEPROM.put(write_address, mpr_two_params);
+			mpr_persist.putBytes(
+					"MPR_Two", 
+					(byte*)(&mpr_two_params), 
+					sizeof(mpr_two_params)
+					);
 		}
 
-		bool read_eeprom_to_param_structs() {
-			uint16_t read_address = 0;
-			bool eeprom_isset = false;
-			EEPROM.get(read_address, eeprom_isset);
-			read_address += sizeof(eeprom_isset);
-			
-			// check if the eeprom has been set
-			if (eeprom_isset) {
-				EEPROM.get(read_address, mpr_one_params);
-				read_address += 10;
+		bool read_prefs_to_param_structs() {
+			mpr_persist.begin("MPR_Settings");
+			bool prefs_isset = mpr_persist.isKey("MPR_One") 
+							&& mpr_persist.isKey("MPR_Two");
+			if (prefs_isset) 
+			{
+				mpr_persist.getBytes(
+						"MPR_One", 
+						&mpr_one_params, 
+						sizeof(mpr_one_params)
+						);
 
-				EEPROM.get(read_address, mpr_two_params);
+				mpr_persist.getBytes(
+						"MPR_Two", 
+						&mpr_two_params, 
+						sizeof(mpr_two_params)
+						);
 			}
 
-			return eeprom_isset;
+			return prefs_isset;
 		}
 
         uint16_t read(MPR MPR_select, int i) 
@@ -245,6 +256,8 @@ class PlantSense
             uint8_t SFI;
             uint8_t ESI;
         } mpr_one_params, mpr_two_params, active_config;
+		
+		Preferences mpr_persist;
 
         Adafruit_MPR121 MPROne;  // ADDR not connected: 0x5A
         Adafruit_MPR121 MPRTwo;  // ADDR tied to SDA:   0x5C

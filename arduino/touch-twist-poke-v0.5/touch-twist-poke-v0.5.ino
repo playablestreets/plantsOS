@@ -62,7 +62,8 @@ void onOscMessageReceived(MicroOscMessage& oscMessage) {
 
 
   if (oscMessage.checkOscAddressAndTypeTags("/store", "i")) {   
-    plants.write_eeprom();
+    plants.store_parameters();
+    myMicroOsc.sendMessage("/store", "i", 1);
   } 
 
   // /ffi [MPRIndex] (int)0-3
@@ -159,23 +160,6 @@ void setup() {
 
   plants.init(); 
   Serial.println("done :)");
-
-  /* CONFIG1 and CONFIG2 registers parameterized here
-   * Attach your OSC stuff to this
-   * All the enums are at the top of the header file :-) 
-   */
-
-  plants.config(PlantSense::MPR_ONE, PlantSense::FIRST_FILTER_ITERATION, 3);
-  plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_CURRENT, 18); 
-  plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_TIME, 4);
-  plants.config(PlantSense::MPR_ONE, PlantSense::SECOND_FILTER_ITERATION, 0);
-  plants.config(PlantSense::MPR_ONE, PlantSense::ELECTRODE_SAMPLE_INTERVAL, 2); 
-
-  plants.config(PlantSense::MPR_TWO, PlantSense::FIRST_FILTER_ITERATION, 3);
-  plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_CURRENT, 18); 
-  plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_TIME, 4);
-  plants.config(PlantSense::MPR_TWO, PlantSense::SECOND_FILTER_ITERATION, 0);
-  plants.config(PlantSense::MPR_TWO, PlantSense::ELECTRODE_SAMPLE_INTERVAL, 2); 
 }
 
 //-------------------- -------------------- -------------------- -------------------- MAIN LOOP
