@@ -63,7 +63,7 @@ void onOscMessageReceived(MicroOscMessage& oscMessage) {
 
   if (oscMessage.checkOscAddressAndTypeTags("/store", "i")) {   
     plants.store_parameters();
-    myMicroOsc.sendMessage("/store", "i", 1);
+    // myMicroOsc.sendMessage("/store", "i", 1);
   } 
 
   // /ffi [MPRIndex] (int)0-3
