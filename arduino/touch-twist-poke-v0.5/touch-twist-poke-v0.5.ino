@@ -61,7 +61,7 @@ void onOscMessageReceived(MicroOscMessage& oscMessage) {
   } 
 
 
-  if (oscMessage.checkOscAddress("/store")) {   
+  if (oscMessage.checkOscAddressAndTypeTags("/store", "i")) {   
     plants.write_eeprom();
   } 
 
