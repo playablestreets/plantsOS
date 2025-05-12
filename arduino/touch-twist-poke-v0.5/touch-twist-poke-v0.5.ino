@@ -60,6 +60,11 @@ void onOscMessageReceived(MicroOscMessage& oscMessage) {
     myMicroOsc.sendMessage("/ping", "i", intArgument);
   } 
 
+
+  if (oscMessage.checkOscAddress("/store")) {   
+    plants.write_eeprom();
+  } 
+
   // /ffi [MPRIndex] (int)0-3
   else if (oscMessage.checkOscAddressAndTypeTags("/ffi", "ii")) {   
     int MPRIndex = oscMessage.nextAsInt(); 
