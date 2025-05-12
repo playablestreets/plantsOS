@@ -1,4 +1,4 @@
-#N canvas 104 78 1347 977 12;
+#N canvas 407 47 1347 977 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 800 40 empty empty plantsOS\ 🛠️\ TESTING 100 20 0 16 #c6ffc7 #e3c6ff 0;
@@ -25,7 +25,7 @@
 #X obj 242 887 declare -path ./bop/babs;
 #X obj 150 852 *~;
 #X obj 48 852 *~;
-#X obj 50 322 r osc-in;
+#X obj 50 307 r osc-in;
 #X obj 260 665 hsl 162 19 0.01 1 1 1 empty empty gain 10 10 0 12 #fcfcfc #000000 #000000 13677 1;
 #X obj 258 795 line~;
 #X obj 47 551 s touch;
@@ -34,7 +34,7 @@
 #X obj 143 464 s pots;
 #X msg 257 693 \$1 100;
 #X obj 51 717 bop.strum;
-#A saved strum 0;
+#A saved strum 0.999023;
 #A saved chord 1;
 #A saved shuffle 0;
 #A saved root 43;
@@ -51,7 +51,7 @@
 #A saved release 0.507143;
 #A saved gain 1;
 #X obj 153 714 bop.strum;
-#A saved strum 0;
+#A saved strum 0.00292969;
 #A saved chord 7;
 #A saved shuffle 1;
 #A saved root 46;
@@ -132,7 +132,7 @@
 #X obj 550 764 + 50;
 #X obj 257 617 r osc-in;
 #X obj 257 641 route gain;
-#N canvas 92 135 1247 470 forward-osc 0;
+#N canvas 673 472 1247 470 forward-osc 1;
 #X obj 74 39 r osc-in;
 #X obj 73 166 oscformat -f i ffi;
 #X obj 219 169 oscformat -f i sfi;

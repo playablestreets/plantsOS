@@ -1,4 +1,4 @@
-#N canvas 73 158 1230 810 12;
+#N canvas 466 223 1230 810 12;
 #X declare -path ./bop/babs;
 #X obj 996 82 declare -path ./bop/babs;
 #X msg 909 226 close;
@@ -30,7 +30,7 @@
 #X obj 879 255 s \$0-to-comport;
 #X obj 131 428 r \$0-to-comport;
 #X obj 110 735 outlet;
-#X obj 109 698 r \$0-osc-from-arduino;
+#X obj 109 668 r \$0-osc-from-arduino;
 #X obj 339 93 route brightness, f 43;
 #X obj 97 94 route ping device, f 30;
 #X msg 200 130 open \$1;
@@ -38,6 +38,7 @@
 #X msg 123 123 devices;
 #X obj 104 462 comport 0 115200;
 #X obj 526 189 s \$0-osc-to-arduino;
+#X obj 109 703 route list;
 #X connect 1 0 27 0;
 #X connect 2 0 27 0;
 #X connect 3 0 27 0;
@@ -52,7 +53,7 @@
 #X connect 22 0 25 0;
 #X connect 24 0 17 0;
 #X connect 28 0 36 0;
-#X connect 30 0 29 0;
+#X connect 30 0 38 0;
 #X connect 31 0 20 0;
 #X connect 31 1 37 0;
 #X connect 32 0 18 0;
@@ -62,3 +63,4 @@
 #X connect 33 0 34 0;
 #X connect 35 0 34 0;
 #X connect 36 0 4 0;
+#X connect 38 0 29 0;
