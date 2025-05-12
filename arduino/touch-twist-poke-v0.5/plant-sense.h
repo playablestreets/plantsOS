@@ -2,6 +2,8 @@
 #define PLANT_SENSE
 
 #include <Arduino.h>
+#include <EEPROM.h>
+#include <cstdint>
 
 #define NUMTOUCHES 12
 
@@ -108,6 +110,35 @@ class PlantSense
          * more signal conditioning later without disrupting 
          * existing code flow
          */
+
+		void write_eeprom()
+		{
+			uint16_t write_address = 0;
+			bool eeprom_isset = true;
+			EEPROM.put(write_address, eeprom_isset);
+			write_address += sizeof(eeprom_isset);
+
+			EEPROM.put(write_address, mpr_one_params);
+			write_address += sizeof...(mpr_one_params);
+
+			EEPROM.put(write_address, mpr_two_params);
+		}
+
+		bool read_eeprom_to_param_structs() {
+			uint16_t read_address = 0;
+			bool eeprom_isset = false;
+			EEPROM.get(read_address, eeprom_isset);
+			read_address += sizeof(eeprom_isset);
+
+			if (eeprom_isset) {
+				EEPROM.get(read_address, mpr_one_params);
+				read_address += sizeof(mpr_one_params);
+
+				EEPROM.get(read_address, mpr_two_params);
+			}
+
+			return eeprom_isset;
+		}
 
         uint16_t read(MPR MPR_select, int i) 
         {
