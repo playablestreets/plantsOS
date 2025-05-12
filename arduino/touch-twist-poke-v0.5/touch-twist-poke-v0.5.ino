@@ -54,13 +54,13 @@ int potPins[NUMPOTS] = {POT_PIN1, POT_PIN2, POT_PIN3, POT_PIN4};
 void onOscMessageReceived(MicroOscMessage& oscMessage) {
 
 
-// /ping (int)0-1
+  // /ping (int)0-1
   if (oscMessage.checkOscAddressAndTypeTags("/ping", "i")) {   
     int intArgument = oscMessage.nextAsInt();
     myMicroOsc.sendMessage("/ping", "i", intArgument);
   } 
 
-// /ffi [MPRIndex] (int)0-3
+  // /ffi [MPRIndex] (int)0-3
   else if (oscMessage.checkOscAddressAndTypeTags("/ffi", "ii")) {   
     int MPRIndex = oscMessage.nextAsInt(); 
     int value = oscMessage.nextAsInt();
@@ -123,9 +123,6 @@ void onOscMessageReceived(MicroOscMessage& oscMessage) {
 
 }
 
-
-
-
 //-------------------- -------------------- -------------------- --------------------SETUP
 //-------------------- -------------------- -------------------- --------------------SETUP
 //-------------------- -------------------- -------------------- --------------------SETUP
@@ -143,22 +140,21 @@ void setup() {
     buttonInputs[i].lastValue = 0;
   }
 
- for (int i = 0; i < NUMPOTS; i++){
+  for (int i = 0; i < NUMPOTS; i++){
     potInputs[i].pin = potPins[i];
     potInputs[i].currentValue = 0;
     potInputs[i].lastValue = 0;
   }
 
-
   //SERIAL
   // myMicroOSC attaches to Serial
   Serial.begin(115200);
-  
+
   Serial.println("connecting and configuring MPRs...");
 
   plants.init(); 
   Serial.println("done :)");
-  
+
   /* CONFIG1 and CONFIG2 registers parameterized here
    * Attach your OSC stuff to this
    * All the enums are at the top of the header file :-) 
@@ -169,7 +165,7 @@ void setup() {
   plants.config(PlantSense::MPR_ONE, PlantSense::CHARGE_DISCHARGE_TIME, 4);
   plants.config(PlantSense::MPR_ONE, PlantSense::SECOND_FILTER_ITERATION, 0);
   plants.config(PlantSense::MPR_ONE, PlantSense::ELECTRODE_SAMPLE_INTERVAL, 2); 
-  
+
   plants.config(PlantSense::MPR_TWO, PlantSense::FIRST_FILTER_ITERATION, 3);
   plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_CURRENT, 18); 
   plants.config(PlantSense::MPR_TWO, PlantSense::CHARGE_DISCHARGE_TIME, 4);
@@ -189,67 +185,64 @@ void loop() {
   readOSC();
 }
 
-
 //-------------------- READ SERIAL OSC
 void readOSC(){
   myMicroOsc.onOscMessageReceived(onOscMessageReceived);
 }
 
-
-
 //-------------------- BUTTONS
 void readButtons(){
-    bool changeDetected = false;
+  bool changeDetected = false;
 
-    //get values
-    for(int i = 0; i < NUMBUTTONS; i++){
-      buttonInputs[i].currentValue = digitalRead(buttonPins[i]);
+  //get values
+  for(int i = 0; i < NUMBUTTONS; i++){
+    buttonInputs[i].currentValue = digitalRead(buttonPins[i]);
 
-      if(buttonInputs[i].currentValue != buttonInputs[i].lastValue){
-        changeDetected = true;
-      }
+    if(buttonInputs[i].currentValue != buttonInputs[i].lastValue){
+      changeDetected = true;
     }
-    
-    if(changeDetected){
-      myMicroOsc.sendMessage("/b", "iii", 
-      buttonInputs[0].currentValue, 
-      buttonInputs[1].currentValue, 
-      buttonInputs[2].currentValue);
-    }
+  }
 
-    for(int i = 0; i < NUMBUTTONS; i++){
-      buttonInputs[i].lastValue = buttonInputs[i].currentValue;
-    }
+  if(changeDetected){
+    myMicroOsc.sendMessage("/b", "iii", 
+        buttonInputs[0].currentValue, 
+        buttonInputs[1].currentValue, 
+        buttonInputs[2].currentValue);
+  }
+
+  for(int i = 0; i < NUMBUTTONS; i++){
+    buttonInputs[i].lastValue = buttonInputs[i].currentValue;
+  }
 }
 
 //-------------------- POTS
 void readPots(){
-    bool changeDetected = false;
+  bool changeDetected = false;
 
-    //get values
-    for(int i = 0; i < NUMPOTS; i++){
-      potInputs[i].currentValue = analogRead(potPins[i]);
+  //get values
+  for(int i = 0; i < NUMPOTS; i++){
+    potInputs[i].currentValue = analogRead(potPins[i]);
 
-      if(potInputs[i].currentValue != potInputs[i].lastValue){
-        changeDetected = true;
-      }
+    if(potInputs[i].currentValue != potInputs[i].lastValue){
+      changeDetected = true;
     }
-    
-    if(changeDetected){
-      myMicroOsc.sendMessage("/p", "iii", 
-      potInputs[0].currentValue, 
-      potInputs[1].currentValue, 
-      potInputs[2].currentValue);
-    }
+  }
 
-    for(int i = 0; i < NUMPOTS; i++){
-      potInputs[i].lastValue = potInputs[i].currentValue;
-    }
+  if(changeDetected){
+    myMicroOsc.sendMessage("/p", "iii", 
+        potInputs[0].currentValue, 
+        potInputs[1].currentValue, 
+        potInputs[2].currentValue);
+  }
+
+  for(int i = 0; i < NUMPOTS; i++){
+    potInputs[i].lastValue = potInputs[i].currentValue;
+  }
 }
 
 //-------------------- MPR TOUCH SENSORS
 void readMPR(int MPRIndex){
-  
+
   for(int i = 0; i < NUMTOUCHES; i++){
     MPR[MPRIndex][i].lastValue = MPR[MPRIndex][i].currentValue;
 
@@ -261,21 +254,20 @@ void readMPR(int MPRIndex){
 
   // SEND "RAW" (not normalized) DATA
   myMicroOsc.sendMessage("/traw", "iiiiiiiiiiiii", 
-  MPRIndex, 
-  MPR[MPRIndex][0].currentValue, 
-  MPR[MPRIndex][1].currentValue, 
-  MPR[MPRIndex][2].currentValue,
-  MPR[MPRIndex][3].currentValue, 
-  MPR[MPRIndex][4].currentValue, 
-  MPR[MPRIndex][5].currentValue,
-  MPR[MPRIndex][6].currentValue, 
-  MPR[MPRIndex][7].currentValue,
-  MPR[MPRIndex][8].currentValue, 
-  MPR[MPRIndex][9].currentValue,
-  MPR[MPRIndex][10].currentValue, 
-  MPR[MPRIndex][11].currentValue);
+      MPRIndex, 
+      MPR[MPRIndex][0].currentValue, 
+      MPR[MPRIndex][1].currentValue, 
+      MPR[MPRIndex][2].currentValue,
+      MPR[MPRIndex][3].currentValue, 
+      MPR[MPRIndex][4].currentValue, 
+      MPR[MPRIndex][5].currentValue,
+      MPR[MPRIndex][6].currentValue, 
+      MPR[MPRIndex][7].currentValue,
+      MPR[MPRIndex][8].currentValue, 
+      MPR[MPRIndex][9].currentValue,
+      MPR[MPRIndex][10].currentValue, 
+      MPR[MPRIndex][11].currentValue);
 
-  
   // SEND normalised data...
   // myMicroOsc.sendMessage("/t", "iiiiiiiiiiiii", ... );
 }
