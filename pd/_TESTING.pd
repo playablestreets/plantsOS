@@ -1,4 +1,4 @@
-#N canvas 513 278 1344 965 12;
+#N canvas 366 119 1344 965 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 800 40 empty empty plantsOS\ 🛠️\ TESTING 100 20 0 16 #c6ffc7 #e3c6ff 0;
@@ -53,7 +53,7 @@
 #X obj 143 464 s pots;
 #X msg 257 645 \$1 100;
 #X obj 51 687 bop.strum;
-#A saved strum 0.999023;
+#A saved strum 0.0725422;
 #A saved chord 1;
 #A saved shuffle 0;
 #A saved root 43;
@@ -166,6 +166,10 @@
 #X floatatom 964 517 5 0 0 1 touch\ val - - 0;
 #X floatatom 1169 475 5 0 0 1 no\ touch\ val - - 0;
 #X floatatom 1198 511 5 0 0 1 touch\ val - - 0;
+#X obj 526 527 change;
+#X msg 526 630 strum \$1 2000;
+#X obj 639 528 change;
+#X msg 639 631 strum \$1 2000;
 #X connect 8 0 7 0;
 #X connect 9 0 13 0;
 #X connect 10 0 12 0;
@@ -233,6 +237,8 @@
 #X connect 89 0 83 0;
 #X connect 89 1 82 0;
 #X connect 89 2 91 0;
+#X connect 92 0 105 0;
+#X connect 93 0 103 0;
 #X connect 94 0 93 0;
 #X connect 94 1 92 0;
 #X connect 94 2 95 0;
@@ -241,3 +247,7 @@
 #X connect 100 0 57 2;
 #X connect 101 0 59 1;
 #X connect 102 0 59 2;
+#X connect 103 0 104 0;
+#X connect 104 0 41 1;
+#X connect 105 0 106 0;
+#X connect 106 0 43 1;
