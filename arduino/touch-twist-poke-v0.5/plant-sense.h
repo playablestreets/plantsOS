@@ -67,15 +67,20 @@ class PlantSense
                     MPRTwo_connected = true;
                 }
             }
-            
-            // Some healthy defaults
-            mpr_one_params.FFI = 3;
-            mpr_one_params.CDC = 18;
-            mpr_one_params.CDT = 4; 
-            mpr_one_params.SFI = 0;
-            mpr_one_params.ESI = 2;
+           
+			bool eeprom_isset = false;
+			eeprom_isset = read_eeprom_to_param_structs();
+			if (eeprom_isset) {
+			
+				// Some healthy defaults
+				mpr_one_params.FFI = 3;
+				mpr_one_params.CDC = 18;
+				mpr_one_params.CDT = 4; 
+				mpr_one_params.SFI = 0;
+				mpr_one_params.ESI = 2;
 
-            mpr_two_params = mpr_one_params;
+				mpr_two_params = mpr_one_params;
+			}
 
             MPROne.writeRegister(
                     CONFIG1, 
@@ -119,7 +124,7 @@ class PlantSense
 			write_address += sizeof(eeprom_isset);
 
 			EEPROM.put(write_address, mpr_one_params);
-			write_address += sizeof...(mpr_one_params);
+			write_address += 10;
 
 			EEPROM.put(write_address, mpr_two_params);
 		}
@@ -129,10 +134,11 @@ class PlantSense
 			bool eeprom_isset = false;
 			EEPROM.get(read_address, eeprom_isset);
 			read_address += sizeof(eeprom_isset);
-
+			
+			// check if the eeprom has been set
 			if (eeprom_isset) {
 				EEPROM.get(read_address, mpr_one_params);
-				read_address += sizeof(mpr_one_params);
+				read_address += 10;
 
 				EEPROM.get(read_address, mpr_two_params);
 			}
