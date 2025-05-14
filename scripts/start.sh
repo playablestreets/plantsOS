@@ -1,53 +1,50 @@
 #!/bin/bash
 
-# JACK OPTIMISATION STUFF
-#not running on pi zero raspbian lite
-#sudo service ntp stop
-#sudo service triggerhappy stop
+#1.) get list of available soundcards by running: cat /proc/asound/cards
+#2.) edit the SOUNDCARD variable below as needed
 
-# the below was hanging on pi4 bookworm
-#sudo service dbus stop
+#SOUNDCARD="YOUR_SOUNDCARD"
+# SOUNDCARD="sndrpihifiberry"
+# SOUNDCARD="IQaudIODAC"
+SOUNDCARD="DigiAMP"
 
-#not running on pi zero raspbian lite
-#sudo killall console-kit-daemon
-#sudo killall polkitd
-## Only needed when Jack2 is compiled with D-Bus support
-#export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket
-
-
-#sudo mount -o remount,size=128M /dev/shm
-
-#killall gvfsd
-#killall dbus-daemon
-#killall dbus-launch
-
-## Uncomment if you'd like to disable the network adapter completely
-#echo -n "1-1.1:1.0" | sudo tee /sys/bus/usb/drivers/smsc95xx/unbind
-#echo -n performance | sudo tee /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-
-# get available soundcards using cat /proc/asound/cards
-# edit the -dhw: command below as needed
-
-sleep 5
-
-#Running Jack  --- -p (buffer) 512 samples, -P for playback only
-# jackd -P70 -p16 -t2000 -d alsa -dhw:DigiAMP -p 512 -n 2 -r 22050 -s -P &
-jackd -P70 -p16 -t2000 -d alsa -dhw:IQaudIODAC -p 512 -n 2 -r 22050 -s -P &
-
-# leave enough time for jack to start before launching PD
-sleep 10
-
+RND=$RANDOM
 MACADDRESS=$(cat /sys/class/net/wlan0/address)
 # MACADDRESS=$(cat /sys/class/net/eth0/address)
-echo "MAC: $MACADDRESS"
+now=$(date --iso-8601=seconds)
+STARTDATE=$(date -d "$now" +%Y%m%d)
+STARTTIME=$(date -d "$now" +%H%M%S)
 
+echo "------------------- Waiting..."
+
+sleep 15
+
+echo "------------------- Starting bopOS..."
+echo "SOUNDCARD: $SOUNDCARD"
+echo "MAC ADDRESS: $MACADDRESS"
+echo "RANDOM: $RND"
+echo "STARTDATE: $STARTDATE"
+echo "STARTTIME: $STARTTIME"
+
+
+#Start Jack 
+echo "------------------- Starting Jack..."
+# jackd -P70 -p16 -t2000 -d alsa -dhw:$SOUNDCARD -p 512 -n 3 -r 44100 -s -P& #44.1khz        
+jackd -P70 -p16 -t2000 -d alsa -dhw:$SOUNDCARD -p 512 -n 3 -r 22050 -s -P& #22khz
+
+# leave enough time for jack to start before launching PD
+sleep 15
+
+echo "------------------- Starting Pure Data..."
 # PUREDATA
-pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RANDOM; " &
+pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RND; STARTTIME $STARTTIME; STARTDATE $STARTDATE; " &
 
+# leave enough time for PD to start before starting the helper  
+# the helper will parse and forward variables from config.csv
 sleep 5
 
+echo "------------------- Starting helper.py..."
 # PYTHON
 sudo /home/pi/venv/bin/python /home/pi/plantsOS/scripts/helper.py $MACADDRESS &
-
 
 exit
