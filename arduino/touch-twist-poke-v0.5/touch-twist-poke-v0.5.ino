@@ -63,7 +63,7 @@ void onOscMessageReceived(MicroOscMessage& oscMessage) {
 
   if (oscMessage.checkOscAddressAndTypeTags("/store", "i")) {   
     plants.store_parameters();
-    myMicroOsc.sendMessage("/store", "i", 1);
+    // myMicroOsc.sendMessage("/store", "i", 1);
   } 
 
   // /ffi [MPRIndex] (int)0-3
@@ -194,9 +194,9 @@ void readButtons(){
 
   if(changeDetected){
     myMicroOsc.sendMessage("/b", "iii", 
-        buttonInputs[0].currentValue, 
-        buttonInputs[1].currentValue, 
-        buttonInputs[2].currentValue);
+        1 - buttonInputs[0].currentValue, 
+        1 - buttonInputs[1].currentValue, 
+        1 - buttonInputs[2].currentValue);
   }
 
   for(int i = 0; i < NUMBUTTONS; i++){
@@ -218,10 +218,10 @@ void readPots(){
   }
 
   if(changeDetected){
-    myMicroOsc.sendMessage("/p", "iii", 
-        potInputs[0].currentValue, 
-        potInputs[1].currentValue, 
-        potInputs[2].currentValue);
+    myMicroOsc.sendMessage("/p", "fff", 
+        1 - (float)potInputs[0].currentValue / 4095, 
+        1 - (float)potInputs[1].currentValue / 4095, 
+        1 - (float)potInputs[2].currentValue / 4095);
   }
 
   for(int i = 0; i < NUMPOTS; i++){
