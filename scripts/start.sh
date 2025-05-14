@@ -33,7 +33,7 @@ echo "------------------- Starting Jack..."
 jackd -P70 -p16 -t2000 -d alsa -dhw:$SOUNDCARD -p 512 -n 3 -r 22050 -s -P& #22khz
 
 # leave enough time for jack to start before launching PD
-sleep 15
+sleep 10
 
 echo "------------------- Starting Pure Data..."
 # PUREDATA
@@ -41,7 +41,7 @@ pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RND; STAR
 
 # leave enough time for PD to start before starting the helper  
 # the helper will parse and forward variables from config.csv
-sleep 5
+sleep 10
 
 echo "------------------- Starting helper.py..."
 # PYTHON
