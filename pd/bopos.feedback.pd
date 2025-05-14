@@ -1,4 +1,4 @@
-#N canvas 859 577 638 698 12;
+#N canvas 859 386 638 698 12;
 #X declare -path ./bop;
 #X obj 55 426 bop.casio~;
 #A saved wave-1 0;
@@ -12,7 +12,8 @@
 #X obj 51 360 bop.sequence;
 #A saved read ../../seq/update.txt;
 #A saved loop 0;
-#A saved internal-sequence attack 0 \; 72 127 \;;
+#A saved scrub 0;
+#A saved internal-sequence switch 1 \; attack 0 \; 72 127 \; - 1200 \; switch 0 \;;
 #X obj 89 139 r reboot;
 #X obj 170 291 r shutdown;
 #X obj 147 214 r update;
@@ -26,8 +27,8 @@
 #X obj 119 486 route switch;
 #X obj 123 512 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 51 561 dac~;
-#X connect 0 0 14 0;
-#X connect 0 0 14 1;
+#X obj 45 481 *~ 0.25;
+#X connect 0 0 15 0;
 #X connect 0 1 12 0;
 #X connect 1 0 0 0;
 #X connect 1 1 0 1;
@@ -41,3 +42,5 @@
 #X connect 10 0 1 0;
 #X connect 12 0 13 0;
 #X connect 13 0 11 0;
+#X connect 15 0 14 0;
+#X connect 15 0 14 1;
