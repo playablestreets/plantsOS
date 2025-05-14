@@ -1,10 +1,10 @@
 #N canvas 0 43 1710 1041 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
-#X obj 428 801 bop.instrument~;
+#X obj 428 611 bop.instrument~;
 #A saved instrument 0;
-#X obj 451 1063 hip~ 80;
-#X obj 429 736 bop.strum, f 23;
+#X obj 451 743 hip~ 80;
+#X obj 429 546 bop.strum, f 23;
 #A saved strum 0;
 #A saved chord 7;
 #A saved shuffle 1;
@@ -12,9 +12,9 @@
 #A saved octaves 4;
 #A saved velocity 1;
 #A saved duration 0.971429;
-#X obj 427 865 *~ 0.5;
+#X obj 427 675 *~ 0.5;
 #X msg 431 472 strum \$1;
-#X obj 430 1170 throw~ left;
+#X obj 430 850 throw~ left;
 #X obj 1159 1149 throw~ right;
 #X obj 153 105 declare -path ./bop;
 #X obj 422 126 r sensor1;
@@ -59,7 +59,7 @@
 #A saved osc2-pulsewidth 0.5;
 #A saved osc2-gain 1;
 #A saved noise 0.178571;
-#A saved cutoff 6000;
+#A saved cutoff 937.952;
 #A saved q 0;
 #A saved mono 0;
 #A saved slide 0;
