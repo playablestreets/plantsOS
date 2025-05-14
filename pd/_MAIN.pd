@@ -222,12 +222,6 @@
 #X obj 48 540 *~;
 #X obj 66 506 r~ amp1;
 #X obj 168 509 r~ amp2;
-#X obj 39 274 voice.0 0;
-#X obj 39 293 voice.1 1;
-#X obj 39 312 voice.2 2;
-#X obj 39 331 voice.3 3;
-#X obj 39 350 voice.4 4;
-#X obj 39 369 voice.5 5;
 #X obj 248 496 catch~ backing;
 #X obj 248 526 *~ 0.2;
 #X obj 312 165 bopos.arduino;
@@ -316,7 +310,7 @@
 #X connect 20 0 11 0;
 #X connect 21 0 20 1;
 #X connect 22 0 19 1;
-#X connect 29 0 30 0;
-#X connect 30 0 11 0;
-#X connect 30 0 11 1;
-#X connect 31 0 34 0;
+#X connect 23 0 24 0;
+#X connect 24 0 11 0;
+#X connect 24 0 11 1;
+#X connect 25 0 28 0;
