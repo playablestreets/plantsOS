@@ -1,4 +1,4 @@
-#N canvas 0 43 1710 1041 12;
+#N canvas 566 11 1343 1041 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 428 611 bop.instrument~;
@@ -8,7 +8,7 @@
 #A saved strum 0;
 #A saved chord 7;
 #A saved shuffle 1;
-#A saved root 48;
+#A saved root 36;
 #A saved octaves 4;
 #A saved velocity 1;
 #A saved duration 0.971429;
@@ -39,9 +39,9 @@
 #X obj 705 533 bop.strum, f 23;
 #A saved strum 0;
 #A saved chord 7;
-#A saved shuffle 1;
-#A saved root 48;
-#A saved octaves 4;
+#A saved shuffle 0;
+#A saved root 60;
+#A saved octaves 3;
 #A saved velocity 1;
 #A saved duration 0.971429;
 #X obj 703 662 *~ 0.5;
