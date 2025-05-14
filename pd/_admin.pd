@@ -62,10 +62,10 @@
 #X text 105 105 OSC messages;
 #X text 109 133 aloha \; echo 0-1 \;;
 #X text 107 175 helper update \; helper updatesamples \; helper shutdown \; helper reboot \;;
-#X text 108 238 debug 0-1 \; cdc 1-63 \; cdt 1-7 \; esi 0-7 \; store \;;
-#X coords 0 -1 1 1 160 220 2 100 100;
+#X text 108 238 debug 0-1 \; cdc 1-63 \; cdt 1-7 \; esi 0-7 \; store \; voice 0-5 \;;
+#X coords 0 -1 1 1 160 230 2 100 100;
 #X restore 301 25 pd message list;
 #X text 26 53 open device ports:;
 #X obj 492 27 admin.device -1;
 #X obj 678 28 admin.device 0;
-#X obj 82 435 admin.device 9;
+#X obj 48 279 admin.device 9;

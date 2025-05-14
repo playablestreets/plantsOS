@@ -71,11 +71,6 @@
 #X obj 393 620 babs.gate;
 #X msg 393 714 \$1;
 #X msg 424 715 \$1;
-#X listbox 199 575 20 0 0 0 - - - 0;
-#X obj 617 550 r active-voice;
-#X obj 617 574 t f b;
-#X msg 615 652 \; pd-current-voice obj 100 100 voice.\$1 \$1;
-#X msg 653 605 \; pd-current-voice clear;
 #X connect 0 0 1 0;
 #X connect 1 0 11 0;
 #X connect 2 0 3 0;
@@ -114,7 +109,6 @@
 #X connect 44 1 45 0;
 #X connect 44 2 43 0;
 #X connect 44 3 52 0;
-#X connect 44 3 64 0;
 #X connect 45 0 46 0;
 #X connect 45 1 47 0;
 #X connect 46 0 48 0;
@@ -132,9 +126,6 @@
 #X connect 61 0 56 0;
 #X connect 62 0 58 0;
 #X connect 63 0 58 1;
-#X connect 65 0 66 0;
-#X connect 66 0 67 0;
-#X connect 66 1 68 0;
 #X restore 325 320 pd mapping;
 #X f 13;
 #X obj 32 416 cnv 19 400 200 empty empty empty 20 12 0 12 #feffc6 #404040 0;
@@ -245,9 +236,8 @@
 #A saved cutoff 3000;
 #A saved wet 1;
 #A saved dry 0.842857;
-#N canvas 728 473 450 300 current-voice 0;
-#X obj 100 100 voice.0 0;
-#X restore 41 279 pd current-voice;
+#X obj 41 278 voice.0 0, f 16;
+#X obj 41 297 voice.1 1, f 16;
 #X connect 10 0 9 0;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;

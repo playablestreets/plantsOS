@@ -69,7 +69,7 @@
 #A saved release 0.3;
 #A saved gain 0.585714;
 #X obj 1891 860 bop.semisteps, f 23;
-#A saved semisteps 4.3434;
+#A saved semisteps 0.4343;
 #A saved root 72;
 #A saved hold 0;
 #A saved duration 0.9;
