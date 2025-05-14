@@ -300,7 +300,6 @@
 #X connect 35 0 34 0;
 #X coords 0 -1 1 1 115 65 2 10 10;
 #X restore 51 96 pd getvoice;
-#X obj 152 290 voice.-1 -1;
 #X obj 38 269 voice.0 0;
 #X obj 38 288 voice.1 1;
 #X obj 38 307 voice.2 2;
@@ -322,8 +321,8 @@
 #X connect 18 0 9 0;
 #X connect 19 0 18 1;
 #X connect 20 0 17 1;
-#X connect 21 0 35 0;
+#X connect 21 0 34 0;
 #X connect 22 0 9 0;
 #X connect 22 0 9 1;
 #X connect 23 0 26 0;
-#X connect 35 0 22 0;
+#X connect 34 0 22 0;
