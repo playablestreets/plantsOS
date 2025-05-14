@@ -12,7 +12,7 @@
 #X obj 451 1063 hip~ 80;
 #X obj 2014 1268;
 #X obj 429 736 bop.strum, f 23;
-#A saved strum 0;
+#A saved strum 0.000978474;
 #A saved chord 7;
 #A saved shuffle 1;
 #A saved root 48;
@@ -23,12 +23,12 @@
 #X obj 559 896 bop.casio~, f 23;
 #A saved wave-1 0;
 #A saved wave-2 0;
-#A saved filter 0.325424;
+#A saved filter 0.328636;
 #A saved attack 0.0214286;
 #A saved decay 0.178571;
 #A saved sustain 0.628571;
 #A saved release 0;
-#A saved gain 0;
+#A saved gain 0.000978474;
 #X obj 427 865 *~ 0.5;
 #X msg 431 472 strum \$1;
 #X msg 603 476 gain \$1;
@@ -65,7 +65,7 @@
 #A saved velocity 0.75;
 #X obj 1157 1050 hip~ 80;
 #X obj 1135 723 bop.strum, f 23;
-#A saved strum 0;
+#A saved strum 0.00195695;
 #A saved chord 7;
 #A saved shuffle 1;
 #A saved root 48;
@@ -76,12 +76,12 @@
 #X obj 1265 883 bop.casio~, f 23;
 #A saved wave-1 0;
 #A saved wave-2 0;
-#A saved filter 0.325424;
+#A saved filter 0.328636;
 #A saved attack 0.0214286;
 #A saved decay 0.178571;
 #A saved sustain 0.628571;
 #A saved release 0;
-#A saved gain 0;
+#A saved gain 0.00195695;
 #X obj 1133 852 *~ 0.5;
 #X msg 1137 459 strum \$1;
 #X msg 1309 463 gain \$1;
