@@ -141,6 +141,7 @@
 #X obj 393 620 babs.gate;
 #X msg 393 714 \$1;
 #X msg 424 715 \$1;
+#X listbox 199 575 20 0 0 0 - - - 0;
 #X connect 0 0 1 0;
 #X connect 1 0 11 0;
 #X connect 2 0 3 0;
@@ -179,6 +180,7 @@
 #X connect 44 1 45 0;
 #X connect 44 2 43 0;
 #X connect 44 3 52 0;
+#X connect 44 3 64 0;
 #X connect 45 0 46 0;
 #X connect 45 1 47 0;
 #X connect 46 0 48 0;
