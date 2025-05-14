@@ -154,10 +154,10 @@
 #X obj 168 509 r~ amp2;
 #X obj 248 477 catch~ backing;
 #X obj 248 526 *~ 0.2;
-#X obj 323 231 bopos.arduino;
+#X obj 203 291 bopos.arduino;
 #X obj 326 288 bopos.osc, f 13;
 #X obj 308 351 bopos.feedback, f 16;
-#X obj 323 257 s from-arduino;
+#X obj 203 317 s from-arduino;
 #N canvas 507 80 614 872 getvoice 0;
 #X obj 190 553 babs.counter, f 16;
 #X obj 242 798 file handle;
