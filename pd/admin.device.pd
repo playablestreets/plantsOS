@@ -12,7 +12,7 @@
 #X obj 353 417 print device-\$1;
 #X listbox 19 94 18 0 0 2 report____________ \$0-osc-list - 0;
 #X obj 385 300 s \$0-osc-list;
-#X obj 11 11 cnv 18 148 18 empty \$0-header device\ 9 45 10 0 12 #e3c6ff #404040 0;
+#X obj 11 11 cnv 18 148 18 empty \$0-header device\ -1 45 10 0 12 #e3c6ff #404040 0;
 #X obj 545 13 loadbang;
 #X obj 545 37 \$1;
 #X obj 547 96 s \$0-header;
@@ -58,11 +58,11 @@
 #X obj 552 712 r \$0-store;
 #X msg 345 738 list cdc \$1;
 #X msg 445 736 list cdt \$1;
-#X msg 552 736 store \$1;
 #X obj 427 781 s \$0-osc-out;
 #X obj 97 273 tgl 19 0 \$0-debug empty debug 20 10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 236 714 r \$0-debug;
 #X msg 236 738 list debug \$1;
+#X msg 552 736 list store 1;
 #X connect 4 0 27 0;
 #X connect 6 0 41 0;
 #X connect 8 0 30 0;
@@ -99,10 +99,10 @@
 #X connect 50 0 21 0;
 #X connect 54 0 57 0;
 #X connect 55 0 58 0;
-#X connect 56 0 59 0;
-#X connect 57 0 60 0;
-#X connect 58 0 60 0;
-#X connect 59 0 60 0;
-#X connect 62 0 63 0;
-#X connect 63 0 60 0;
+#X connect 56 0 63 0;
+#X connect 57 0 59 0;
+#X connect 58 0 59 0;
+#X connect 61 0 62 0;
+#X connect 62 0 59 0;
+#X connect 63 0 59 0;
 #X coords 0 -1 1 1 150 290 2 10 10;
