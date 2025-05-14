@@ -72,12 +72,11 @@ class PlantSense
 			prefs_isset = read_prefs_to_param_structs();
 
 			if (!prefs_isset) {
-			
-				// Some healthy defaults
+				// Some healthy defaults if no configuration is stored
 				mpr_one_params.FFI = 3;
-				mpr_one_params.CDC = 18;
-				mpr_one_params.CDT = 4; 
-				mpr_one_params.SFI = 0;
+				mpr_one_params.CDC = 35;
+				mpr_one_params.CDT = 3; 
+				mpr_one_params.SFI = 3;
 				mpr_one_params.ESI = 2;
 
 				mpr_two_params = mpr_one_params;
