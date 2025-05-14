@@ -1,6 +1,6 @@
 #N canvas 35 48 1399 1022 12;
 #X declare -path ./bop/babs;
-#N canvas 991 1058 501 186 variables 0;
+#N canvas 991 898 501 186 variables 0;
 #X obj 138 16 r ID;
 #X obj 138 45 print ID;
 #X obj 141 109 r RANDOM;
