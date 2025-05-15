@@ -1,5 +1,5 @@
-#N canvas 515 43 947 1033 12;
-#N canvas 1237 480 373 893 osc 0;
+#N canvas 653 51 947 1033 12;
+#N canvas 1237 191 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
 #X obj 92 158 oscformat reboot;
@@ -53,11 +53,6 @@
 #X text 344 59 helper.py listening on 7770;
 #X text 344 74 PD listening on 6660;
 #X text 344 91 PD reporting on 5550;
-#X obj 346 117 cnv 19 250 80 empty empty all\ devices 10 10 0 12 #c6feff #404040 0;
-#X obj 357 147 bng 19 250 50 0 reboot empty reboot 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 467 166 bng 19 250 50 0 updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 467 147 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 357 166 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
 #N canvas 1007 339 370 432 message 0;
 #X text 105 105 OSC messages;
 #X text 109 133 aloha \; echo 0-1 \;;
@@ -83,4 +78,4 @@
 #X obj 165 922 admin.device 14;
 #X obj 315 922 admin.device 15;
 #X obj 465 922 admin.device 16;
-#X text 350 209 settings on batteries \; sens 20 \; floor 0.01;
+#X text 350 129 settings on batteries \; sens 20 \; floor 0.01 \;;
