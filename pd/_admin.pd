@@ -1,4 +1,4 @@
-#N canvas 732 47 947 1033 12;
+#N canvas 515 43 947 1033 12;
 #N canvas 1237 480 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -58,11 +58,11 @@
 #X obj 467 166 bng 19 250 50 0 updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 467 147 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 357 166 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
-#N canvas 1007 339 370 432 message 1;
+#N canvas 1007 339 370 432 message 0;
 #X text 105 105 OSC messages;
 #X text 109 133 aloha \; echo 0-1 \;;
 #X text 107 175 helper update \; helper updatesamples \; helper shutdown \; helper reboot \;;
-#X text 108 238 voice 0-5 \; debug 0-1 \; cdc 1-63 \; cdt 1-7 \; esi 0-7 \; ffi 0-3 \; sfi 0-3 \; store \;;
+#X text 108 238 voice 0-5 \; \; debug 0-1 \; cdc 1-63 \; cdt 1-7 \; esi 0-7 \; ffi 0-3 \; sfi 0-3 \; store \;;
 #X coords 0 -1 1 1 160 280 2 100 100;
 #X restore 175 12 pd message list;
 #X text 345 44 open device ports:;
