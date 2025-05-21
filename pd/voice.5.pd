@@ -63,7 +63,7 @@
 #X obj 1198 594 delay 1000;
 #X obj 1276 538 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X obj 1111 1036 throw~ right;
-#X msg 530 478 filter loop 1 4000 0.1 8000 0.3 8000 0.2 4000, f 25;
+#X msg 589 627 filter loop 1 4000 0.1 8000 0.3 8000 0.2 4000, f 25;
 #X msg 1298 581 filter loop 1 6000 0.1 12000 0.3 12000 0.2 6000 \,, f 25;
 #X msg 1239 721 semisteps 7.52;
 #X connect 0 0 3 0;
@@ -100,4 +100,6 @@
 #X connect 33 0 38 0;
 #X connect 33 0 37 0;
 #X connect 34 0 33 0;
+#X connect 36 0 3 1;
+#X connect 37 0 30 1;
 #X connect 38 0 28 1;
