@@ -1,4 +1,4 @@
-#N canvas 1920 32 1728 1057 12;
+#N canvas 541 32 1117 1057 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 310 691 bop.semisteps, f 23;
@@ -12,7 +12,7 @@
 #X obj 311 742 bop.casio~, f 23;
 #A saved wave-1 1;
 #A saved wave-2 1;
-#A saved filter 0.3;
+#A saved filter 0.201252;
 #A saved attack 0.0214286;
 #A saved decay 0.178571;
 #A saved sustain 0.628571;
@@ -51,8 +51,8 @@
 #X obj 1099 946 hip~ 80;
 #X obj 1079 845 bop.casio~, f 23;
 #A saved wave-1 1;
-#A saved wave-2 1;
-#A saved filter 0.3;
+#A saved wave-2 3;
+#A saved filter 0.216233;
 #A saved attack 0.0214286;
 #A saved decay 0.178571;
 #A saved sustain 0.628571;
