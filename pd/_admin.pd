@@ -1,5 +1,5 @@
-#N canvas 653 51 947 1033 12;
-#N canvas 1237 191 373 893 osc 0;
+#N canvas 1808 119 947 1240 12;
+#N canvas 1247 50 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
 #X obj 92 158 oscformat reboot;
@@ -79,3 +79,5 @@
 #X obj 315 922 admin.device 15;
 #X obj 465 922 admin.device 16;
 #X text 350 129 settings on batteries \; sens 20 \; floor 0.01 \;;
+#X obj 590 11 admin.device -1;
+#X text 746 10 < unassigned plant;
