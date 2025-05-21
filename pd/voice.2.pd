@@ -48,8 +48,8 @@
 #X obj 1074 714 bop.casio~;
 #A saved wave-1 0;
 #A saved wave-2 1;
-#A saved filter 0.2;
-#A saved attack 0;
+#A saved filter 1;
+#A saved attack 0.22;
 #A saved decay 0.3;
 #A saved sustain 0.678571;
 #A saved release 0.157143;
@@ -84,4 +84,3 @@
 #X connect 27 0 24 0;
 #X connect 29 0 27 0;
 #X connect 30 0 31 0;
-#X connect 31 0 29 1;
