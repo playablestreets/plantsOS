@@ -1,8 +1,8 @@
-#N canvas 1074 715 423 705 12;
+#N canvas 596 557 423 705 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty plantsOS\ 🐱\ changi 70 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 89 256;
+#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 90 256;
 #X obj 32 70 cnv 19 370 150 empty empty empty 20 12 0 12 #e3c6ff #404040 0;
 #X obj 32 244 cnv 19 370 150 empty empty empty 20 12 0 12 #c6feff #404040 0;
 #X text 37 248 VOICES;
@@ -243,7 +243,7 @@
 #X obj 17 18 bng 19 250 50 0 \$0-nextvoice \$0-nextvoice next\ voice 24 10 0 12 #fcfcfc #000000 #000000;
 #X floatatom 262 582 5 0 0 0 - - - 0;
 #X floatatom 114 575 5 0 0 0 - - - 0;
-#X obj 190 577 % 7;
+#X obj 190 577 % 6;
 #X connect 0 0 33 0;
 #X connect 0 0 35 0;
 #X connect 2 0 3 0;
@@ -300,7 +300,6 @@
 #A saved cutoff 5000;
 #A saved wet 0.857143;
 #A saved dry 1;
-#X obj 221 352 voice-test 6;
 #X connect 10 0 9 0;
 #X connect 11 0 39 0;
 #X connect 12 0 13 0;
