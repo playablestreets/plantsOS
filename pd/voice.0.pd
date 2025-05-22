@@ -34,7 +34,7 @@
 #X obj 750 165 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X floatatom 429 285 5 0 0 0 - - - 0;
 #X obj 704 598 bop.instrument~;
-#A saved instrument 0;
+#A saved instrument 1;
 #X obj 707 710 hip~ 80;
 #X obj 705 533 bop.strum, f 23;
 #A saved strum 0;
