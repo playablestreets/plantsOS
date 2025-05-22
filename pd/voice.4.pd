@@ -5,14 +5,14 @@
 #X obj 144 880 bop.casio~, f 23;
 #A saved wave-1 3;
 #A saved wave-2 6;
-#A saved filter 0.262832;
+#A saved filter 0.1;
 #A saved attack 0.2;
 #A saved decay 0.0857143;
 #A saved sustain 0;
 #A saved release 0.0642857;
 #A saved gain 0.2;
 #X msg 522 630 gain \$1;
-#X obj 515 726 loadbang;
+#X obj 523 705 loadbang;
 #X obj 151 1088 throw~ left;
 #X obj 149 943 *~ 0.7;
 #X obj 64 39 declare -path ./bop;
@@ -43,7 +43,7 @@
 #A saved release 0.0642857;
 #A saved gain 0;
 #X msg 1304 646 gain \$1;
-#X obj 1417 712 loadbang;
+#X obj 1412 662 loadbang;
 #X obj 1027 962 *~ 0.7;
 #X obj 1022 1107 throw~ right;
 #X obj 1237 309 r sensor2;
@@ -79,10 +79,12 @@
 #X obj 134 324 change;
 #X obj 531 575 babs.scale 0 1 0.2 1;
 #X obj 1011 369 change;
+#X obj 526 733 delay 1000;
+#X obj 1412 686 delay 1000;
 #X connect 0 0 4 0;
 #X connect 1 0 5 0;
 #X connect 2 0 1 1;
-#X connect 3 0 30 0;
+#X connect 3 0 62 0;
 #X connect 5 0 0 0;
 #X connect 7 0 13 0;
 #X connect 9 0 11 0;
@@ -103,7 +105,7 @@
 #X connect 23 0 28 0;
 #X connect 24 0 27 0;
 #X connect 25 0 24 1;
-#X connect 26 0 31 0;
+#X connect 26 0 63 0;
 #X connect 27 0 23 0;
 #X connect 29 0 17 0;
 #X connect 30 0 1 1;
@@ -143,3 +145,5 @@
 #X connect 59 0 35 0;
 #X connect 60 0 2 0;
 #X connect 61 0 47 0;
+#X connect 62 0 30 0;
+#X connect 63 0 31 0;
