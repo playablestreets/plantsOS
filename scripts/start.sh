@@ -5,8 +5,8 @@
 
 #SOUNDCARD="YOUR_SOUNDCARD"
 # SOUNDCARD="sndrpihifiberry"
-# SOUNDCARD="IQaudIODAC"
-SOUNDCARD="DigiAMP"
+SOUNDCARD="IQaudIODAC"
+# SOUNDCARD="DigiAMP"
 
 RND=$RANDOM
 MACADDRESS=$(cat /sys/class/net/wlan0/address)
