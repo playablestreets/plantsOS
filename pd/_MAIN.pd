@@ -2,7 +2,7 @@
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty plantsOS\ 🐱\ changi 70 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 102 256;
+#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 103 256;
 #X obj 32 70 cnv 19 370 150 empty empty empty 20 12 0 12 #e3c6ff #404040 0;
 #X obj 32 244 cnv 19 370 150 empty empty empty 20 12 0 12 #c6feff #404040 0;
 #X text 37 248 VOICES;
@@ -108,6 +108,9 @@
 #X obj 656 626 s bg-gain;
 #X obj 679 565 loadbang;
 #X msg 672 597 0.2;
+#X obj 307 561 r osc-in;
+#X obj 307 585 route id;
+#X obj 307 609 s ID;
 #X connect 0 0 1 0;
 #X connect 1 0 82 0;
 #X connect 2 0 3 0;
@@ -194,6 +197,8 @@
 #X connect 97 0 98 0;
 #X connect 99 0 100 0;
 #X connect 100 0 98 0;
+#X connect 101 0 102 0;
+#X connect 102 0 103 0;
 #X restore 273 192 pd mapping;
 #X f 16;
 #X obj 32 416 cnv 19 370 250 empty empty empty 20 12 0 12 #feffc6 #404040 0;
