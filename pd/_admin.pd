@@ -1,4 +1,4 @@
-#N canvas 795 374 964 1027 12;
+#N canvas 580 111 968 1211 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -53,7 +53,7 @@
 #X text 443 234 helper.py listening on 7770;
 #X text 443 249 PD listening on 6660;
 #X text 443 266 PD reporting on 5550;
-#N canvas 1007 339 538 465 message 1;
+#N canvas 1007 339 538 465 message 0;
 #X text 105 105 OSC messages;
 #X text 108 194 helper update \; helper updatesamples \; helper shutdown \; helper reboot \;;
 #X text 271 215 cdc 1-63 \; cdt 1-7 \; esi 0-7 \; ffi 0-3 \; sfi 0-3 \; store \;;
@@ -82,4 +82,3 @@
 #X obj 465 922 admin.device 16;
 #X obj 767 12 admin.device -1;
 #X text 624 11 unassigned plant >;
-#X floatatom -3 502 5 0 0 0 - - - 0;

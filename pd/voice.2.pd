@@ -1,4 +1,4 @@
-#N canvas 1920 32 1635 1057 12;
+#N canvas 1373 32 1635 1057 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 313 723 bop.instrument~;
@@ -48,7 +48,7 @@
 #A saved wave-1 0;
 #A saved wave-2 1;
 #A saved filter 0.1;
-#A saved attack 0;
+#A saved attack 0.15;
 #A saved decay 0.3;
 #A saved sustain 0.678571;
 #A saved release 0.157143;
@@ -68,7 +68,6 @@
 #X obj 459 537 sel 0 1;
 #X obj 459 453 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 459 481 metro 6000;
-#X obj 687 307 bop.ui;
 #X obj 955 482 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 955 510 sel 0 1;
 #X obj 955 426 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
@@ -96,7 +95,7 @@
 #X connect 17 0 22 0;
 #X connect 17 0 31 0;
 #X connect 18 0 20 0;
-#X connect 18 0 47 0;
+#X connect 18 0 46 0;
 #X connect 19 0 18 0;
 #X connect 20 0 17 1;
 #X connect 21 0 3 0;
@@ -119,17 +118,16 @@
 #X connect 39 0 37 0;
 #X connect 39 0 38 0;
 #X connect 40 0 41 0;
-#X connect 41 0 50 0;
-#X connect 41 1 49 0;
+#X connect 41 0 49 0;
+#X connect 41 1 48 0;
 #X connect 42 0 43 0;
 #X connect 43 0 40 0;
-#X connect 44 0 25 0;
-#X connect 45 0 46 0;
-#X connect 46 0 51 0;
-#X connect 46 1 52 0;
-#X connect 47 0 48 0;
-#X connect 48 0 45 0;
+#X connect 44 0 45 0;
+#X connect 45 0 50 0;
+#X connect 45 1 51 0;
+#X connect 46 0 47 0;
+#X connect 47 0 44 0;
+#X connect 48 0 2 1;
 #X connect 49 0 2 1;
-#X connect 50 0 2 1;
+#X connect 50 0 25 0;
 #X connect 51 0 25 0;
-#X connect 52 0 25 0;
