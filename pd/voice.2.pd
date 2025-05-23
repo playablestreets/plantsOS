@@ -35,7 +35,7 @@
 #X obj 334 1068 throw~ left;
 #X obj 1097 976 hip~ 80;
 #X obj 1075 649 bop.strum, f 23;
-#A saved strum 1;
+#A saved strum 0;
 #A saved chord 6;
 #A saved shuffle 1;
 #A saved root 45;
@@ -47,8 +47,8 @@
 #X obj 1074 714 bop.casio~;
 #A saved wave-1 0;
 #A saved wave-2 1;
-#A saved filter 0.48007;
-#A saved attack 0.0454256;
+#A saved filter 1;
+#A saved attack 0.23;
 #A saved decay 0.3;
 #A saved sustain 0.678571;
 #A saved release 0.157143;
@@ -62,7 +62,8 @@
 #X msg 1192 392 stop;
 #X obj 1073 778 *~ 0.4;
 #X msg 1284 497 filter loop 1 400 0.1 8000 1 7000 0.2 12000 1 6000 0.05 11000 1 7000 0.6 5000 1 10000 0.08 9000 1 8000 0.2 4000;
-#X msg 1309 651 attack loop 0 1000 0.1 1000 0.015 3000 0.15 2000 0 2500 0.03 2800 0.22 1500 0 1800 0.23 2200 0.07 2700 0.19 1600 0.015 2000;
+#X msg 1294 550 attack loop 0 1000 0.1 1000 0.015 3000 0.15 2000 0 2500 0.03 2800 0.22 1500 0 1800 0.23 2200 0.07 2700 0.19 1600 0.015 2000;
+#X obj 1223 444 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X connect 0 0 4 0;
 #X connect 1 0 23 0;
 #X connect 2 0 0 0;
@@ -91,8 +92,7 @@
 #X connect 26 0 25 0;
 #X connect 28 0 36 0;
 #X connect 29 0 30 0;
-#X connect 30 0 37 0;
-#X connect 30 0 38 0;
+#X connect 30 0 39 0;
 #X connect 31 0 32 0;
 #X connect 32 0 33 0;
 #X connect 33 0 34 0;
@@ -101,3 +101,5 @@
 #X connect 36 0 24 0;
 #X connect 37 0 25 1;
 #X connect 38 0 25 1;
+#X connect 39 0 37 0;
+#X connect 39 0 38 0;
