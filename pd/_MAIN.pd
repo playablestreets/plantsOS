@@ -1,12 +1,12 @@
-#N canvas 594 25 423 705 12;
+#N canvas 340 352 423 705 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty plantsOS\ 🐱\ changi 70 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 101 256;
+#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 102 256;
 #X obj 32 70 cnv 19 370 150 empty empty empty 20 12 0 12 #e3c6ff #404040 0;
 #X obj 32 244 cnv 19 370 150 empty empty empty 20 12 0 12 #c6feff #404040 0;
 #X text 37 248 VOICES;
-#N canvas 1138 517 1641 1062 mapping 0;
+#N canvas 427 592 1641 1062 mapping 0;
 #X msg 767 193 \$1 10;
 #X obj 767 221 line~;
 #X msg 1024 204 \$1 10;
@@ -103,6 +103,11 @@
 #X obj 475 199 change;
 #X msg 833 810 10;
 #X msg 904 828 0.02;
+#X obj 656 508 r osc-in;
+#X obj 656 532 route backing;
+#X obj 656 626 s bg-gain;
+#X obj 679 565 loadbang;
+#X msg 672 597 0.2;
 #X connect 0 0 1 0;
 #X connect 1 0 82 0;
 #X connect 2 0 3 0;
@@ -185,6 +190,10 @@
 #X connect 93 0 12 0;
 #X connect 94 0 62 0;
 #X connect 95 0 63 0;
+#X connect 96 0 97 0;
+#X connect 97 0 98 0;
+#X connect 99 0 100 0;
+#X connect 100 0 98 0;
 #X restore 273 192 pd mapping;
 #X f 16;
 #X obj 32 416 cnv 19 370 250 empty empty empty 20 12 0 12 #feffc6 #404040 0;
@@ -301,6 +310,7 @@
 #A saved wet 0.857143;
 #A saved dry 1;
 #X msg 188 165 id 0;
+#X obj 285 436 voice.backing;
 #X connect 10 0 9 0;
 #X connect 11 0 37 0;
 #X connect 12 0 13 0;
