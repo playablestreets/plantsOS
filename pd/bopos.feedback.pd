@@ -5,7 +5,7 @@
 #A saved wave-2 0;
 #A saved filter 0.2;
 #A saved attack 0.01;
-#A saved decay 0.3;
+#A saved decay 0.1;
 #A saved sustain 0;
 #A saved release 0.1;
 #A saved gain 1;
@@ -28,6 +28,8 @@
 #X obj 123 512 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 51 561 dac~;
 #X obj 45 481 *~ 0.15;
+#X obj 418 292 r click;
+#X msg 421 327 read ../../seq/click.txt \, go;
 #X connect 0 0 15 0;
 #X connect 0 1 12 0;
 #X connect 1 0 0 0;
@@ -44,3 +46,5 @@
 #X connect 13 0 11 0;
 #X connect 15 0 14 0;
 #X connect 15 0 14 1;
+#X connect 16 0 17 0;
+#X connect 17 0 1 1;
