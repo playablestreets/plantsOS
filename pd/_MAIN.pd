@@ -1,12 +1,12 @@
-#N canvas 340 352 423 705 12;
+#N canvas 340 25 423 705 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty plantsOS\ 🐱\ changi 70 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 108 256;
+#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 109 256;
 #X obj 32 70 cnv 19 370 150 empty empty empty 20 12 0 12 #e3c6ff #404040 0;
 #X obj 32 244 cnv 19 370 150 empty empty empty 20 12 0 12 #c6feff #404040 0;
 #X text 37 248 VOICES;
-#N canvas -30 457 1641 1062 mapping 1;
+#N canvas -30 457 1641 1062 mapping 0;
 #X msg 767 193 \$1 10;
 #X obj 767 221 line~;
 #X msg 1024 204 \$1 10;
