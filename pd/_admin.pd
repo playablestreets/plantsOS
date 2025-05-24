@@ -1,4 +1,4 @@
-#N canvas 1539 282 958 1209 12;
+#N canvas 451 25 958 1027 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
