@@ -1,4 +1,4 @@
-#N canvas 1537 284 968 1211 12;
+#N canvas 1539 282 958 1209 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -82,3 +82,4 @@
 #X obj 465 922 admin.device 16;
 #X obj 767 12 admin.device -1;
 #X text 624 11 unassigned plant >;
+#X obj 763 922 admin.device 111;
