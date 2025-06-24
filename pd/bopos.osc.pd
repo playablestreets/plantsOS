@@ -150,6 +150,7 @@
 #X msg 421 109 0;
 #X obj 600 840 route reboot shutdown update updatesamples checkout, f 100;
 #X obj 1242 931 oscformat checkout;
+#X obj 1236 896 symbol;
 #X connect 3 0 4 0;
 #X connect 4 0 9 0;
 #X connect 6 0 7 0;
@@ -208,5 +209,6 @@
 #X connect 74 1 42 0;
 #X connect 74 2 45 0;
 #X connect 74 3 34 0;
-#X connect 74 4 75 0;
+#X connect 74 4 76 0;
 #X connect 75 0 26 0;
+#X connect 76 0 75 0;
