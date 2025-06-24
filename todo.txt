@@ -1,9 +1,0 @@
-
-- [ ] red button to shutdown
-- [ ] green button to calibrate
-
-- [ ] test voice persist
-- [ ] strain relief on power to digiamp
-- [ ] strain relief on button connections
-- [ ] speaker wire to pheonix connectors
-- [ ] sending version (git commit miniref)
