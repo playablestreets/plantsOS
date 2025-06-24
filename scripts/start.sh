@@ -8,6 +8,7 @@
 # SOUNDCARD="IQaudIODAC"
 SOUNDCARD="DigiAMP"
 
+
 RND=$RANDOM
 MACADDRESS=$(cat /sys/class/net/wlan0/address)
 # MACADDRESS=$(cat /sys/class/net/eth0/address)
