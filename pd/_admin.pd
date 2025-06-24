@@ -1,4 +1,4 @@
-#N canvas 1885 358 964 1222 12;
+#N canvas 746 43 964 1041 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -55,11 +55,11 @@
 #X text 443 266 PD reporting on 5550;
 #N canvas 1007 339 538 465 message 0;
 #X text 105 105 OSC messages;
-#X text 108 194 helper update \; helper updatesamples \; helper shutdown \; helper reboot \;;
-#X text 271 215 cdc 1-63 \; cdt 1-7 \; esi 0-7 \; ffi 0-3 \; sfi 0-3 \; store \;;
-#X text 263 132 voice 0-5 \; backing 0-1 \;;
-#X text 109 133 aloha \; echo 0-1 \; id -99-99 \;;
+#X text 197 244 cdc 1-63 \; cdt 1-7 \; esi 0-7 \; ffi 0-3 \; sfi 0-3 \; store \;;
+#X text 197 211 voice 0-5 \; backing 0-1 \;;
+#X text 107 213 aloha \; echo 0-1 \; id -99-99 \;;
 #X text 107 266 sens 0-50 \; floor 0-1 \; debug 0-1 \; calibrate \;;
+#X text 105 130 helper update \; helper updatesamples \; helper shutdown \; helper reboot \; helper checkout <branch> \;;
 #X coords 0 -1 1 1 260 240 2 100 100;
 #X restore 179 42 pd message list;
 #X text 444 219 open device ports:;
