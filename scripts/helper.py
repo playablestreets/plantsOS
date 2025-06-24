@@ -66,15 +66,22 @@ def reboot_callback(path='', tags='', args='', source=''):
     print("REBOOTING")
     os.system("systemctl reboot")
 
+def checkout_callback(path, tags, args, source):
+    print("args " + args[0] )
+
 def exit_handler():
     print("exiting.  closing server...")
     server.close()
+
+
+
 
 server.addMsgHandler( "/config", config_callback )
 server.addMsgHandler( "/update", update_callback )
 server.addMsgHandler( "/updatesamples", updatesamples_callback )
 server.addMsgHandler( "/shutdown", shutdown_callback )
 server.addMsgHandler( "/reboot", reboot_callback )
+server.addMsgHandler( "/checkout", checkout_callback )
 atexit.register(exit_handler)
 
 #ARG 1 MAC Address
