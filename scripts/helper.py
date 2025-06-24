@@ -67,7 +67,13 @@ def reboot_callback(path='', tags='', args='', source=''):
     os.system("systemctl reboot")
 
 def checkout_callback(path, tags, args, source):
-    print("args " + args[0] )
+    # msg = OSCMessage("/checkout")
+    # client.send(msg)    
+    directory = os.path.dirname(os.path.realpath(__file__))
+    update_script = os.path.join(directory, "update.sh")
+    print("checking out: " + args[0] )
+    os.system("git checkout " + args[0])
+
 
 def exit_handler():
     print("exiting.  closing server...")
