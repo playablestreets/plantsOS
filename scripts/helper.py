@@ -66,15 +66,35 @@ def reboot_callback(path='', tags='', args='', source=''):
     print("REBOOTING")
     os.system("systemctl reboot")
 
+def checkout_callback(path, tags, args, source):
+    msg = OSCMessage("/checkout")
+    client.send(msg)    
+    branch = args[0].lstrip('/')
+    directory = os.path.dirname(os.path.realpath(__file__))
+    print("checking out: " + branch)
+    checkout_script = os.path.join(directory, "checkout.sh ") + branch
+    os.system(checkout_script)
+
+    # directory = os.path.dirname(os.path.realpath(__file__))
+    update_script = os.path.join(directory, "update.sh")
+    msg = OSCMessage("/update")
+    client.send(msg)
+    print("UPDATE!")
+    os.system(update_script)
+
 def exit_handler():
     print("exiting.  closing server...")
     server.close()
+
+
+
 
 server.addMsgHandler( "/config", config_callback )
 server.addMsgHandler( "/update", update_callback )
 server.addMsgHandler( "/updatesamples", updatesamples_callback )
 server.addMsgHandler( "/shutdown", shutdown_callback )
 server.addMsgHandler( "/reboot", reboot_callback )
+server.addMsgHandler( "/checkout", checkout_callback )
 atexit.register(exit_handler)
 
 #ARG 1 MAC Address
