@@ -67,13 +67,13 @@ def reboot_callback(path='', tags='', args='', source=''):
     os.system("systemctl reboot")
 
 def checkout_callback(path, tags, args, source):
-    # msg = OSCMessage("/checkout")
-    # client.send(msg)    
+    msg = OSCMessage("/checkout")
+    client.send(msg)    
+    branch = args[0].lstrip('/')
     directory = os.path.dirname(os.path.realpath(__file__))
     update_script = os.path.join(directory, "update.sh")
-    # print("checking out: " + args[0] )
-    update_script = os.path.join(directory, "checkout.sh ", args[0].lstrip('/'))
-    print("running: ", update_script)
+    print("checking out: " + branch)
+    update_script = os.path.join(directory, "checkout.sh ") + branch
     os.system(update_script)
 
 def exit_handler():
