@@ -1,4 +1,4 @@
-#N canvas 0 37 1470 891 12;
+#N canvas 0 43 1470 891 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 35 91 declare -path ./bop;
@@ -114,11 +114,7 @@
 #X connect 14 0 11 1;
 #X connect 15 0 7 0;
 #X connect 19 0 58 0;
-#X connect 19 0 59 0;
-#X connect 19 0 60 0;
-#X connect 20 0 28 0;
 #X connect 20 0 27 0;
-#X connect 20 0 26 0;
 #X connect 21 0 64 0;
 #X connect 22 0 66 0;
 #X connect 24 0 22 0;
@@ -139,12 +135,8 @@
 #X connect 44 0 42 0;
 #X connect 45 0 43 0;
 #X connect 46 0 61 0;
-#X connect 46 0 62 0;
-#X connect 46 0 63 0;
 #X connect 48 0 11 0;
 #X connect 49 0 55 0;
-#X connect 49 0 56 0;
-#X connect 49 0 57 0;
 #X connect 55 0 50 0;
 #X connect 56 0 50 0;
 #X connect 57 0 50 0;
