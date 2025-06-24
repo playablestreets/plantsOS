@@ -151,6 +151,7 @@
 #X obj 600 840 route reboot shutdown update updatesamples checkout, f 100;
 #X obj 1242 931 oscformat checkout;
 #X obj 1236 896 symbol;
+#X msg 709 787 helper checkout coldvoice;
 #X connect 3 0 4 0;
 #X connect 4 0 9 0;
 #X connect 6 0 7 0;
@@ -212,3 +213,4 @@
 #X connect 74 4 76 0;
 #X connect 75 0 26 0;
 #X connect 76 0 75 0;
+#X connect 77 0 54 0;
