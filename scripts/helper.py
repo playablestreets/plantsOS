@@ -72,7 +72,7 @@ def checkout_callback(path, tags, args, source):
     directory = os.path.dirname(os.path.realpath(__file__))
     update_script = os.path.join(directory, "update.sh")
     # print("checking out: " + args[0] )
-    update_script = os.path.join(directory, "checkout.sh ", args[0])
+    update_script = os.path.join(directory, "checkout.sh ", args[0].lstrip('/'))
     print("running: ", update_script)
     os.system(update_script)
 
