@@ -2,7 +2,7 @@
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty plantsOS\ 🥶\ coldvoice 70 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 338 32 nbx 4 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 134 256;
+#X obj 338 32 nbx 4 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 135 256;
 #X obj 32 70 cnv 19 370 150 empty empty empty 20 12 0 12 #e3c6ff #404040 0;
 #X obj 32 244 cnv 19 370 150 empty empty empty 20 12 0 12 #c6feff #404040 0;
 #X text 37 248 VOICES;
@@ -320,7 +320,7 @@
 #X obj 17 18 bng 19 250 50 0 \$0-nextvoice \$0-nextvoice next\ voice 24 10 0 12 #fcfcfc #000000 #000000;
 #X floatatom 262 582 5 0 0 0 - - - 0;
 #X floatatom 114 575 5 0 0 0 - - - 0;
-#X obj 190 577 % 6;
+#X obj 190 577 % 4;
 #X connect 0 0 33 0;
 #X connect 0 0 35 0;
 #X connect 2 0 3 0;
@@ -356,8 +356,8 @@
 #X connect 35 0 34 0;
 #X coords 0 -1 1 1 115 65 2 10 10;
 #X restore 266 265 pd getvoice;
-#X obj 41 268 voice.0 0, f 16;
-#X obj 41 287 voice.1 1, f 16;
+#X obj 41 268 voice.0 0;
+#X obj 41 287 voice.1 1;
 #X obj 253 137 bng 19 250 50 0 calibrate calibrate calibrate 21 10 0 12 #fcfcfc #000000 #000000;
 #X obj 253 93 nbx 4 17 0 50 0 0 sensitivity sensitivity sensitvity 55 8 0 12 #fcfcfc #000000 #000000 0 256;
 #X obj 253 110 nbx 4 17 0 1 0 0 floor empty floor 55 8 0 12 #fcfcfc #000000 #000000 0 256;
@@ -395,6 +395,8 @@
 #X connect 11 1 7 1;
 #X coords 0 -1 1 1 180 120 2 100 100;
 #X restore 45 83 pd sliders;
+#X obj 41 306 voice.2 2;
+#X obj 41 325 voice.3 3;
 #X connect 10 0 9 0;
 #X connect 11 0 31 0;
 #X connect 12 0 13 0;

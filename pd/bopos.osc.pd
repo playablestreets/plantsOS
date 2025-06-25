@@ -1,6 +1,6 @@
 #N canvas 35 43 1445 1041 12;
 #X declare -path ./bop/babs;
-#N canvas 355 433 791 252 variables 1;
+#N canvas 355 433 791 252 variables 0;
 #X obj 138 16 r ID;
 #X obj 138 45 print ID;
 #X obj 141 109 r RANDOM;
@@ -25,7 +25,7 @@
 #X connect 9 0 11 0;
 #X connect 14 0 15 0;
 #X restore 307 117 pd variables;
-#N canvas 1020 252 228 309 heartbeat 0;
+#N canvas 1343 265 308 309 heartbeat 0;
 #X obj 21 13 loadbang;
 #X msg 21 67 1;
 #X obj 21 208 s osc-out;
@@ -35,6 +35,12 @@
 #X obj 53 146 value version;
 #X msg 53 170 version \$1;
 #X obj 21 41 delay 1000;
+#X obj 176 21 r osc-in;
+#X obj 176 45 route ip;
+#X obj 174 157 s osc-out;
+#X obj 175 100 value IPADDRESS;
+#X msg 175 124 ip \$1;
+#X obj 176 74 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X connect 0 0 8 0;
 #X connect 1 0 3 0;
 #X connect 3 0 5 0;
@@ -44,6 +50,12 @@
 #X connect 6 0 7 0;
 #X connect 7 0 2 0;
 #X connect 8 0 1 0;
+#X connect 8 0 14 0;
+#X connect 9 0 10 0;
+#X connect 10 0 14 0;
+#X connect 12 0 13 0;
+#X connect 13 0 11 0;
+#X connect 14 0 12 0;
 #X restore 307 79 pd heartbeat;
 #N canvas 1157 685 200 328 aloha 0;
 #X obj 39 262 s osc-out;
