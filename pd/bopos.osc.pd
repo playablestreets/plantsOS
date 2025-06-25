@@ -1,6 +1,6 @@
 #N canvas 35 43 1445 1041 12;
 #X declare -path ./bop/babs;
-#N canvas 991 1058 501 186 variables 0;
+#N canvas 355 433 791 252 variables 1;
 #X obj 138 16 r ID;
 #X obj 138 45 print ID;
 #X obj 141 109 r RANDOM;
@@ -15,12 +15,15 @@
 #X obj 312 46 print PY;
 #X text 25 130 from start.sh;
 #X text 25 26 from helper.py;
+#X obj 507 110 r IPADDRESS;
+#X obj 507 139 print IPADDRESS;
 #X connect 0 0 1 0;
 #X connect 2 0 3 0;
 #X connect 4 0 5 0;
 #X connect 6 0 7 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
+#X connect 14 0 15 0;
 #X restore 307 117 pd variables;
 #N canvas 1020 252 228 309 heartbeat 0;
 #X obj 21 13 loadbang;
