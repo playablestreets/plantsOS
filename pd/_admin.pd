@@ -57,9 +57,9 @@
 #X text 105 105 OSC messages;
 #X text 197 244 cdc 1-63 \; cdt 1-7 \; esi 0-7 \; ffi 0-3 \; sfi 0-3 \; store \;;
 #X text 197 211 voice 0-5 \; backing 0-1 \;;
-#X text 107 213 aloha \; echo 0-1 \; id -99-99 \;;
-#X text 107 266 sens 0-50 \; floor 0-1 \; debug 0-1 \; calibrate \;;
+#X text 107 273 sens 0-50 \; floor 0-1 \; debug 0-1 \; calibrate \;;
 #X text 105 130 helper update \; helper updatesamples \; helper shutdown \; helper reboot \; helper checkout <branch> \;;
+#X text 107 209 aloha \; ip \; echo 0-1 \; id -99-99 \;;
 #X coords 0 -1 1 1 260 240 2 100 100;
 #X restore 179 42 pd message list;
 #X text 444 219 open device ports:;
