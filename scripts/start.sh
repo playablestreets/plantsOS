@@ -15,6 +15,7 @@ MACADDRESS=$(cat /sys/class/net/wlan0/address)
 now=$(date --iso-8601=seconds)
 STARTDATE=$(date -d "$now" +%Y%m%d)
 STARTTIME=$(date -d "$now" +%H%M%S)
+IPADDRESS=$(hostname -I)
 
 echo "------------------- Waiting..."
 
@@ -23,6 +24,7 @@ sleep 15
 echo "------------------- Starting bopOS..."
 echo "SOUNDCARD: $SOUNDCARD"
 echo "MAC ADDRESS: $MACADDRESS"
+echo "IP ADDRESS: $IPADDRESS"
 echo "RANDOM: $RND"
 echo "STARTDATE: $STARTDATE"
 echo "STARTTIME: $STARTTIME"
@@ -38,7 +40,7 @@ sleep 10
 
 echo "------------------- Starting Pure Data..."
 # PUREDATA
-pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RND; STARTTIME $STARTTIME; STARTDATE $STARTDATE; " &
+pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RND; IPADDRESS $IPADDRESS; STARTTIME $STARTTIME; STARTDATE $STARTDATE; " &
 
 # leave enough time for PD to start before starting the helper  
 # the helper will parse and forward variables from config.csv
