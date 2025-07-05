@@ -78,7 +78,7 @@
 #A saved root 50;
 #A saved octaves 4;
 #A saved velocity 0.888;
-#A saved duration 0.942857;
+#A saved duration 0.521429;
 #X msg 334 623 strum \$1;
 #X obj 220 696 bop.strum;
 #A saved strum 0;
@@ -91,9 +91,9 @@
 #X floatatom 297 275 5 0 0 0 - - - 0;
 #X obj 290 306 moses 0.5;
 #X obj 334 726 bop.casio~;
-#A saved wave-1 2;
-#A saved wave-2 3;
-#A saved filter 0.13574;
+#A saved wave-1 0;
+#A saved wave-2 0;
+#A saved filter 0.1;
 #A saved attack 0.1;
 #A saved decay 0.3;
 #A saved sustain 0.7;
@@ -123,7 +123,7 @@
 #X obj 1116 669 bop.casio~;
 #A saved wave-1 0;
 #A saved wave-2 0;
-#A saved filter 0.13574;
+#A saved filter 0.5;
 #A saved attack 0.1;
 #A saved decay 0.3;
 #A saved sustain 0.7;

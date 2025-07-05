@@ -1,4 +1,4 @@
-#N canvas 0 1 1920 1052 12;
+#N canvas 536 32 1182 1052 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 35 91 declare -path ./bop;
@@ -11,8 +11,8 @@
 #X obj 452 776 cnv 19 400 200 empty empty empty 20 12 0 12 #feffc6 #404040 0;
 #X obj 254 802 bop.sampler~;
 #A saved pack ../../../samples/coldvoice_samplepack;
-#A saved folder 4;
-#A saved mode 0;
+#A saved folder 1;
+#A saved mode 1;
 #A saved sample 0;
 #A saved tune 1;
 #A saved root 40;
@@ -42,14 +42,14 @@
 #X obj 392 742 bop.casio~;
 #A saved wave-1 0;
 #A saved wave-2 0;
-#A saved filter 0.1;
+#A saved filter 0.30691;
 #A saved attack 0.15;
 #A saved decay 0.507143;
 #A saved sustain 0.7;
 #A saved release 0.507143;
 #A saved gain 1;
 #X obj 386 693 bop.strum;
-#A saved strum 0.00621116;
+#A saved strum 0.0186335;
 #A saved chord 2;
 #A saved shuffle 0;
 #A saved root 36;
@@ -90,7 +90,7 @@
 #X obj 1154 556 bop.casio~;
 #A saved wave-1 0;
 #A saved wave-2 0;
-#A saved filter 0.1;
+#A saved filter 0.23794;
 #A saved attack 0.15;
 #A saved decay 0.507143;
 #A saved sustain 0.7;
