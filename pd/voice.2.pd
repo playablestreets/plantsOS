@@ -59,8 +59,8 @@
 #A saved loop-start 0;
 #A saved loop-length 1;
 #A saved attack 0.185714;
-#A saved release 0.7;
-#A saved gain 0.9;
+#A saved release 0.528571;
+#A saved gain 0.521429;
 #X msg 1365 674 65 127;
 #X msg 1346 621 folder 0;
 #X text 1413 620 numbers folder;
@@ -72,11 +72,11 @@
 #X obj 1283 146 babs.scale 0 6 0 1;
 #X msg 219 621 strum \$1;
 #X obj 335 693 bop.strum;
-#A saved strum 0.0310559;
-#A saved chord 6;
+#A saved strum 0.0434783;
+#A saved chord 2;
 #A saved shuffle 1;
-#A saved root 50;
-#A saved octaves 4;
+#A saved root 48;
+#A saved octaves 3;
 #A saved velocity 0.888;
 #A saved duration 0.521429;
 #X msg 334 623 strum \$1;
@@ -103,7 +103,7 @@
 #X obj 1077 54 r sensor2;
 #X msg 1001 564 strum \$1;
 #X obj 1117 636 bop.strum;
-#A saved strum 0.0186335;
+#A saved strum 0.142857;
 #A saved chord 6;
 #A saved shuffle 1;
 #A saved root 50;
@@ -123,7 +123,7 @@
 #X obj 1116 669 bop.casio~;
 #A saved wave-1 0;
 #A saved wave-2 0;
-#A saved filter 0.5;
+#A saved filter 0.1;
 #A saved attack 0.1;
 #A saved decay 0.3;
 #A saved sustain 0.7;
