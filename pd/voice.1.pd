@@ -1,4 +1,4 @@
-#N canvas 918 32 760 1057 12;
+#N canvas 706 32 986 1057 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 35 91 declare -path ./bop;
@@ -21,7 +21,7 @@
 #X obj 952 880 hip~;
 #X msg 839 559 strum \$1;
 #X obj 1003 468 bop.strum;
-#A saved strum 0.571429;
+#A saved strum 0.00621116;
 #A saved chord 0;
 #A saved shuffle 1;
 #A saved root 46;
@@ -44,7 +44,7 @@
 #X obj 452 776 cnv 19 400 200 empty empty empty 20 12 0 12 #feffc6 #404040 0;
 #X obj 254 802 bop.sampler~;
 #A saved pack bop_samplepack;
-#A saved folder 0;
+#A saved folder 1;
 #A saved mode 0;
 #A saved sample 0;
 #A saved tune 0;
@@ -65,9 +65,9 @@
 #X msg 516 927 64 127;
 #X obj 255 730 bop.strum;
 #A saved strum 0;
-#A saved chord 5;
+#A saved chord 0;
 #A saved shuffle 1;
-#A saved root 46;
+#A saved root 24;
 #A saved octaves 3;
 #A saved velocity 0.888;
 #A saved duration 0.444;
@@ -75,15 +75,15 @@
 #X obj 392 742 bop.casio~;
 #A saved wave-1 0;
 #A saved wave-2 0;
-#A saved filter 0.7;
+#A saved filter 0.1;
 #A saved attack 0.1;
 #A saved decay 0.3;
 #A saved sustain 0.7;
 #A saved release 0.2;
 #A saved gain 1;
 #X obj 386 693 bop.strum;
-#A saved strum 0;
-#A saved chord 5;
+#A saved strum 0.0434783;
+#A saved chord 0;
 #A saved shuffle 1;
 #A saved root 46;
 #A saved octaves 3;
@@ -110,6 +110,8 @@
 #X msg 427 490 chord 2 \, root 24;
 #X msg 471 523 chord 6 \, root 26;
 #X msg 595 484 filter loop 0.7 4000 0.1 5000;
+#X obj 793 301 babs.scale 0 0.5 0 1;
+#X obj 940 355 babs.scale 0.5 1 0 1;
 #X connect 2 0 4 0;
 #X connect 4 0 3 0;
 #X connect 5 0 2 0;
@@ -127,8 +129,8 @@
 #X connect 18 0 22 0;
 #X connect 18 1 22 1;
 #X connect 19 0 18 0;
-#X connect 20 0 17 0;
-#X connect 20 1 19 0;
+#X connect 20 0 59 0;
+#X connect 20 1 60 0;
 #X connect 21 0 13 0;
 #X connect 21 1 13 1;
 #X connect 22 0 15 0;
@@ -166,3 +168,5 @@
 #X connect 54 0 58 0;
 #X connect 55 0 50 0;
 #X connect 58 0 37 1;
+#X connect 59 0 17 0;
+#X connect 60 0 19 0;
