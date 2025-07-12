@@ -1,4 +1,4 @@
-#N canvas 765 37 990 1052 12;
+#N canvas 738 37 990 1052 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 35 91 declare -path ./bop;
@@ -112,10 +112,10 @@
 #X msg 412 845 64 127;
 #X msg 140 690 strum \$1;
 #X obj 256 762 bop.strum;
-#A saved strum 0.217391;
-#A saved chord 2;
+#A saved strum 0.118012;
+#A saved chord 6;
 #A saved shuffle 1;
-#A saved root 48;
+#A saved root 50;
 #A saved octaves 3;
 #A saved velocity 0.888;
 #A saved duration 0.521429;
@@ -133,7 +133,7 @@
 #X obj 255 795 bop.casio~;
 #A saved wave-1 6;
 #A saved wave-2 0;
-#A saved filter 0.357991;
+#A saved filter 0.210446;
 #A saved attack 0.1;
 #A saved decay 0.3;
 #A saved sustain 0.7;
@@ -211,6 +211,7 @@
 #X connect 52 0 51 0;
 #X connect 54 0 58 0;
 #X connect 54 0 73 0;
+#X connect 54 0 86 0;
 #X connect 55 0 57 0;
 #X connect 56 0 55 0;
 #X connect 57 0 54 1;
@@ -231,7 +232,6 @@
 #X connect 74 1 78 0;
 #X connect 75 0 53 0;
 #X connect 76 0 54 0;
-#X connect 76 0 86 0;
 #X connect 77 0 69 0;
 #X connect 78 0 71 0;
 #X connect 79 0 80 0;
