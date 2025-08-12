@@ -46,5 +46,7 @@ sleep 10
 echo "------------------- Starting helper.py..."
 # PYTHON
 sudo /home/pi/venv/bin/python /home/pi/plantsOS/scripts/helper.py $MACADDRESS &
+sudo /home/pi/venv/vin/python /home/pi/plantsOS/scripts/sensors.py &
+
 
 exit
