@@ -2,7 +2,7 @@
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty plantsOS\ 🪁\ Kite\ Choir 70 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 6 256;
+#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 7 256;
 #X obj 431 116 declare -path ./bop, f 24;
 #X obj 116 875 dac~, f 12;
 #X msg 531 70 \; pd dsp 1;
@@ -51,8 +51,6 @@
 #X obj 107 844 *~ 0.5;
 #X obj 180 511 r osc-in;
 #X obj 180 535 route casio;
-#X obj 173 722 s osc-out;
-#X obj 250 723 print;
 #X obj 170 622 r osc-in;
 #X obj 170 646 route delay;
 #X obj 85 507 - 12;
@@ -72,15 +70,13 @@
 #X connect 20 0 16 0;
 #X connect 21 0 27 0;
 #X connect 22 0 24 0;
-#X connect 23 0 40 0;
+#X connect 23 0 38 0;
 #X connect 24 0 23 1;
 #X connect 25 0 26 0;
 #X connect 25 0 27 0;
 #X connect 26 0 14 0;
 #X connect 27 0 22 0;
 #X connect 28 0 9 0;
-#X connect 28 1 36 0;
-#X connect 28 1 37 0;
 #X connect 29 0 25 0;
 #X connect 30 0 31 0;
 #X connect 31 0 32 1;
@@ -89,6 +85,6 @@
 #X connect 33 0 3 0;
 #X connect 34 0 35 0;
 #X connect 35 0 12 1;
-#X connect 38 0 39 0;
-#X connect 39 0 28 1;
-#X connect 40 0 19 0;
+#X connect 36 0 37 0;
+#X connect 37 0 28 1;
+#X connect 38 0 19 0;
