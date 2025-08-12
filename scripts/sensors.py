@@ -9,9 +9,12 @@ motion = PiicoDev_LIS3DH()
 
 # Define a cleanup function
 def cleanup():
-	"""Closes all I2C connections when the script exits."""
-	PiicoDev.close_all_i2c()
-	print("I2C connections closed.")
+    """Closes all I2C connections when the script exits, handling potential errors."""
+    try:
+        PiicoDev.close_all_i2c()
+        print("I2C connections closed.")
+    except Exception as e:
+        print(f"Failed to close I2C connections: {e}")
 
 # Register the cleanup function to be called on exit
 atexit.register(cleanup)
@@ -19,7 +22,9 @@ atexit.register(cleanup)
 # Set up the OSC client
 client = OSCClient()
 # client.connect(("localhost", 1110)) # Connect to the OSC receiver
-client.connect(("255.255.255.255", 1110)) # Connect to the OSC receiver
+
+client.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1) # Enable broadcasting
+client.connect(("255.255.255.255", 1110)) # Connect to the OSC receiver for broadcasting
 
 
 
