@@ -26,12 +26,12 @@ while True:
     client.send(msg_tilt)
 
     # Get data from the CAP1203 Touch Sensor
-    status = touch_sensor.read() # Read the touch status of the three pads (returns a list of booleans)
+	status = touch_sensor.read() # Read the touch status of the three pads (returns a list of booleans)
 
-    msg_touch = OSCMessage("/touch");
-    msg_touch.append(float(status[0]), 'f') # Pad 1
-    msg_touch.append(float(status[1]), 'f') # Pad 2
-    msg_touch.append(float(status[2]), 'f') # Pad 3
+	msg_touch = OSCMessage("/touch");
+	msg_touch.append(float(status['touch_1']), 'f') # Pad 1
+	msg_touch.append(float(status['touch_2']), 'f') # Pad 2
+	msg_touch.append(float(status['touch_3']), 'f') # Pad 3
 
     client.send(msg_touch)
 
