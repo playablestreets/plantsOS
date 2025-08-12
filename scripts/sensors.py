@@ -2,60 +2,29 @@ from time import sleep
 from pyOSC3 import OSCClient, OSCMessage
 from PiicoDev_LIS3DH import PiicoDev_LIS3DH
 from PiicoDev_Unified import sleep_ms # cross-platform compatible sleep function
-# from piicodev.board import PiicoDev
-import atexit
-import socket
 
 motion = PiicoDev_LIS3DH()
 
 # Set up the OSC client
 client = OSCClient()
-client.connect( ('127.0.0.1', 2220) ) # Connect to the OSC receiver
-
+client.connect( ('127.0.0.1', 8880) ) # Connect to the OSC receiver
 
 
 while True:
-	try:
-		print("Sending LIS3DH data to localhost:2220. Press Ctrl+C to stop.")
-		while True:
-			# Read acceleration data
-			# x = accel.acceleration("x")
-			# y = accel.acceleration("y")
-			# z = accel.acceleration("z")
-			x, y, z = motion.angle # Tilt could be measured with respect to three different axes
-			
-			msg_tilt = OSCMessage("/tilt");
-			msg_tilt.append(x,'f')
-			msg_tilt.append(y,'f')
-			msg_tilt.append(z,'f')
 
-			client.send(msg_tilt)
+	print("Sending LIS3DH data to localhost:8880. Press Ctrl+C to stop.")
+	x, y, z = motion.angle # Tilt could be measured with respect to three different axes
+	
+	msg_tilt = OSCMessage("/tilt");
+	msg_tilt.append(x,'f')
+	msg_tilt.append(y,'f')
+	msg_tilt.append(z,'f')
 
-			# Create OSC messages
-			# msg_x = OSCMessage("/accel/x", x)
-			# msg_y = OSCMessage("/accel/y", y)
-			# msg_z = OSCMessage("/accel/z", z)
-
-			# Send the messages
-			# client.send(msg_x)
-			# client.send(msg_y)
-			# client.send(msg_z)
-
-			# print("Angle: {:.0f}°".format(y)) # Print the angle of rotation around the y-axis
-			
-
-			# Print data
-			print(f"X: {x: .2f}, Y: {y: .2f}, Z: {z: .2f}")
-			
-			sleep(0.1) # Wait 100 milliseconds
+	client.send(msg_tilt)
 
 
-
-	except KeyboardInterrupt:
-		print("Script terminated by user.")
-		
-	except Exception as e:
-		print(f"An error occurred: {e}")
-
-
+	# Print data
+	print(f"X: {x: .2f}, Y: {y: .2f}, Z: {z: .2f}")
+	
+	sleep(0.2) # Wait 200 milliseconds
 
