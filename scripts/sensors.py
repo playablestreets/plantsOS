@@ -28,6 +28,8 @@ while True:
 	# Get data from the CAP1203 Touch Sensor
 	status = touch_sensor.read() # Read the touch status of the three pads (returns a list of booleans)
 
+	print(status)
+
 	msg_touch = OSCMessage("/touch");
 	msg_touch.append(float(status[0]), 'f') # Pad 1
 	msg_touch.append(float(status[1]), 'f') # Pad 2
