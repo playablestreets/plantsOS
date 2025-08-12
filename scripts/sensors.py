@@ -22,9 +22,8 @@ while True:
 
 	client.send(msg_tilt)
 
-
 	# Print data
-	print(f"X: {x: .2f}, Y: {y: .2f}, Z: {z: .2f}")
+	# print(f"X: {x: .2f}, Y: {y: .2f}, Z: {z: .2f}")
 	
-	sleep(0.2) # Wait 200 milliseconds
+	sleep(0.1) # Wait 200 milliseconds
 
