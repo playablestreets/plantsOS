@@ -58,12 +58,11 @@ while True:
 
 
 
-except KeyboardInterrupt:
-	print("Script terminated by user.")
-	
-except Exception as e:
-	print(f"An error occurred: {e}")
-
+	except KeyboardInterrupt:
+		print("Script terminated by user.")
+		
+	except Exception as e:
+		print(f"An error occurred: {e}")
 
 # from piicodev.lis3dh import PiicodevLIS3DH
 # from piicodev.board import PiicoDev
