@@ -31,9 +31,9 @@ while True:
 	# print(status)
 
 	msg_touch = OSCMessage("/touch");
-	msg_touch.append(float(status[0]), 'f') # Pad 1
-	msg_touch.append(float(status[1]), 'f') # Pad 2
-	msg_touch.append(float(status[2]), 'f') # Pad 3
+	msg_touch.append(float(status[1]), 'f') # Pad 1
+	msg_touch.append(float(status[2]), 'f') # Pad 2
+	msg_touch.append(float(status[3]), 'f') # Pad 3
 
 	client.send(msg_touch)
 
