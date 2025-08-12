@@ -28,7 +28,7 @@ while True:
 			msg_tilt.append(y,'f')
 			msg_tilt.append(z,'f')
 
-			client.sent(msg_tilt)
+			client.send(msg_tilt)
 
 			# Create OSC messages
 			# msg_x = OSCMessage("/accel/x", x)
