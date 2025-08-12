@@ -146,7 +146,8 @@
 #X text 897 52 from helper.py;
 #X obj 972 353 oscparse;
 #X obj 972 377 list trim;
-#X obj 972 329 netreceive -u -b 2220;
+#X obj 972 329 netreceive -u -b 8880;
+#X obj 972 401 print sensors;
 #X connect 2 0 3 0;
 #X connect 3 0 8 0;
 #X connect 5 0 6 0;
@@ -215,4 +216,5 @@
 #X connect 85 0 87 0;
 #X connect 86 0 88 0;
 #X connect 91 0 92 0;
+#X connect 92 0 94 0;
 #X connect 93 0 91 0;
