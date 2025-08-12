@@ -10,12 +10,13 @@ motion = PiicoDev_LIS3DH()
 
 # Set up the OSC client
 client = OSCClient()
-client.connect(("localhost", 1110)) # Connect to the OSC receiver
+client.connect( ('127.0.0.1', 2220) ) # Connect to the OSC receiver
+
 
 
 while True:
 	try:
-		print("Sending LIS3DH data to localhost:1110. Press Ctrl+C to stop.")
+		print("Sending LIS3DH data to localhost:2220. Press Ctrl+C to stop.")
 		while True:
 			# Read acceleration data
 			# x = accel.acceleration("x")
