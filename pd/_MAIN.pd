@@ -2,7 +2,7 @@
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty plantsOS\ 🪁\ Kite\ Choir 70 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 5 256;
+#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 6 256;
 #X obj 431 116 declare -path ./bop, f 24;
 #X obj 116 875 dac~, f 12;
 #X msg 531 70 \; pd dsp 1;
@@ -28,7 +28,7 @@
 #X floatatom 97 281 5 0 0 0 - - - 0;
 #X obj 86 435 babs.nth;
 #X obj 109 334 t b i;
-#X msg 86 519 \$1 127;
+#X msg 93 537 \$1 127;
 #X obj 97 257 % 4;
 #X obj 206 312 loadbang 1;
 #X obj 216 372 tgl 19 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
@@ -55,6 +55,7 @@
 #X obj 250 723 print;
 #X obj 170 622 r osc-in;
 #X obj 170 646 route delay;
+#X obj 85 507 - 12;
 #X connect 5 0 4 0;
 #X connect 9 0 33 0;
 #X connect 10 0 32 0;
@@ -71,7 +72,7 @@
 #X connect 20 0 16 0;
 #X connect 21 0 27 0;
 #X connect 22 0 24 0;
-#X connect 23 0 19 0;
+#X connect 23 0 40 0;
 #X connect 24 0 23 1;
 #X connect 25 0 26 0;
 #X connect 25 0 27 0;
@@ -90,3 +91,4 @@
 #X connect 35 0 12 1;
 #X connect 38 0 39 0;
 #X connect 39 0 28 1;
+#X connect 40 0 19 0;

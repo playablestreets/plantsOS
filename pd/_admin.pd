@@ -1,4 +1,4 @@
-#N canvas 67 123 964 1041 12;
+#N canvas 48 150 965 1084 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -57,7 +57,7 @@
 #X text 105 105 OSC messages;
 #X text 109 133 aloha \; echo 0-1 \; id -99-99 \;;
 #X text 108 183 helper update \; helper updatesamples \; helper shutdown \; helper reboot \; helper checkout <branch> \;;
-#X coords 0 -1 1 1 260 240 2 100 100;
+#X coords 0 -1 1 1 230 240 2 100 100;
 #X restore 179 42 pd message list;
 #X text 444 219 open device ports:;
 #X obj 15 12 admin.device 0;
