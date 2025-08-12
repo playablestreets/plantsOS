@@ -11,15 +11,15 @@ motion = PiicoDev_LIS3DH()
 
 # Set up the OSC client with broadcasting enabled
 try:
-    # Create a UDP socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    # # Create a UDP socket
+    # sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     
-    # Enable broadcasting on the socket
-    sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    # # Enable broadcasting on the socket
+    # sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
     # Initialize OSCClient with the configured socket
-    client = OSCClient(sock=sock)
-    client.connect(("255.255.255.255", 1110))
+    client = OSCClient()
+    client.connect("255.255.255.255", 1110)
     print("Broadcasting LIS3DH data to all devices on port 1110. Press Ctrl+C to stop.")
 
 except Exception as e:
@@ -32,7 +32,7 @@ except Exception as e:
 while True:
 	try:
 		# print("Sending LIS3DH data to localhost:1110. Press Ctrl+C to stop.")
-		print("Broadcasting LIS3DH data to all devices on port 1110. Press Ctrl+C to stop.")
+		# print("Broadcasting LIS3DH data to all devices on port 1110. Press Ctrl+C to stop.")
 		while True:
 			# Read acceleration data
 			# x = accel.acceleration("x")
