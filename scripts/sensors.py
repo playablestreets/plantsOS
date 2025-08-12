@@ -2,7 +2,9 @@ from time import sleep
 from pyOSC3 import OSCClient, OSCMessage
 from PiicoDev_LIS3DH import PiicoDev_LIS3DH
 from PiicoDev_Unified import sleep_ms # cross-platform compatible sleep function
+from piicodev.board import PiicoDev
 import atexit
+import socket
 
 motion = PiicoDev_LIS3DH()
 
