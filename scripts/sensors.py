@@ -23,7 +23,10 @@ while True:
 			# z = accel.acceleration("z")
 			x, y, z = motion.angle # Tilt could be measured with respect to three different axes
 			
-			msg_tilt = OSCMessage("/tilt", x, y, z);
+			msg_tilt = OSCMessage("/tilt");
+			msg_tilt.append(x,'f')
+			msg_tilt.append(y,'f')
+			msg_tilt.append(z,'f')
 
 			client.sent(msg_tilt)
 
