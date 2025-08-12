@@ -2,7 +2,7 @@ from time import sleep
 from pyOSC3 import OSCClient, OSCMessage
 from PiicoDev_LIS3DH import PiicoDev_LIS3DH
 from PiicoDev_Unified import sleep_ms # cross-platform compatible sleep function
-from piicodev.board import PiicoDev
+# from piicodev.board import PiicoDev
 import atexit
 import socket
 
@@ -10,16 +10,16 @@ motion = PiicoDev_LIS3DH()
 
 
 # Define a cleanup function
-def cleanup():
-    """Closes all I2C connections when the script exits, handling potential errors."""
-    try:
-        PiicoDev.close_all_i2c()
-        print("I2C connections closed.")
-    except Exception as e:
-        print(f"Failed to close I2C connections: {e}")
+# def cleanup():
+#     """Closes all I2C connections when the script exits, handling potential errors."""
+#     try:
+#         PiicoDev.close_all_i2c()
+#         print("I2C connections closed.")
+#     except Exception as e:
+#         print(f"Failed to close I2C connections: {e}")
 
 # Register the cleanup function to be called on exit
-atexit.register(cleanup)
+# atexit.register(cleanup)
 
 # Set up the OSC client
 client = OSCClient()
