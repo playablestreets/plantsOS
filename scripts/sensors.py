@@ -15,17 +15,17 @@ client.connect( ('127.0.0.1', 8880) ) # Connect to the OSC receiver
 print("Sending LIS3DH and CAP1203 data to localhost:8880. Press Ctrl+C to stop.")
 
 while True:
-    # Get data from the LIS3DH Gyro
-    x, y, z = motion.angle # Tilt could be measured with respect to three different axes
-    
-    msg_tilt = OSCMessage("/tilt");
-    msg_tilt.append(x,'f')
-    msg_tilt.append(y,'f')
-    msg_tilt.append(z,'f')
+	# Get data from the LIS3DH Gyro
+	x, y, z = motion.angle # Tilt could be measured with respect to three different axes
+	
+	msg_tilt = OSCMessage("/tilt");
+	msg_tilt.append(x,'f')
+	msg_tilt.append(y,'f')
+	msg_tilt.append(z,'f')
 
-    client.send(msg_tilt)
+	client.send(msg_tilt)
 
-    # Get data from the CAP1203 Touch Sensor
+	# Get data from the CAP1203 Touch Sensor
 	status = touch_sensor.read() # Read the touch status of the three pads (returns a list of booleans)
 
 	msg_touch = OSCMessage("/touch");
@@ -33,9 +33,9 @@ while True:
 	msg_touch.append(float(status['touch_2']), 'f') # Pad 2
 	msg_touch.append(float(status['touch_3']), 'f') # Pad 3
 
-    client.send(msg_touch)
+	client.send(msg_touch)
 
-    # Print data
-    # print(f"X: {x: .2f}, Y: {y: .2f}, Z: {z: .2f} | Touch: {status}")
-    
-    sleep(0.1) # Wait 100 milliseconds
+	# Print data
+	# print(f"X: {x: .2f}, Y: {y: .2f}, Z: {z: .2f} | Touch: {status}")
+	
+	sleep(0.1) # Wait 100 milliseconds
