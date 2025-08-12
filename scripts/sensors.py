@@ -6,17 +6,15 @@ from PiicoDev_Unified import sleep_ms # cross-platform compatible sleep function
 
 # Initialize the two PiicoDev boards
 motion = PiicoDev_LIS3DH()
-touch_sensor = PiicoDev_CAP1203()
+touch_sensor = PiicoDev_CAP1203(touchmode='single', sensitivity=6)
 
 # Set up the OSC client
 client = OSCClient()
 client.connect( ('127.0.0.1', 8880) ) # Connect to the OSC receiver
 
+print("Sending LIS3DH and CAP1203 data to localhost:8880. Press Ctrl+C to stop.")
 
 while True:
-
-    print("Sending LIS3DH and CAP1203 data to localhost:8880. Press Ctrl+C to stop.")
-
     # Get data from the LIS3DH Gyro
     x, y, z = motion.angle # Tilt could be measured with respect to three different axes
     
@@ -31,9 +29,9 @@ while True:
     status = touch_sensor.read() # Read the touch status of the three pads (returns a list of booleans)
 
     msg_touch = OSCMessage("/touch");
-    msg_touch.append(status[0], 'f') # Pad 1
-    msg_touch.append(status[1], 'f') # Pad 2
-    msg_touch.append(status[2], 'f') # Pad 3
+    msg_touch.append(float(status[0]), 'f') # Pad 1
+    msg_touch.append(float(status[1]), 'f') # Pad 2
+    msg_touch.append(float(status[2]), 'f') # Pad 3
 
     client.send(msg_touch)
 
