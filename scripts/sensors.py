@@ -8,8 +8,9 @@ import socket
 
 motion = PiicoDev_LIS3DH()
 
+# Set up the OSC client
 client = OSCClient()
-client.connect("255.255.255.255", 1110)
+client.connect(("localhost", 1110)) # Connect to the OSC receiver
 
 
 while True:
