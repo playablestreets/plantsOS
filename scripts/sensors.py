@@ -7,7 +7,7 @@ from PiicoDev_Unified import sleep_ms
 # Initialize the two PiicoDev boards
 motion = PiicoDev_LIS3DH()
 # touch_sensor = PiicoDev_CAP1203(touchmode='single', sensitivity=6)
-touch_sensor = PiicoDev_CAP1203(sensitivity=10)
+touch_sensor = PiicoDev_CAP1203(sensitivity=0)
 
 # Set up the OSC client
 client = OSCClient()
