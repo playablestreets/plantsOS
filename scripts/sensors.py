@@ -7,7 +7,7 @@ from PiicoDev_Unified import sleep_ms
 # Initialize the two PiicoDev boards
 motion = PiicoDev_LIS3DH()
 # touch_sensor = PiicoDev_CAP1203(touchmode='single', sensitivity=6)
-touch_sensor = PiicoDev_CAP1203(sensitivity=0)
+touch_sensor = PiicoDev_CAP1203(sensitivity=1)
 
 # Set up the OSC client
 client = OSCClient()
@@ -38,14 +38,14 @@ while True:
     status = touch_sensor.read()
     
     # Check if any touch status has changed
-    # if status[1] != prev_status[0] or status[2] != prev_status[1] or status[3] != prev_status[2]:
-    msg_touch = OSCMessage("/touch")
-    msg_touch.append(float(status[1]), 'f')
-    msg_touch.append(float(status[2]), 'f')
-    msg_touch.append(float(status[3]), 'f')
-    client.send(msg_touch)
+    if status[1] != prev_status[0] or status[2] != prev_status[1] or status[3] != prev_status[2]:
+        msg_touch = OSCMessage("/touch")
+        msg_touch.append(float(status[1]), 'f')
+        msg_touch.append(float(status[2]), 'f')
+        msg_touch.append(float(status[3]), 'f')
+        client.send(msg_touch)
 
         # Update previous values
-        # prev_status = [status[1], status[2], status[3]]
+        prev_status = [status[1], status[2], status[3]]
     
     sleep(0.02)
