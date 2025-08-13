@@ -149,6 +149,7 @@
 #X obj 738 497 s osc-out;
 #X obj 738 412 list prepend from-helper;
 #X text 960 258 receive OSC from sensors.py (listen on 8880);
+#X obj 1071 449 print sense;
 #X connect 2 0 3 0;
 #X connect 3 0 8 0;
 #X connect 5 0 6 0;
@@ -217,5 +218,6 @@
 #X connect 84 0 86 0;
 #X connect 89 0 90 0;
 #X connect 90 0 92 0;
+#X connect 90 0 96 0;
 #X connect 91 0 89 0;
 #X connect 94 0 17 0;
