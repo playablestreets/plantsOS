@@ -178,8 +178,6 @@
 #X obj 237 814 catch~ right;
 #X obj 103 720 throw~ left;
 #X obj 346 712 throw~ right;
-#X obj 1003 497 bop.ui;
-#X obj 1184 569 bop.ui;
 #X connect 5 0 4 0;
 #X connect 9 0 40 0;
 #X connect 10 0 41 0;
@@ -234,5 +232,3 @@
 #X connect 54 0 50 1;
 #X connect 58 0 9 0;
 #X connect 59 0 10 0;
-#X connect 62 0 50 1;
-#X connect 63 0 49 1;
