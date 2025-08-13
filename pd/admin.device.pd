@@ -6,7 +6,7 @@
 #X obj 193 10 r osc-from-devices;
 #X obj 193 143 s \$0-osc-in;
 #X obj 199 189 r \$0-osc-in;
-#X obj 19 210 tgl 19 1 \$0-print empty print 22 9 0 12 #fcfcfc #000000 #000000 1 1;
+#X obj 19 210 tgl 19 1 \$0-print empty print 22 9 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 359 396 list prepend;
 #X obj 439 364 r \$0-print;
 #X obj 359 474 print device-\$1;
@@ -60,6 +60,7 @@
 #X obj 242 86 r \$0-device;
 #X obj 582 207 r \$0-echo;
 #X msg 582 231 echo \$1;
+#X obj 327 505 s echo;
 #X connect 4 0 27 0;
 #X connect 6 0 40 0;
 #X connect 8 0 30 0;
@@ -77,6 +78,7 @@
 #X connect 27 0 28 0;
 #X connect 28 0 5 0;
 #X connect 30 0 10 0;
+#X connect 30 0 61 0;
 #X connect 31 0 8 0;
 #X connect 31 1 12 0;
 #X connect 33 0 8 0;
