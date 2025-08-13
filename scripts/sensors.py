@@ -18,7 +18,7 @@ while True:
 	# Get data from the LIS3DH Gyro
 	x, y, z = motion.angle # Tilt could be measured with respect to three different axes
 	
-	msg_tilt = OSCMessage("/tilt");
+	msg_tilt = OSCMessage("/sense/tilt");
 	msg_tilt.append(x,'f')
 	msg_tilt.append(y,'f')
 	msg_tilt.append(z,'f')
@@ -30,7 +30,7 @@ while True:
 
 	# print(status)
 
-	msg_touch = OSCMessage("/touch");
+	msg_touch = OSCMessage("/sense/touch");
 	msg_touch.append(float(status[1]), 'f') # Pad 1
 	msg_touch.append(float(status[2]), 'f') # Pad 2
 	msg_touch.append(float(status[3]), 'f') # Pad 3
