@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source the configuration file to access variables
-source "$(dirname "$0")/bop.config"
+source "$(dirname "$0")/bopos.config"
 
 # Get the absolute path to the git repository root
 GITREPO_ROOT=$(git -C "$(dirname "$0")" rev-parse --show-toplevel)
