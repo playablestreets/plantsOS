@@ -1,13 +1,16 @@
 #!/bin/bash
 
 # Source the configuration file to access variables
+# This is still necessary for SAMPLESPACKSURL
 source "$(dirname "$0")/bop.config"
 
 # Get the absolute path to the git repository root
+# This corresponds to ~/plantsOS
 GITREPO_ROOT=$(git -C "$(dirname "$0")" rev-parse --show-toplevel)
 
-# Define the full path for the sample packs directory
-SAMPLES_DIR_PATH="$GITREPO_ROOT/$SAMPLEPACKSDIR"
+# Define the new, hardcoded path for the sample packs directory
+# This overrides the SAMPLEPACKSDIR variable from the config
+SAMPLES_DIR_PATH="$GITREPO_ROOT/bop/samplepacks"
 
 # Define a temporary file for the downloaded zip
 TEMP_ZIP_FILE=$(mktemp)
