@@ -147,8 +147,8 @@
 #A saved cutoff 3000;
 #A saved wet 0.7;
 #A saved dry 1;
-#X obj 97 944 *~ 0.7;
-#X obj 182 937 *~ 0.7;
+#X obj 97 944 *~ 0.4;
+#X obj 182 937 *~ 0.4;
 #X connect 5 0 4 0;
 #X connect 9 0 26 0;
 #X connect 10 0 27 0;
