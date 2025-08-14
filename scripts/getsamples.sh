@@ -49,16 +49,14 @@ fi
 
 # --- SIMPLIFIED CODE: Forcefully move contents up one level ---
 echo "Correcting folder structure: Moving contents of inner folder up one level."
-# Get the name of the first (and assumed to be only) directory inside the target folder
-INNER_FOLDER_NAME=$(ls -1 "$TARGET_FOLDER_PATH")
+
 # Move all contents from that inner folder to the parent folder
-mv "$TARGET_FOLDER_PATH/$INNER_FOLDER_NAME"/* "$TARGET_FOLDER_PATH"
-# Remove the now empty inner folder
-rmdir "$TARGET_FOLDER_PATH/$INNER_FOLDER_NAME"
-# --- END OF SIMPLIFIED CODE ---
+mv "$TARGET_FOLDER_PATH/*" "../$TARGET_FOLDER_PATH"
+
 
 # Clean up the temporary zip file
 rm "$TEMP_ZIP_FILE"
+rm -r $TARGET_FOLDER_PATH"
 
 echo "Sample packs updated successfully!"
 exit 0
