@@ -34,19 +34,19 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# --- CORRECTED CODE: Move contents up and delete the old folder ---
-# Get the name of the nested folder created by the unzip command.
-INNER_FOLDER_NAME=$(ls -1 "$SAMPLES_DIR_PATH" | head -n 1)
+# # --- CORRECTED CODE: Move contents up and delete the old folder ---
+# # Get the name of the nested folder created by the unzip command.
+# INNER_FOLDER_NAME=$(ls -1 "$SAMPLES_DIR_PATH" | head -n 1)
 
-echo "Moving contents of nested folder '$INNER_FOLDER_NAME' up one level..."
-# Move all files and folders from the nested directory into the parent directory.
-mv -f "$SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"/* "$SAMPLES_DIR_PATH"
+# echo "Moving contents of nested folder '$INNER_FOLDER_NAME' up one level..."
+# # Move all files and folders from the nested directory into the parent directory.
+# mv -f "$SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"/* "$SAMPLES_DIR_PATH"
 
-# Remove the now empty nested folder.
-echo "Removing empty nested folder: $SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"
-rmdir "$SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"
+# # Remove the now empty nested folder.
+# echo "Removing empty nested folder: $SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"
+# rmdir "$SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"
 
-# --- END OF CORRECTED CODE ---
+# # --- END OF CORRECTED CODE ---
 
 # Clean up the temporary zip file
 rm "$TEMP_ZIP_FILE"
