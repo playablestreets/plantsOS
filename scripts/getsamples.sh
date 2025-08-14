@@ -14,7 +14,9 @@ TEMP_ZIP_FILE=$(mktemp)
 
 echo "Downloading sample packs from $SAMPLEPACKSURL..."
 # Download the zip file
-curl -L -o "$TEMP_ZIP_FILE" "$SAMPLEPACKSURL"
+#curl -L -o "$TEMP_ZIP_FILE" "$SAMPLEPACKSURL"
+
+/home/pi/venv/bin/python gdown "$SAMPLEPACKSURL" -O "$TEMP_ZIP_FILE" 
 
 # Check if the download was successful
 if [ $? -ne 0 ]; then
