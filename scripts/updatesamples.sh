@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source the configuration file to access variables
-# This is still necessary for SAMPLESPACKSURL
+# This is still necessary for SAMPLEPACKSURL
 source "$(dirname "$0")/bopos.config"
 
 # Get the absolute path to the git repository root
@@ -18,9 +18,9 @@ TEMP_ZIP_FILE=$(mktemp)
 # Get the current user
 CURRENT_USER=$(whoami)
 
-echo "Downloading sample packs from $SAMPLESPACKSURL..."
+echo "Downloading sample packs from $SAMPLEPACKSURL..."
 # Download the zip file
-curl -L -o "$TEMP_ZIP_FILE" "$SAMPLESPACKSURL"
+curl -L -o "$TEMP_ZIP_FILE" "$SAMPLEPACKSURL"
 
 # Check if the download was successful
 if [ $? -ne 0 ]; then
