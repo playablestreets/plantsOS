@@ -12,9 +12,9 @@ SAMPLES_DIR_PATH="$GITREPO_ROOT/pd/bop/samplepacks"
 # Define a temporary file for the downloaded zip
 TEMP_ZIP_FILE=$(mktemp)
 
-echo "Downloading sample packs from $SAMPLESPACKSURL..."
+echo "Downloading sample packs from $SAMPLEPACKSURL..."
 # Download the zip file
-curl -L -o "$TEMP_ZIP_FILE" "$SAMPLESPACKSURL"
+curl -L -o "$TEMP_ZIP_FILE" "$SAMPLEPACKSURL"
 
 # Check if the download was successful
 if [ $? -ne 0 ]; then
