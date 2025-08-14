@@ -12,27 +12,16 @@ SAMPLES_DIR_PATH="$GITREPO_ROOT/pd/bop/samplepacks"
 # Define a temporary file for the downloaded zip
 TEMP_ZIP_FILE=$(mktemp)
 
-echo "Downloading sample packs from $SAMPLEPACKSURL..."
-# Download the zip file
-#curl -L -o "$TEMP_ZIP_FILE" "$SAMPLEPACKSURL"
+# Define the folder name manually to avoid the "uc" issue
+FOLDER_NAME="sample_archive"
 
-/home/pi/venv/bin/gdown --fuzzy "$SAMPLEPACKSURL" -O "$TEMP_ZIP_FILE" 
+echo "Downloading sample packs from $SAMPLEPACKSURL..."
+# Download the zip file using gdown
+/home/pi/venv/bin/gdown --fuzzy "$SAMPLEPACKSURL" -O "$TEMP_ZIP_FILE"
 
 # Check if the download was successful
 if [ $? -ne 0 ]; then
     echo "Error: Failed to download sample packs."
-    rm "$TEMP_ZIP_FILE"
-    exit 1
-fi
-
-# Get the name of the downloaded zip file from the URL
-# The 'basename' command gets the filename, and a parameter expansion strips the .zip extension
-ZIP_FILENAME=$(basename "$SAMPLEPACKSURL" | cut -d'?' -f1)
-FOLDER_NAME="${ZIP_FILENAME%.zip}"
-
-# Check if a valid folder name was extracted
-if [ -z "$FOLDER_NAME" ]; then
-    echo "Error: Could not determine the folder name from the URL."
     rm "$TEMP_ZIP_FILE"
     exit 1
 fi
@@ -57,6 +46,20 @@ if [ $? -ne 0 ]; then
     rm "$TEMP_ZIP_FILE"
     exit 1
 fi
+
+# --- NEW CODE: Check and fix for the extra folder issue ---
+# Google Drive zips sometimes contain a single root directory.
+# This code checks if the extracted directory contains another single directory.
+# If so, it moves the contents of that inner directory up to the main folder.
+if [ "$(ls -1 "$TARGET_FOLDER_PATH" | wc -l)" -eq 1 ] && [ -d "$TARGET_FOLDER_PATH/$(ls -1 "$TARGET_FOLDER_PATH")" ]; then
+    INNER_FOLDER_NAME="$(ls -1 "$TARGET_FOLDER_PATH")"
+    echo "Correcting folder structure: Moving contents of '$INNER_FOLDER_NAME' up one level."
+    # Move all contents from the inner folder to the parent folder
+    mv "$TARGET_FOLDER_PATH/$INNER_FOLDER_NAME"/* "$TARGET_FOLDER_PATH"
+    # Remove the now empty inner folder
+    rmdir "$TARGET_FOLDER_PATH/$INNER_FOLDER_NAME"
+fi
+# --- END OF NEW CODE ---
 
 # Clean up the temporary zip file
 rm "$TEMP_ZIP_FILE"
