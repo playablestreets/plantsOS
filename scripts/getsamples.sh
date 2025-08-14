@@ -51,7 +51,7 @@ fi
 echo "Correcting folder structure: Moving contents of inner folder up one level."
 
 # Move all contents from that inner folder to the parent folder
-mv "$TARGET_FOLDER_PATH/*" "../$TARGET_FOLDER_PATH"
+cp -r "$TARGET_FOLDER_PATH/*" "../$TARGET_FOLDER_PATH"
 
 
 # Clean up the temporary zip file
