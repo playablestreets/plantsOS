@@ -56,7 +56,7 @@ cp -r "$TARGET_FOLDER_PATH/*" "../$TARGET_FOLDER_PATH"
 
 # Clean up the temporary zip file
 rm "$TEMP_ZIP_FILE"
-rm -r $TARGET_FOLDER_PATH"
+rm -r "$TARGET_FOLDER_PATH"
 
 echo "Sample packs updated successfully!"
 exit 0
