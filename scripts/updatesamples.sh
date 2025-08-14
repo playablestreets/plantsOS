@@ -10,7 +10,7 @@ GITREPO_ROOT=$(git -C "$(dirname "$0")" rev-parse --show-toplevel)
 
 # Define the new, hardcoded path for the sample packs directory
 # This overrides the SAMPLEPACKSDIR variable from the config
-SAMPLES_DIR_PATH="$GITREPO_ROOT/bop/samplepacks"
+SAMPLES_DIR_PATH="$GITREPO_ROOT/pd/bop/samplepacks"
 
 # Define a temporary file for the downloaded zip
 TEMP_ZIP_FILE=$(mktemp)
@@ -55,5 +55,5 @@ fi
 # # Clean up the temporary zip file
 # rm "$TEMP_ZIP_FILE"
 
-echo "Sample packs updated and ownership set successfully!"
+echo "Sample packs updated successfully!"
 exit 0
