@@ -16,7 +16,7 @@ echo "Downloading sample packs from $SAMPLEPACKSURL..."
 # Download the zip file
 #curl -L -o "$TEMP_ZIP_FILE" "$SAMPLEPACKSURL"
 
-/home/pi/venv/bin/gdown "$SAMPLEPACKSURL" -O "$TEMP_ZIP_FILE" 
+/home/pi/venv/bin/gdown --fuzzy "$SAMPLEPACKSURL" -O "$TEMP_ZIP_FILE" 
 
 # Check if the download was successful
 if [ $? -ne 0 ]; then
