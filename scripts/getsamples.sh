@@ -12,9 +12,6 @@ SAMPLES_DIR_PATH="$GITREPO_ROOT/pd/bop/samplepacks"
 # Define a temporary file for the downloaded zip
 TEMP_ZIP_FILE=$(mktemp)
 
-# Define the folder name manually to avoid the "uc" issue
-FOLDER_NAME="sample_archive"
-
 echo "Downloading sample packs from $SAMPLEPACKSURL..."
 # Download the zip file using gdown
 /home/pi/venv/bin/gdown --fuzzy "$SAMPLEPACKSURL" -O "$TEMP_ZIP_FILE"
@@ -26,19 +23,9 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Define the full path to the folder that will contain the extracted files
-TARGET_FOLDER_PATH="$SAMPLES_DIR_PATH/$FOLDER_NAME"
-
-echo "Clearing and recreating target folder: $TARGET_FOLDER_PATH"
-# Remove the existing folder and its contents to ensure a clean slate
-rm -rf "$TARGET_FOLDER_PATH"
-
-# Create the new, empty folder
-mkdir -p "$TARGET_FOLDER_PATH"
-
-echo "Extracting sample packs to $TARGET_FOLDER_PATH..."
-# Unzip the downloaded file directly into the newly created folder
-unzip -o "$TEMP_ZIP_FILE" -d "$TARGET_FOLDER_PATH"
+echo "Extracting sample packs to $SAMPLES_DIR_PATH..."
+# Unzip the downloaded file directly into the destination directory.
+unzip -o "$TEMP_ZIP_FILE" -d "$SAMPLES_DIR_PATH"
 
 # Check if the unzip was successful
 if [ $? -ne 0 ]; then
@@ -47,16 +34,22 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# --- SIMPLIFIED CODE: Forcefully move contents up one level ---
-echo "Correcting folder structure: Moving contents of inner folder up one level."
+# --- CORRECTED CODE: Move contents up and delete the old folder ---
+# Get the name of the nested folder created by the unzip command.
+INNER_FOLDER_NAME=$(ls -1 "$SAMPLES_DIR_PATH" | head -n 1)
 
-# Move all contents from that inner folder to the parent folder
-cp -r "$TARGET_FOLDER_PATH/*" "../$TARGET_FOLDER_PATH"
+echo "Moving contents of nested folder '$INNER_FOLDER_NAME' up one level..."
+# Move all files and folders from the nested directory into the parent directory.
+mv -f "$SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"/* "$SAMPLES_DIR_PATH"
 
+# Remove the now empty nested folder.
+echo "Removing empty nested folder: $SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"
+rmdir "$SAMPLES_DIR_PATH/$INNER_FOLDER_NAME"
+
+# --- END OF CORRECTED CODE ---
 
 # Clean up the temporary zip file
 rm "$TEMP_ZIP_FILE"
-rm -r "$TARGET_FOLDER_PATH"
 
 echo "Sample packs updated successfully!"
 exit 0
