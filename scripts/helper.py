@@ -46,10 +46,10 @@ def update_callback(path='', tags='', args='', source=''):
     print("UPDATE!")
     os.system(update_script)
 
-def updatesamples_callback(path='', tags='', args='', source=''):
+def getsamples_callback(path='', tags='', args='', source=''):
     directory = os.path.dirname(os.path.realpath(__file__))
-    update_script = os.path.join(directory, "updatesamples.sh")
-    msg = OSCMessage("/updatesamples")
+    update_script = os.path.join(directory, "getsamples.sh")
+    msg = OSCMessage("/getsamples")
     client.send(msg)
     print("UPDATE SAMPLES!")
     os.system(update_script)        
@@ -91,7 +91,7 @@ def exit_handler():
 
 server.addMsgHandler( "/config", config_callback )
 server.addMsgHandler( "/update", update_callback )
-server.addMsgHandler( "/updatesamples", updatesamples_callback )
+server.addMsgHandler( "/getsamples", getsamples_callback )
 server.addMsgHandler( "/shutdown", shutdown_callback )
 server.addMsgHandler( "/reboot", reboot_callback )
 server.addMsgHandler( "/checkout", checkout_callback )
