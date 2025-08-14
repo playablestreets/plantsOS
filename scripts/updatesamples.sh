@@ -2,7 +2,7 @@
 
 # Source the configuration file to access variables
 # This is still necessary for SAMPLESPACKSURL
-source "$(dirname "$0")/bop.config"
+source "$(dirname "$0")/bopos.config"
 
 # Get the absolute path to the git repository root
 # This corresponds to ~/plantsOS
