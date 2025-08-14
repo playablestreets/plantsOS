@@ -48,12 +48,12 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Setting ownership of $SAMPLES_DIR_PATH to $CURRENT_USER..."
-# Change the owner of the directory and its contents recursively
-chown -R "$CURRENT_USER":"$CURRENT_USER" "$SAMPLES_DIR_PATH"
+# echo "Setting ownership of $SAMPLES_DIR_PATH to $CURRENT_USER..."
+# # Change the owner of the directory and its contents recursively
+# chown -R "$CURRENT_USER":"$CURRENT_USER" "$SAMPLES_DIR_PATH"
 
-# Clean up the temporary zip file
-rm "$TEMP_ZIP_FILE"
+# # Clean up the temporary zip file
+# rm "$TEMP_ZIP_FILE"
 
 echo "Sample packs updated and ownership set successfully!"
 exit 0
