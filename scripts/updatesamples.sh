@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Source the configuration file to access variables
-# This is still necessary for SAMPLEPACKSURL
-source "$(dirname "$0")/bopos.config"
+# This is still necessary for SAMPLESPACKSURL
+source "$(dirname "$0")/bop.config"
 
 # Get the absolute path to the git repository root
 # This corresponds to ~/plantsOS
@@ -15,12 +15,9 @@ SAMPLES_DIR_PATH="$GITREPO_ROOT/pd/bop/samplepacks"
 # Define a temporary file for the downloaded zip
 TEMP_ZIP_FILE=$(mktemp)
 
-# Get the current user
-CURRENT_USER=$(whoami)
-
-echo "Downloading sample packs from $SAMPLEPACKSURL..."
+echo "Downloading sample packs from $SAMPLESPACKSURL..."
 # Download the zip file
-curl -L -o "$TEMP_ZIP_FILE" "$SAMPLEPACKSURL"
+curl -L -o "$TEMP_ZIP_FILE" "$SAMPLESPACKSURL"
 
 # Check if the download was successful
 if [ $? -ne 0 ]; then
@@ -29,16 +26,12 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Cleaning up existing sample packs directory: $SAMPLES_DIR_PATH"
-# Remove the existing directory and its contents
-rm -rf "$SAMPLES_DIR_PATH"
-
-echo "Creating new directory: $SAMPLES_DIR_PATH"
-# Create the new, empty directory
+echo "Creating destination directory if it doesn't exist: $SAMPLES_DIR_PATH"
+# Create the directory if it doesn't already exist
 mkdir -p "$SAMPLES_DIR_PATH"
 
-echo "Extracting sample packs to $SAMPLES_DIR_PATH..."
-# Unzip the downloaded file directly into the new directory
+echo "Extracting and overwriting sample packs in $SAMPLES_DIR_PATH..."
+# Unzip the downloaded file directly into the new directory, overwriting existing files
 unzip -o "$TEMP_ZIP_FILE" -d "$SAMPLES_DIR_PATH"
 
 # Check if the unzip was successful
@@ -48,12 +41,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# echo "Setting ownership of $SAMPLES_DIR_PATH to $CURRENT_USER..."
-# # Change the owner of the directory and its contents recursively
-# chown -R "$CURRENT_USER":"$CURRENT_USER" "$SAMPLES_DIR_PATH"
-
-# # Clean up the temporary zip file
-# rm "$TEMP_ZIP_FILE"
+# Clean up the temporary zip file
+rm "$TEMP_ZIP_FILE"
 
 echo "Sample packs updated successfully!"
 exit 0
