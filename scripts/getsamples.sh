@@ -47,19 +47,15 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# --- NEW CODE: Check and fix for the extra folder issue ---
-# Google Drive zips sometimes contain a single root directory.
-# This code checks if the extracted directory contains another single directory.
-# If so, it moves the contents of that inner directory up to the main folder.
-if [ "$(ls -1 "$TARGET_FOLDER_PATH" | wc -l)" -eq 1 ] && [ -d "$TARGET_FOLDER_PATH/$(ls -1 "$TARGET_FOLDER_PATH")" ]; then
-    INNER_FOLDER_NAME="$(ls -1 "$TARGET_FOLDER_PATH")"
-    echo "Correcting folder structure: Moving contents of '$INNER_FOLDER_NAME' up one level."
-    # Move all contents from the inner folder to the parent folder
-    mv "$TARGET_FOLDER_PATH/$INNER_FOLDER_NAME"/* "$TARGET_FOLDER_PATH"
-    # Remove the now empty inner folder
-    rmdir "$TARGET_FOLDER_PATH/$INNER_FOLDER_NAME"
-fi
-# --- END OF NEW CODE ---
+# --- SIMPLIFIED CODE: Forcefully move contents up one level ---
+echo "Correcting folder structure: Moving contents of inner folder up one level."
+# Get the name of the first (and assumed to be only) directory inside the target folder
+INNER_FOLDER_NAME=$(ls -1 "$TARGET_FOLDER_PATH")
+# Move all contents from that inner folder to the parent folder
+mv "$TARGET_FOLDER_PATH/$INNER_FOLDER_NAME"/* "$TARGET_FOLDER_PATH"
+# Remove the now empty inner folder
+rmdir "$TARGET_FOLDER_PATH/$INNER_FOLDER_NAME"
+# --- END OF SIMPLIFIED CODE ---
 
 # Clean up the temporary zip file
 rm "$TEMP_ZIP_FILE"
