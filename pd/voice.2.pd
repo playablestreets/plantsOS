@@ -16,9 +16,9 @@
 #X obj 1097 976 hip~ 80;
 #X obj 1075 649 bop.strum, f 11;
 #A saved strum 0;
-#A saved chord 1;
+#A saved chord 0;
 #A saved shuffle 1;
-#A saved root 50;
+#A saved root 48;
 #A saved octaves 4;
 #A saved velocity 1;
 #A saved duration 0.278571;
@@ -28,7 +28,7 @@
 #A saved wave-1 0;
 #A saved wave-2 1;
 #A saved filter 0.7;
-#A saved attack 0.15;
+#A saved attack 0.03;
 #A saved decay 0.3;
 #A saved sustain 0.0785714;
 #A saved release 0;
@@ -53,7 +53,7 @@
 #X msg 1274 757 attack 0 1000 0.1 1000 0.015 3000 0.15 2000 0 2500 0.03 2800 0.15 1500 0 1800 0.15 2200 0.07 2700 0.19 1600 0.015 2000;
 #X msg 1284 497 filter 0.7 10000 0.3 10000;
 #X obj 377 664 bop.semisteps, f 23;
-#A saved semisteps 2.3434;
+#A saved semisteps 0.4343;
 #A saved root 48;
 #A saved hold 1;
 #A saved duration 0.9;
@@ -62,7 +62,7 @@
 #X obj 378 715 bop.casio~, f 23;
 #A saved wave-1 1;
 #A saved wave-2 1;
-#A saved filter 0.1;
+#A saved filter 0.47493;
 #A saved attack 0.0214286;
 #A saved decay 0.178571;
 #A saved sustain 0.628571;
@@ -96,8 +96,8 @@
 #X obj 366 448 babs.scale 0 1 0.5 1;
 #X obj 312 493 sel 0;
 #X msg 312 535 0;
-#X msg 955 544 root 48 \, chord 7;
 #X msg 976 580 root 50 \, chord 1;
+#X msg 955 544 root 48 \, chord 0;
 #X connect 1 0 7 0;
 #X connect 3 0 5 0;
 #X connect 5 0 4 0;
@@ -151,9 +151,9 @@
 #X connect 51 0 49 0;
 #X connect 52 0 53 0;
 #X connect 53 0 55 0;
-#X connect 53 0 67 0;
+#X connect 53 0 68 0;
 #X connect 53 1 56 0;
-#X connect 53 1 68 0;
+#X connect 53 1 67 0;
 #X connect 55 0 36 1;
 #X connect 56 0 36 1;
 #X connect 57 0 58 0;
