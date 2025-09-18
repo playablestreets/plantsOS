@@ -1,4 +1,4 @@
-#N canvas 1006 458 600 607 12;
+#N canvas 735 454 600 607 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 153 105 declare -path ./bop;
@@ -8,8 +8,7 @@
 #X obj 157 318 bop.stream~;
 #A saved pack ../../changi_samplepack;
 #A saved folder 6;
-#A saved loop 1;
-#A saved gain 0.2;
+#A saved gain 0;
 #X msg 322 277 pack ../../changi_samplepack;
 #X obj 157 195 r ID;
 #X msg 157 242 \$1 127;
