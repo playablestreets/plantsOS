@@ -23,16 +23,22 @@ channels = [
 ]
 
 # MPR121 (default address 0x5A)
-mpr = adafruit_mpr121.MPR121(i2c)
+mpr1 = adafruit_mpr121.MPR121(i2c)
+mpr2 = adafruit_mpr121.MPR121(i2c, address=0x5B)
 
 while True:
     # Read ADC channels
     for i, ch in enumerate(channels):
         print(f"A{i}: raw={ch.value:6d}  voltage={ch.voltage:0.4f} V")
 
-    # Read MPR121 electrode 0
-    touched = mpr.filtered_data(0)  # True = touched, False = not touched
-    print(f"MPR121 E0: {touched:0.4f}")
+    # Read MPR1 electrode 0
+    touched = mpr1.filtered_data(0)
+    print(f"MPR 1 E0: {touched:0.4f}")
+
+    # Read MPR1 electrode 0
+    touched = mpr2.filtered_data(0)
+    print(f"MPR 2 E0: {touched:0.4f}")
+
 
     print("-" * 40)
     time.sleep(1)
