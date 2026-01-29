@@ -1,12 +1,12 @@
-#N canvas 712 149 428 703 12;
+#N canvas 1062 136 428 703 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty 🪴\ The\ Musical\ Plants\ 🪴 10 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 131 256;
+#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 132 256;
 #X obj 32 70 cnv 19 370 150 empty empty empty 20 12 0 12 #e3c6ff #404040 0;
 #X obj 32 244 cnv 19 370 150 empty empty empty 20 12 0 12 #c6feff #404040 0;
 #X text 37 248 VOICES;
-#N canvas 0 145 1748 1159 mapping 0;
+#N canvas 0 37 1470 891 mapping 0;
 #X obj 739 499 s osc-in;
 #X obj 62 417 s calibrate;
 #X obj 60 273 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
