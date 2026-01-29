@@ -1,4 +1,4 @@
-#N canvas 368 111 1078 755 12;
+#N canvas 115 72 1293 815 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -73,7 +73,7 @@
 #X obj 172 439 admin.device 7;
 #X obj 322 439 admin.device 8;
 #X obj 622 439 admin.device 10;
-#X obj 1097 169 admin.device -1;
+#X obj 1098 168 admin.device -1;
 #X text 1096 147 unassigned plantí ½í±‡;
 #X obj 245 32 cnv 19 650 76 empty empty ğŸ‘‰ğŸª´ğŸ¶\ The\ Musical\ Plants\ ğŸ¶ğŸª´ğŸ‘ˆ 40 40 2 40 #c6feff #9c00ff 0;
 #X obj 796 581 cnv 19 160 140 empty empty ğŸŒ\ GLOBAL\ ğŸŒ 20 12 0 16 #c6feff #404040 0;
@@ -81,3 +81,4 @@
 #X obj 825 628 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 825 666 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 825 685 bng 19 250 50 0 calibrate empty calibrate 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 1099 459 admin.device 111;
