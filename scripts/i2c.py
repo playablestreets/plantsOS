@@ -6,16 +6,14 @@ import adafruit_ads1x15.ads1015 as ADS1015
 import adafruit_ads1x15.ads1x15 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
 
+import adafruit_mpr121
 
-# import board
-# i2c = board.I2C()
 
 # I2C bus
 i2c = busio.I2C(board.SCL, board.SDA)
 
-# ADC instance
+# ADS1015 ADC
 ads = ADS1015.ADS1015(i2c)
-
 
 channels = [
     AnalogIn(ads, ADS.Pin.A0),
@@ -24,8 +22,17 @@ channels = [
     AnalogIn(ads, ADS.Pin.A3),
 ]
 
+# MPR121 (default address 0x5A)
+mpr = adafruit_mpr121.MPR121(i2c)
+
 while True:
+    # Read ADC channels
     for i, ch in enumerate(channels):
         print(f"A{i}: raw={ch.value:6d}  voltage={ch.voltage:0.4f} V")
+
+    # Read MPR121 electrode 0
+    touched = mpr.filtered_data(0)  # True = touched, False = not touched
+    print(f"MPR121 E0: {touched:0.4f}")
+
     print("-" * 40)
     time.sleep(1)

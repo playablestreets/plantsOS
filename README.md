@@ -38,6 +38,9 @@ sudo raspi-config
 # enable i2c
 sudo raspi-config nonint do_i2c 0
 
+# install i2c tools
+sudo apt-get install i2c-tools
+
 # install jack2
 sudo apt-get install jackd2
 
@@ -73,7 +76,7 @@ cd ~
 python3 -m venv ./venv
 
 # install python dependencies
-./venv/bin/pip install pyOSC3 adafruit-circuitpython-ads1x15
+./venv/bin/pip install pyOSC3 adafruit-circuitpython-ads1x15 adafruit-circuitpython-mpr121
 
 ```
 
