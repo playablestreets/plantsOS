@@ -1,17 +1,13 @@
 # plantsOS
 
-A Raspberry Pi and Arduino based framework for networked multichannel sound, light, and motion.   This repo provides scaffolding for the [bop](https://github.com/zealtv/bop) library for PD Vanilla. Python scripts provide admin services (updating, rebooting, shutdown). 
+A Raspberry Pi and Arduino based framework for networked multichannel sound, light, and motion.   This repo provides scaffolding for the [bop](https://github.com/zealtv/bop) library for PD Vanilla. Python scripts provide admin services (updating, rebooting, shutdown). Sensors and peripherals integrated over i2c.
 
 # Requirements 
 
-- puredata 0.54 vanilla 
+- puredata 0.54 vanilla +
 - python3
 - [pyOSC3](https://pypi.org/project/pyOSC3/)
 
-## Optional Requirements for Arduino
-- pd-comport 
-
-Reads distance sensor and controls lights and stepper motor.  Communicates with PD via SLIP encoded OSC over USB serial.
 
 
 # Installation and Setup
@@ -59,7 +55,7 @@ cd ./pure-data/
 make
 sudo make install
 
-# install pd externals
+# install pd externals (add externals your patch requires)
 sudo apt-get install pd-comport
 
 # add externals to local extra folder
@@ -75,7 +71,7 @@ sudo apt-get install pip
 cd ~
 python3 -m venv ./venv
 
-# install python dependencies
+# install python dependencies (include any i2c libraries your patch requires)
 ./venv/bin/pip install pyOSC3 adafruit-circuitpython-ads1x15 adafruit-circuitpython-mpr121
 
 ```

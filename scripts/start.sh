@@ -22,6 +22,8 @@ sleep 15
 echo "------------------- Starting bopOS..."
 echo "SOUNDCARD: $SOUNDCARD"
 echo "MAC ADDRESS: $MACADDRESS"
+
+echo "------------------- Creating variables for Pure Data..."
 echo "RANDOM: $RND"
 echo "STARTDATE: $STARTDATE"
 echo "STARTTIME: $STARTTIME"
@@ -46,5 +48,8 @@ sleep 10
 echo "------------------- Starting helper.py..."
 # PYTHON
 sudo /home/pi/venv/bin/python /home/pi/plantsOS/scripts/helper.py $MACADDRESS &
+
+echo "------------------- Starting sensors.py..."
+sudo /home/pi/venv/bin/python /home/pi/plantsOS/scripts/sensors.py &
 
 exit
