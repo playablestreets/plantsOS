@@ -1,4 +1,4 @@
-#N canvas 368 111 1078 755 12;
+#N canvas 150 37 1102 883 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 64 471 netsend -u -b;
 #X msg 62 71 connect 255.255.255.255 7770;
@@ -81,3 +81,7 @@
 #X obj 825 628 bng 19 250 50 0 update empty update 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 825 666 bng 19 250 50 0 shutdown empty shutdown 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 825 685 bng 19 250 50 0 calibrate empty calibrate 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 22 729 admin.device 11;
+#X obj 172 729 admin.device 12;
+#X obj 322 729 admin.device 13;
+#X obj 472 729 admin.device 14;
