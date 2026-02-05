@@ -1,5 +1,4 @@
 MAC, ID, POS1X, POS1Y, POS2X, POS2XY, hostname
-00:00:00:00:00:00, 0, 0, 0, 0, 0, test
-b8:27:eb:07:13:a7, 1, 0, 0, 0, 100, plant1
-b8:27:eb:1e:a5:8c, 2, 100, 0, 100, 100, plant2
+b8:27:eb:2c:73:80, 1, 0, 0, 0, 100, spool1
+ff:ff:ff:ff:ff:ff, 2, 100, 0, 100, 100, spool2
 b8:27:eb:b4:64:79, 111, 0, 0, 0, 0, bobplant

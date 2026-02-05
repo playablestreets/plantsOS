@@ -1,4 +1,4 @@
-#N canvas 12 74 1468 1207 12;
+#N canvas 12 74 1468 891 12;
 #X declare -path ./bop/babs;
 #X obj 80 257 netreceive -u -b 6660;
 #X obj 80 289 oscparse;
