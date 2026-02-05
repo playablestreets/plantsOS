@@ -70,9 +70,6 @@
 #X msg 647 266 list backing \$1;
 #X msg 789 273 label backing:\$1;
 #X obj 789 297 s \$0-to-backing;
-#X obj 19 159 bng 19 250 50 0 \$0-calibrate calibrate calibrate 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 729 377 r \$0-calibrate;
-#X msg 729 401 calibrate;
 #X obj 646 10 r \$0-gain;
 #X msg 646 43 list gain \$1;
 #X msg 795 30 label gain:\$1;
@@ -124,10 +121,8 @@
 #X connect 67 0 69 0;
 #X connect 68 0 66 0;
 #X connect 69 0 70 0;
-#X connect 72 0 73 0;
-#X connect 73 0 53 0;
-#X connect 74 0 75 0;
-#X connect 74 0 76 0;
-#X connect 75 0 60 0;
-#X connect 76 0 77 0;
+#X connect 71 0 72 0;
+#X connect 71 0 73 0;
+#X connect 72 0 60 0;
+#X connect 73 0 74 0;
 #X coords 0 -1 1 1 150 250 2 10 10;
