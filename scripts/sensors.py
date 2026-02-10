@@ -50,4 +50,4 @@ while True:
     client.send(msg_touch)
 
     print("-" * 40)
-    time.sleep(1)
+    sleep(1)
