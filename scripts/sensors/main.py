@@ -18,7 +18,7 @@ def setup_peripherals():
     """Create and initialize all devices"""
     global peripherals
 
-    bus = smbus2.SMBus(I2C_BUS)
+    # bus = smbus2.SMBus(I2C_BUS)  # Not used by Adafruit library, but kept for consistency
 
     adc = ADC(bus=None, address=0x48)  # Address for ADS1015
     adc.setup()
