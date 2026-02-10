@@ -45,10 +45,10 @@ class ADC:
         self.ads = ADS.ADS1015(i2c, address=self.address)
         
         # Create the 4 channels
-        self.ch0 = AnalogIn(self.ads, ADS.Pin.P0)
-        self.ch1 = AnalogIn(self.ads, ADS.Pin.P1)
-        self.ch2 = AnalogIn(self.ads, ADS.Pin.P2)
-        self.ch3 = AnalogIn(self.ads, ADS.Pin.P3)
+        self.ch0 = AnalogIn(self.ads, ADS.P0)
+        self.ch1 = AnalogIn(self.ads, ADS.P1)
+        self.ch2 = AnalogIn(self.ads, ADS.P2)
+        self.ch3 = AnalogIn(self.ads, ADS.P3)
         
         print(f"{self.name} ready at address 0x{self.address:02X}")
     
