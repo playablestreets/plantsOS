@@ -1,8 +1,10 @@
+# main.py
 import sys
 import os
 
-# Add the current directory to Python's path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Sets working directory to be able to find peripherals and other modules
+script_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, script_dir)
 
 from time import sleep
 import threading
