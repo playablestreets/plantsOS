@@ -1,5 +1,5 @@
 from time import sleep
-from pyOSC3 import OSCServer, OSCClient, OSCMessage
+from pyOSC3 import OSCServer, OSCClient, OSCMessage, OSCClientError
 import board
 import busio
 
@@ -47,7 +47,11 @@ while True:
     print(f"MPR 2 E0: {touched:0.4f}")
     msg_touch.append(float(touched), 'f')
 
-    client.send(msg_touch)
+
+    try:
+        client.send(msg_touch)
+    except OSCClientError as e:
+        print(f"OSC client error: {e}")
 
     print("-" * 40)
     sleep(1)
