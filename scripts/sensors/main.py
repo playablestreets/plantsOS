@@ -5,7 +5,7 @@ import board
 import busio
 import adafruit_mpr121
 # import smbus2
-from peripheral.adc import ADC
+from peripheral_adc import ADC
 
 # Settings
 I2C_BUS = 1  # Not used by Adafruit library, but kept for consistency
