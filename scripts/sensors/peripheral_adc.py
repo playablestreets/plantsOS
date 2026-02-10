@@ -8,7 +8,8 @@ Reads voltages from A0, A1, A2, A3.
 
 import board
 import busio
-import adafruit_ads1x15.ads1015 as ADS
+import adafruit_ads1x15.ads1015 as ADS1015
+import adafruit_ads1x15.ads1x15 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
 
 class ADC:
@@ -42,13 +43,13 @@ class ADC:
         i2c = busio.I2C(board.SCL, board.SDA)
         
         # Create ADS1015 object
-        self.ads = ADS.ADS1015(i2c, address=self.address)
+        self.ads = ADS1015.ADS1015(i2c, address=self.address)
         
         # Create the 4 channels
-        self.ch0 = AnalogIn(self.ads, ADS.P0)
-        self.ch1 = AnalogIn(self.ads, ADS.P1)
-        self.ch2 = AnalogIn(self.ads, ADS.P2)
-        self.ch3 = AnalogIn(self.ads, ADS.P3)
+        self.ch0 = AnalogIn(self.ads, ADS.Pin.P0)
+        self.ch1 = AnalogIn(self.ads, ADS.Pin.P1)
+        self.ch2 = AnalogIn(self.ads, ADS.Pin.P2)
+        self.ch3 = AnalogIn(self.ads, ADS.Pin.P3)
         
         print(f"{self.name} ready at address 0x{self.address:02X}")
     
