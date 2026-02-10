@@ -1,5 +1,5 @@
 from time import sleep
-from pyOSC3 import OSCClient, OSCMessage
+from pyOSC3 import OSCServer, OSCClient, OSCMessage
 import board
 import busio
 
@@ -11,7 +11,7 @@ import adafruit_mpr121
 
 # Set up the OSC client
 client = OSCClient()
-client.connect( ('127.0.0.1', 8880) )
+client.connect( ('127.0.0.1', 9990) )
 
 # I2C bus
 i2c = busio.I2C(board.SCL, board.SDA)
