@@ -3,7 +3,7 @@
 ADS1015 12-bit Analog-to-Digital Converter
 
 Simple 4-channel ADC for reading analog sensors.
-Reads voltages from A0, A1, A2, A3.
+Reads voltages from A0, A1, A2, A3. 
 """
 
 import board
@@ -15,7 +15,7 @@ class ADC:
     """
     Simple ADS1015 ADC - reads 4 analog channels.
     """
-    
+
     def __init__(self, bus=None, address=0x48):
         """
         Setup the ADC.
