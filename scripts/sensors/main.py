@@ -6,6 +6,7 @@ import busio
 import adafruit_mpr121
 # import smbus2
 from peripheral_adc import ADC
+from peripheral_touch import touch
 
 # Settings
 I2C_BUS = 1  # Not used by Adafruit library, but kept for consistency
@@ -26,14 +27,9 @@ def setup_peripherals():
     adc.setup()
     peripherals.append(adc)
 
-    # Add whichever devices you're using
-    # accel = Accelerometer(bus, address=0x68)
-    # accel.setup()
-    # peripherals.append(accel)
-    
-    # temp = TemperatureSensor(bus, address=0x48)
-    # temp.setup()
-    # peripherals.append(temp)
+    touch = Touch(bus=None, address=0x5A)
+    touch.setup()
+    peripherals.append(touch)
     
     print(f"Initialized {len(peripherals)} devices")
 
