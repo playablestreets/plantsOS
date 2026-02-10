@@ -4,6 +4,8 @@ from pyOSC3 import OSCServer, OSCClient, OSCMessage, OSCClientError
 import board
 import busio
 import adafruit_mpr121
+import smbus2
+from peripherals.adc import ADC
 
 # Settings
 I2C_BUS = 1  # Not used by Adafruit library, but kept for consistency
@@ -18,7 +20,7 @@ def setup_peripherals():
     """Create and initialize all devices"""
     global peripherals
 
-    # bus = smbus2.SMBus(I2C_BUS)  # Not used by Adafruit library, but kept for consistency
+    # bus = smbus2.SMBus(I2C_BUS)  
 
     adc = ADC(bus=None, address=0x48)  # Address for ADS1015
     adc.setup()
