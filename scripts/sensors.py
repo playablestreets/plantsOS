@@ -27,8 +27,8 @@ channels = [
 ]
 
 # MPR121 (default address 0x5A)
-mpr1 = adafruit_mpr121.MPR121(i2c)
-mpr2 = adafruit_mpr121.MPR121(i2c, address=0x5B)
+mpr1 = adafruit_mpr121.MPR121(i2c, address=0x5A) 
+mpr2 = adafruit_mpr121.MPR121(i2c, address=0x5C)
 
 while True:
     # Read ADC channels
