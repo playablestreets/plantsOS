@@ -4,7 +4,7 @@ from pyOSC3 import OSCServer, OSCClient, OSCMessage, OSCClientError
 import board
 import busio
 import adafruit_mpr121
-import smbus2
+# import smbus2
 from peripherals.adc import ADC
 
 # Settings
