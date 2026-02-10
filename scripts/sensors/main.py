@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Add the current directory to Python's path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 from time import sleep
 import threading
 from pyOSC3 import OSCServer, OSCClient, OSCMessage, OSCClientError
