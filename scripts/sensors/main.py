@@ -31,7 +31,7 @@ def setup_peripherals():
     touch1.setup()
     peripherals.append(touch1)
 
-    touch2 = Touch(bus=None, address=0x5B)
+    touch2 = Touch(bus=None, address=0x5C)
     touch2.setup()
     peripherals.append(touch2)
     
