@@ -11,11 +11,9 @@
     send to helper.py
     forward 6660:/helper/* to helper.py
 
-
 ### Unicast localhost:8880
     send to sensors.py
     forward 6660:/sensors/* to sensors.py
-
 
 ## ADMIN.pd
 - Runs on laptop.
@@ -41,7 +39,6 @@
 ## sensors.py 
 - Runs on Pis. 
 - Reads/writes to/from sensors and i2c peripherals.
-
 
 ### Listening 8880
 

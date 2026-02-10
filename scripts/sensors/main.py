@@ -10,8 +10,8 @@ from peripheral_touch import Touch
 
 # Settings
 I2C_BUS = 1  # Not used by Adafruit library, but kept for consistency
-PYTHON_LISTEN_PORT = 8881  # Python listens here for PD commands
-PD_LISTEN_PORT = 8880      # Pure Data listens here for data from Python
+PYTHON_LISTEN_PORT = 8880  # Python listens here for PD commands
+PD_LISTEN_PORT = 6662      # Pure Data listens here for data from Python
 
 
 # List of all your peripherals
@@ -51,7 +51,7 @@ def handle_osc(path, tags, args, source):
 
 
 def debug_print_sensors():
-    """Print sensor values every second - comment out to disable"""
+    """Print sensor values every second"""
     while True:
         for device in peripherals:
             data = device.read_data()
@@ -88,52 +88,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-# # Set up the OSC client
-# client = OSCClient()
-# client.connect( ('127.0.0.1', OSC_PORT) )
-
-# # I2C bus
-# i2c = busio.I2C(board.SCL, board.SDA)
-
-# # # ADS1015 ADC
-# # adc = ADS1015.ADS1015(i2c)
-
-# # channels = [
-# #     AnalogIn(adc, ADS.Pin.A0),
-# #     AnalogIn(adc, ADS.Pin.A1),
-# #     AnalogIn(adc, ADS.Pin.A2),
-# #     AnalogIn(adc, ADS.Pin.A3),
-# # ]
-
-# # MPR121 (default address 0x5A)
-# mpr1 = adafruit_mpr121.MPR121(i2c, address=0x5A) 
-# mpr2 = adafruit_mpr121.MPR121(i2c, address=0x5C)
-
-# while True:
-#     # Read ADC channels
-#     for i, ch in enumerate(channels):
-#         print(f"A{i}: raw={ch.value:6d}  voltage={ch.voltage:0.4f} V")
-
-
-
-#     # msg_touch = OSCMessage("/touch")
-
-#     # # Read MPR1 electrode 0
-#     # touched = mpr1.filtered_data(0)
-#     # print(f"MPR 1 E0: {touched:0.4f}")
-#     # msg_touch.append(float(touched), 'f')
-
-#     # # Read MPR1 electrode 0
-#     # touched = mpr2.filtered_data(0)
-#     # print(f"MPR 2 E0: {touched:0.4f}")
-#     # msg_touch.append(float(touched), 'f')
-
-
-#     # try:
-#     #     client.send(msg_touch)
-#     # except OSCClientError as e:
-#     #     print(f"OSC client error: {e}")
-
-#     print("-" * 40)
-#     sleep(1)
