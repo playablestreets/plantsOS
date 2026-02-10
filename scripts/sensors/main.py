@@ -1,11 +1,3 @@
-# main.py
-import sys
-import os
-
-# Sets working directory to be able to find peripherals and other modules
-script_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, script_dir)
-
 from time import sleep
 import threading
 from pyOSC3 import OSCServer, OSCClient, OSCMessage, OSCClientError
@@ -13,7 +5,7 @@ import board
 import busio
 import adafruit_mpr121
 # import smbus2
-from peripherals.adc import ADC
+from peripheral.adc import ADC
 
 # Settings
 I2C_BUS = 1  # Not used by Adafruit library, but kept for consistency
