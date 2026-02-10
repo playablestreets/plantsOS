@@ -1,51 +1,53 @@
 from time import sleep
 from pyOSC3 import OSCClient, OSCMessage
-from PiicoDev_LIS3DH import PiicoDev_LIS3DH
-from PiicoDev_CAP1203 import PiicoDev_CAP1203
-from PiicoDev_Unified import sleep_ms
+import board
+import busio
 
-# Initialize the two PiicoDev boards
-motion = PiicoDev_LIS3DH()
-# touch_sensor = PiicoDev_CAP1203(touchmode='single', sensitivity=6)
-touch_sensor = PiicoDev_CAP1203(sensitivity=1)
+import adafruit_ads1x15.ads1015 as ADS1015
+import adafruit_ads1x15.ads1x15 as ADS
+from adafruit_ads1x15.analog_in import AnalogIn
+
+import adafruit_mpr121
 
 # Set up the OSC client
 client = OSCClient()
 client.connect( ('127.0.0.1', 8880) )
 
-print("Sending LIS3DH and CAP1203 data to localhost:8880. Press Ctrl+C to stop.")
+# I2C bus
+i2c = busio.I2C(board.SCL, board.SDA)
 
-# Initialize previous values to None
-prev_x, prev_y, prev_z = None, None, None
-prev_status = [None, None, None]
+# ADS1015 ADC
+adc = ADS1015.ADS1015(i2c)
+
+channels = [
+    AnalogIn(adc, ADS.Pin.A0),
+    AnalogIn(adc, ADS.Pin.A1),
+    AnalogIn(adc, ADS.Pin.A2),
+    AnalogIn(adc, ADS.Pin.A3),
+]
+
+# MPR121 (default address 0x5A)
+mpr1 = adafruit_mpr121.MPR121(i2c)
+mpr2 = adafruit_mpr121.MPR121(i2c, address=0x5B)
 
 while True:
-    # Get data from the LIS3DH Gyro
-    x, y, z = motion.angle
-    
-    # Check if any tilt value has changed
-    if x != prev_x or y != prev_y or z != prev_z:
-        msg_tilt = OSCMessage("/tilt")
-        msg_tilt.append(x, 'f')
-        msg_tilt.append(y, 'f')
-        msg_tilt.append(z, 'f')
-        client.send(msg_tilt)
-        
-        # Update previous values
-        prev_x, prev_y, prev_z = x, y, z
+    # Read ADC channels
+    for i, ch in enumerate(channels):
+        print(f"A{i}: raw={ch.value:6d}  voltage={ch.voltage:0.4f} V")
 
-    # Get data from the CAP1203 Touch Sensor
-    status = touch_sensor.read()
-    
-    # Check if any touch status has changed
-    if status[1] != prev_status[0] or status[2] != prev_status[1] or status[3] != prev_status[2]:
-        msg_touch = OSCMessage("/touch")
-        msg_touch.append(float(status[1]), 'f')
-        msg_touch.append(float(status[2]), 'f')
-        msg_touch.append(float(status[3]), 'f')
-        client.send(msg_touch)
+    msg_touch = OSCMessage("/touch")
 
-        # Update previous values
-        prev_status = [status[1], status[2], status[3]]
-    
-    sleep(0.02)
+    # Read MPR1 electrode 0
+    touched = mpr1.filtered_data(0)
+    print(f"MPR 1 E0: {touched:0.4f}")
+    msg_touch.append(float(touched), 'f')
+
+    # Read MPR1 electrode 0
+    touched = mpr2.filtered_data(0)
+    print(f"MPR 2 E0: {touched:0.4f}")
+    msg_touch.append(float(touched), 'f')
+
+    client.send(msg_touch)
+
+    print("-" * 40)
+    time.sleep(1)
