@@ -1,4 +1,4 @@
-#N canvas 157 225 592 294 12;
+#N canvas 195 398 789 300 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 54 227 netreceive -u -b 5550;
 #X obj 54 251 oscparse;
@@ -30,4 +30,4 @@
 #X text 14 4 open device ports:;
 #X obj 15 302 admin.device -1;
 #X text 171 303 < unassigned device, f 10;
-#X obj 257 10 admin.device 1;
+#X obj 266 16 admin.device 1;
