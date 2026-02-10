@@ -27,9 +27,13 @@ def setup_peripherals():
     adc.setup()
     peripherals.append(adc)
 
-    touch = Touch(bus=None, address=0x5A)
-    touch.setup()
-    peripherals.append(touch)
+    touch1 = Touch(bus=None, address=0x5A)
+    touch1.setup()
+    peripherals.append(touch1)
+
+    touch2 = Touch(bus=None, address=0x5B)
+    touch2.setup()
+    peripherals.append(touch2)
     
     print(f"Initialized {len(peripherals)} devices")
 
