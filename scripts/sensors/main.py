@@ -56,7 +56,7 @@ def debug_print_sensors():
         for device in peripherals:
             data = device.read_data()
             print(f"{device.name}: {data}")
-        time.sleep(1)
+        sleep(1)
 
 
 def main():
