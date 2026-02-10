@@ -11,7 +11,7 @@ import adafruit_mpr121
 
 # Set up the OSC client
 client = OSCClient()
-client.connect( ('127.0.0.1', 9990) )
+client.connect( ('127.0.0.1', 8880) )
 
 # I2C bus
 i2c = busio.I2C(board.SCL, board.SDA)
