@@ -15,7 +15,7 @@ from peripheral_tilt import Tilt
 I2C_BUS = 1  # Not used by Adafruit library, but kept for consistency
 PYTHON_LISTEN_PORT = 8880  # Python listens here for PD commands
 PD_LISTEN_PORT = 6662      # Pure Data listens here for data from Python
-
+POLL_RATE = 10  # Times per second to poll sensors
 
 # List of all your peripherals
 peripherals = []
@@ -45,6 +45,22 @@ def handle_osc(path, tags, args, source):
             # source[0] is the IP, source[1] is the port PD is listening on
             osc_client.sendto(osc_path, osc_args, (source[0], PD_LISTEN_PORT))
             break
+
+def poll_loop():
+    """Poll all peripherals and send any data"""
+    global polling
+    pd_address = ('127.0.0.1', PD_LISTEN_PORT)
+    
+    while polling:
+        # Call poll() on each peripheral
+        for device in peripherals:
+            if hasattr(device, 'poll'):
+                response = device.poll()
+                if response:
+                    osc_path, osc_args = response
+                    osc_client.sendto(osc_path, osc_args, pd_address)
+        
+        time.sleep(1.0 / POLL_RATE)
 
 
 def debug_print_sensors():

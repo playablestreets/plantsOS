@@ -65,7 +65,8 @@ python3 -m venv ./venv
 
 
 # install python dependencies
-./venv/bin/pip install pyOSC3 piicodev gdown
+./venv/bin/pip install pyOSC3 piicodev gdown adafruit-blinka adafruit-circuitpython-ads1x15
+
 
 ```
 
