@@ -66,7 +66,10 @@ def poll_loop():
                 if response:
                     osc_path, osc_args = response
                     debug_osc(osc_path, osc_args)
-                    osc_client.sendto(osc_path, osc_args, pd_address)
+                    msg = OSCMessage(osc_path)
+                    for arg in osc_args:
+                        msg.append(arg)
+                    osc_client.sendto(msg, pd_address)
         
         time.sleep(1.0 / POLL_RATE)
 
