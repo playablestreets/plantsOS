@@ -16,6 +16,7 @@ I2C_BUS = 1  # Not used by Adafruit library, but kept for consistency
 PYTHON_LISTEN_PORT = 8880  # Python listens here for PD commands
 PD_LISTEN_PORT = 6662      # Pure Data listens here for data from Python
 POLL_RATE = 10  # Times per second to poll sensors
+DEBUG_OSC = True  # Set to True to print outgoing OSC messages
 
 # List of all your peripherals
 peripherals = []
@@ -34,6 +35,11 @@ def setup_peripherals():
 
     print(f"Initialized {len(peripherals)} devices")
 
+def debug_osc(path, args):
+    """Print outgoing OSC messages"""
+    if DEBUG_OSC:
+        print(f"[OSC OUT] {path} {args}")
+
 def handle_osc(path, tags, args, source):
     """Route OSC messages to the right peripheral"""
     for device in peripherals:
@@ -42,6 +48,7 @@ def handle_osc(path, tags, args, source):
             print(f"Got response: {response}")
             # Send response back to Pure Data
             osc_path, osc_args = response
+            debug_osc(osc_path, osc_args)
             # source[0] is the IP, source[1] is the port PD is listening on
             osc_client.sendto(osc_path, osc_args, (source[0], PD_LISTEN_PORT))
             break
@@ -58,6 +65,7 @@ def poll_loop():
                 response = device.poll()
                 if response:
                     osc_path, osc_args = response
+                    debug_osc(osc_path, osc_args)
                     osc_client.sendto(osc_path, osc_args, pd_address)
         
         time.sleep(1.0 / POLL_RATE)
@@ -107,4 +115,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
