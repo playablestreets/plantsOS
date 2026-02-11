@@ -1,8 +1,8 @@
-#N canvas 383 164 735 484 12;
+#N canvas 91 156 735 484 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 370 40 empty empty plantsOS\ 🪁\ Kite\ Choir 70 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 39 256;
+#X obj 337 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 40 256;
 #X obj 431 116 declare -path ./bop, f 24;
 #X obj 375 370 dac~, f 35;
 #X msg 531 70 \; pd dsp 1;
