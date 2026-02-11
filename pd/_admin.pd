@@ -31,3 +31,4 @@
 #X obj 15 302 admin.device -1;
 #X text 171 303 < unassigned device, f 10;
 #X obj 266 16 admin.device 1;
+#X obj 417 16 admin.device 2;
