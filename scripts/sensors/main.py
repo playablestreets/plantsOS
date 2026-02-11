@@ -102,7 +102,7 @@ def main():
     print(f"Polling at {POLL_RATE} Hz")    
     
     # Uncomment to see sensor values printed every second:
-    threading.Thread(target=debug_print_sensors, daemon=True).start()
+    #threading.Thread(target=debug_print_sensors, daemon=True).start()
 
     # Setup OSC server (for receiving FROM Pure Data)
     server = OSCServer(('127.0.0.1', PYTHON_LISTEN_PORT))
