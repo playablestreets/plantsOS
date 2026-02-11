@@ -89,6 +89,8 @@ def main():
     # Setup I2C devices
     setup_peripherals()
 
+    time.sleep(1);  # Short delay to ensure devices are ready
+
     # Start polling (comment out to disable)
     polling = True
     poll_thread = threading.Thread(target=poll_loop)
