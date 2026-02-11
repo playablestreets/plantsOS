@@ -74,9 +74,8 @@ class ADC:
         pass
 
     def poll(self):
-        """
-        Currently unimplemented
-        """
+        data = self.read_data()
+        return (f"/{self.name}", [data['ch0'], data['ch1'], data['ch2'], data['ch3']])
         pass
 
 
