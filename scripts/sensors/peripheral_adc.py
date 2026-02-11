@@ -58,14 +58,15 @@ class ADC:
         Read all 4 channels.
         
         Returns:
-            dict with voltages: {"ch0": 3.3, "ch1": 1.2, ...}
+            tuple: (osc_path, [args])
         """
-        return {
-            "ch0": round(self.ch0.voltage, 3),
-            "ch1": round(self.ch1.voltage, 3),
-            "ch2": round(self.ch2.voltage, 3),
-            "ch3": round(self.ch3.voltage, 3)
-        }
+        values = [
+            round(self.ch0.voltage, 3),
+            round(self.ch1.voltage, 3),
+            round(self.ch2.voltage, 3),
+            round(self.ch3.voltage, 3)
+        ]
+        return (f"/{self.name}/data", values)
     
     def write_data(self, **kwargs):
         """
@@ -74,9 +75,7 @@ class ADC:
         pass
 
     def poll(self):
-        data = self.read_data()
-        return (f"/{self.name}", [data['ch0'], data['ch1'], data['ch2'], data['ch3']])
-        pass
+        return self.read_data()
 
 
     def handle_osc_message(self, path, args):
@@ -93,9 +92,7 @@ class ADC:
         
         # Read all channels
         if path == "/adc/read":
-            data = self.read_data()
-            # Send back: ch0, ch1, ch2, ch3
-            return ("/adc/data", [data['ch0'], data['ch1'], data['ch2'], data['ch3']])
+            return self.read_data()
         
         # Read single channels
         elif path == "/adc/ch0":
