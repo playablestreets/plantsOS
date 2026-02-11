@@ -33,7 +33,7 @@ echo "------------------- Starting Jack..."
 jackd -P80 -t2000 -d alsa -dhw:$SOUNDCARD -p 1024 -n 2 -r 22050 -s -P& #22khz
 
 # leave enough time for jack to start before launching PD
-sleep 10
+sleep 15
 
 echo "------------------- Starting Pure Data..."
 # PUREDATA
