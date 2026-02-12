@@ -1,4 +1,45 @@
 - run pip install -r ./requirements across python scripts during update
 - Broadcast MAC, ip address, and hostname on boot
-- set hostname on start from helper.py
+- set hostname from bopos.devices.csv in helper.py
 
+# DECOUPLE BOPOS
+- structure below
+- hot-swappable patches specified as git repos in bopos.config
+- id, position, class, etc specified in bopos.devices.csv
+
+```
+bopOS/
+  bopos.config 
+  bopos.devices.csv 
+  patches/
+    kitechoir/
+        bop/
+            samplepacks/
+                kc_samplepack/
+    coldvoice/
+    themusicalplants/
+  pd/
+    bopos.feedback.pd
+    bopos.sensors.pd
+    bopos.osc.pd
+    bopos.gui.pd
+    DASHBOARD.pd
+  scripts/
+    start.sh
+    stop.sh
+    update.sh
+    install.sh
+    downloadsamples.sh
+    deletesamples.sh
+    rc.local
+    python/
+      helper.py
+      io/
+          main.py
+          io_adc.py
+          io_tilt.py
+          io_touch.py
+          io_screen.py
+          io_leds.py
+          io_template.py
+```
