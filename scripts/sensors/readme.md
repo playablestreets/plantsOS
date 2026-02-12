@@ -1,135 +1,62 @@
-# Raspberry Pi I2C to Pure Data Bridge
-
-A simple Python framework for connecting I2C peripherals on a Raspberry Pi to Pure Data via OSC.
-
-## Project Structure
+# architechture and python io management
 ```
-project/
-├── main.py                  # Main entry point - start here
-├── config.py               # Configuration (I2C bus, OSC port, etc.)
-├── peripherals/            # Your I2C device modules
-│   ├── template.py         # Template for creating new devices
-│   ├── accelerometer.py    # Example: accelerometer
-│   └── temperature.py      # Example: temperature sensor
-└── README.md
+- sends a single osc bundle with all sensor data
+- one message to control polling rate
+- super simple - sleep in main()
+
+PD can create peripherals (name, type, i2c_address)
+/io/create adc1 ads1015 0x48
+/io/create adc2 ads1015 0x4c
+/io/create tilt lis3dh 0x19
+adds the device to the list of peripherals and starts polling it at the next poll cycle
+
+Once created, modules can be polled 
+/poll 10  (poll all modules at 10 Hz)
+
+returns a single osc bundle with all incoming data from modules
+/adc1/data 3.3 1.2 0.0 0
+/tilt/data 0.1 0.5 0.0
+/touch/data 0 1 0
+
+modules can be sent commands
+/touch/sensitivity 0.9
+/screen/line1 "Hello world"
+/leds/rgb 255 0 128
+
+
+# IN A LATER STEP I WILL WANT TO 
+decouple this python code from the pd patch and allow 
+for a  structure as below. the folders in patches are independant repos with their own pd patches.  These provide hotswappable patches.
+bopOS/
+  bopos.config 
+  bopos.devices.csv 
+  patches/
+    kitechoir/
+    coldvoice/
+    themusicalplants/
+  pd/
+    bopos.feedback.pd
+    bopos.sensors.pd
+    bopos.osc.pd
+    bopos.gui.pd
+    DASHBOARD.pd
+  scripts/
+    start.sh
+    stop.sh
+    update.sh
+    install.sh
+    downloadsamples.sh
+    deletesamples.sh
+    rc.local
+    python/
+      helper.py
+      io/
+          main.py
+          io_adc.py
+          io_tilt.py
+          io_touch.py
+          io_screen.py
+          io_leds.py
+          io_template.py
+
 ```
-
-## How It Works
-
-1. **Each peripheral** is a Python class with standard methods
-2. **OSC messages** are routed to the appropriate peripheral
-3. **Pure Data** sends/receives data via OSC on port 8000 (configurable)
-
-
-## Adding a New I2C Device
-
-### Step 1: Create the peripheral file
-
-1. Copy `peripherals/template.py` to `peripherals/yourdevice.py`
-2. Rename the class from `PeripheralTemplate` to `YourDevice`
-3. Change `self.name = "mydevice"` to something short like `"led"`
-
-### Step 2: Fill in the methods
-
-- **`setup()`** - Initialize your device (write config to I2C registers)
-- **`read_data()`** - Read values from I2C, return as dict
-- **`write_data()`** - Write values to I2C registers
-- **`handle_osc_message()`** - Define OSC commands like `/led/on`
-
-### Step 3: Add to main.py
-```python
-from peripherals.yourdevice import YourDevice
-
-# In setup_peripherals():
-yourdevice = YourDevice(bus, address=0x40)
-yourdevice.setup()
-peripherals.append(yourdevice)
-```
-
-## OSC Message Format
-
-### From Pure Data to Python:
-```
-/devicename/command [arg1] [arg2] ...
-```
-
-Examples:
-- `/accel/read` - no arguments
-- `/led/brightness 128` - one argument
-- `/rgb/color 255 128 0` - three arguments
-
-### From Python to Pure Data:
-Your device sends back:
-```
-/devicename/response [value1] [value2] ...
-```
-
-Examples:
-- `/accel/data 0.5 -0.2 9.8` - x, y, z values
-- `/temp/data 23.5` - temperature
-- `/led/status ok` - status message
-
-## Finding I2C Addresses
-
-Use `i2cdetect` to find your device addresses:
-```bash
-i2cdetect -y 1
-```
-
-Common addresses:
-- `0x68` - MPU6050 accelerometer
-- `0x48` - TMP102 temperature sensor
-- `0x76` - BMP280 pressure sensor
-
-## Common I2C Operations
-
-### Read a single byte:
-```python
-value = self.bus.read_byte_data(self.address, register)
-```
-
-### Write a single byte:
-```python
-self.bus.write_byte_data(self.address, register, value)
-```
-
-### Read multiple bytes:
-```python
-data = self.bus.read_i2c_block_data(self.address, register, num_bytes)
-```
-
-### Write multiple bytes:
-```python
-self.bus.write_i2c_block_data(self.address, register, [byte1, byte2, byte3])
-```
-
-## Troubleshooting
-
-**"Remote I/O error"**
-- Check your I2C address with `i2cdetect`
-- Verify wiring (SDA, SCL, VCC, GND)
-- Make sure I2C is enabled: `sudo raspi-config`
-
-**OSC not receiving in Pure Data**
-- Check the port matches (default 8000)
-- Test with: `[udpreceive 8000]` in Pure Data
-- Make sure firewall allows UDP
-
-**Device not responding**
-- Check if `setup()` was called
-- Verify the device needs power-up time
-- Some devices need multiple init steps
-
-## Tips
-
-- **Start simple**: Test I2C reads with a basic script first
-- **Check datasheets**: Register addresses are device-specific
-- **Use logging**: Add `print()` statements to debug
-- **One device at a time**: Get one working before adding more
-- **Test OSC separately**: Use Pure Data's `[sendOSC]` to test
-
-## Support
-
-- I2C basics: https://learn.sparkfun.com/tutorials/i2c
-- Pure Data OSC: Search for "OSC Pure Data tutorial"
-- Raspberry Pi I2C: https://www.raspberrypi.com/documentation/
