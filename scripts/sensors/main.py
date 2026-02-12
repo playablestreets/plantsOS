@@ -1,122 +1,202 @@
-import sys
-import os
-import time
-import threading
+#!/usr/bin/env python3
+"""
+BopOS I2C to OSC Bridge
+Simple interface between I2C sensors and Pure Data via OSC
+"""
 
-from pyOSC3 import OSCServer, OSCClient, OSCMessage, OSCClientError
-import board
-import busio
-import adafruit_mpr121
-# import smbus2
-from peripheral_adc import ADC
-from peripheral_tilt import Tilt
+import time
+from pythonosc import udp_client, dispatcher, osc_server, osc_bundle_builder, osc_message_builder
 
 # Settings
-I2C_BUS = 1  # Not used by Adafruit library, but kept for consistency
-PYTHON_LISTEN_PORT = 8880  # Python listens here for PD commands
-PD_LISTEN_PORT = 6662      # Pure Data listens here for data from Python
-POLL_RATE = 10  # Times per second to poll sensors
-DEBUG_OSC = True  # Set to True to print outgoing OSC messages
+PYTHON_PORT = 8880      # Python listens here for PD commands
+PD_PORT = 6662          # Pure Data listens here for data
+DEFAULT_POLL_RATE = 10  # Hz
 
-# List of all your peripherals
-peripherals = []
-osc_client = None
-polling = False
+# Available peripheral types
+PERIPHERAL_TYPES = {
+    'ads1015': ('peripheral_adc', 'ADC'),
+    'lis3dh': ('peripheral_tilt', 'Tilt'),
+    'mpr121': ('peripheral_touch', 'Touch'),
+}
 
-def setup_peripherals():
-    """Create and initialize all devices"""
-    global peripherals
-
-    # bus = smbus2.SMBus(I2C_BUS)  
-
-    adc = ADC(bus=None, address=0x48)  # Address for ADS1015
-    adc.setup()
-    peripherals.append(adc)
-
-    print(f"Initialized {len(peripherals)} devices")
-
-def debug_osc(path, args):
-    """Print outgoing OSC messages"""
-    if DEBUG_OSC:
-        print(f"[OSC OUT] {path} {args}")
-
-def handle_osc(path, tags, args, source):
-    """Route OSC messages to the right peripheral"""
-    for device in peripherals:
-        response = device.handle_osc_message(path, args)
-        if response:
-            print(f"Got response: {response}")
-            # Send response back to Pure Data
-            osc_path, osc_args = response
-            debug_osc(osc_path, osc_args)
-            # source[0] is the IP, source[1] is the port PD is listening on
-            osc_client.sendto(osc_path, osc_args, (source[0], PD_LISTEN_PORT))
-            break
-
-def poll_loop():
-    """Poll all peripherals and send any data"""
-    global polling
-    pd_address = ('127.0.0.1', PD_LISTEN_PORT)
-    
-    while polling:
-        # Call poll() on each peripheral
-        for device in peripherals:
-            if hasattr(device, 'poll'):
-                response = device.poll()
-                if response:
-                    osc_path, osc_args = response
-                    debug_osc(osc_path, osc_args)
-                    msg = OSCMessage(osc_path)
-                    for arg in osc_args:
-                        msg.append(arg)
-                    osc_client.sendto(msg, pd_address)
+class IOManager:
+    def __init__(self):
+        self.peripherals = {}  # name -> peripheral instance
+        self.poll_rate = DEFAULT_POLL_RATE
+        self.running = True
         
-        time.sleep(1.0 / POLL_RATE)
-
-
-def debug_print_sensors():
-    """Print sensor values every second"""
-    while True:
-        for device in peripherals:
-            data = device.read_data()
-            print(f"{device.name}: {data}")
-        time.sleep(1)
+        # OSC client for sending to PD
+        self.osc_client = udp_client.SimpleUDPClient("127.0.0.1", PD_PORT)
+    
+    def create_peripheral(self, name, device_type, address):
+        """
+        Dynamically create a peripheral.
+        
+        Args:
+            name: Unique name for this peripheral (e.g., 'adc1', 'tilt')
+            device_type: Type from PERIPHERAL_TYPES (e.g., 'ads1015')
+            address: I2C address as int (e.g., 0x48)
+        """
+        if name in self.peripherals:
+            print(f"Warning: {name} already exists, replacing...")
+        
+        if device_type not in PERIPHERAL_TYPES:
+            print(f"Error: Unknown device type '{device_type}'")
+            print(f"Available types: {list(PERIPHERAL_TYPES.keys())}")
+            return False
+        
+        try:
+            # Import the peripheral class
+            module_name, class_name = PERIPHERAL_TYPES[device_type]
+            module = __import__(module_name)
+            peripheral_class = getattr(module, class_name)
+            
+            # Create instance
+            peripheral = peripheral_class(bus=None, address=address)
+            peripheral.name = name  # Override name with custom name
+            peripheral.setup()
+            
+            self.peripherals[name] = peripheral
+            print(f"✓ Created {name} ({device_type} @ 0x{address:02X})")
+            return True
+            
+        except Exception as e:
+            print(f"✗ Failed to create {name}: {e}")
+            return False
+    
+    def poll_and_send(self):
+        """
+        Poll all peripherals and send single OSC bundle to PD.
+        """
+        if not self.peripherals:
+            return
+        
+        # Build OSC bundle
+        bundle = osc_bundle_builder.OscBundleBuilder(
+            osc_bundle_builder.IMMEDIATELY
+        )
+        
+        # Read data from each peripheral
+        for name, peripheral in self.peripherals.items():
+            try:
+                data = peripheral.read_data()
+                
+                # Add message to bundle
+                msg = osc_message_builder.OscMessageBuilder(address=f"/{name}/data")
+                
+                # Handle different return types
+                if isinstance(data, dict):
+                    # Send dict values in order
+                    for value in data.values():
+                        msg.add_arg(value)
+                elif isinstance(data, (list, tuple)):
+                    for value in data:
+                        msg.add_arg(value)
+                else:
+                    msg.add_arg(data)
+                
+                bundle.add_content(msg.build())
+                
+            except Exception as e:
+                print(f"Error reading {name}: {e}")
+        
+        # Send bundle to PD
+        try:
+            self.osc_client.send(bundle.build())
+        except Exception as e:
+            print(f"Error sending OSC: {e}")
+    
+    def handle_command(self, address, *args):
+        """
+        Handle OSC commands from PD.
+        """
+        parts = address.strip('/').split('/')
+        
+        # /io/create <name> <type> <address>
+        if parts[0] == 'io' and len(parts) > 1 and parts[1] == 'create':
+            if len(args) >= 3:
+                name = str(args[0])
+                device_type = str(args[1])
+                i2c_addr = int(args[2], 16) if isinstance(args[2], str) else int(args[2])
+                self.create_peripheral(name, device_type, i2c_addr)
+        
+        # /poll <rate>
+        elif parts[0] == 'poll':
+            if len(args) > 0:
+                self.poll_rate = max(0.1, float(args[0]))
+                print(f"Poll rate set to {self.poll_rate} Hz")
+        
+        # /io/list
+        elif parts[0] == 'io' and len(parts) > 1 and parts[1] == 'list':
+            print("\nActive peripherals:")
+            for name, peripheral in self.peripherals.items():
+                print(f"  {name}: {peripheral.__class__.__name__}")
+        
+        # /<peripheral>/<command> - send to specific peripheral
+        elif len(parts) >= 2 and parts[0] in self.peripherals:
+            peripheral_name = parts[0]
+            command = '/'.join(parts[1:])
+            peripheral = self.peripherals[peripheral_name]
+            
+            try:
+                peripheral.write_data(command=command, args=args)
+            except Exception as e:
+                print(f"Error writing to {peripheral_name}: {e}")
+    
+    def run(self):
+        """
+        Main loop: poll sensors and send OSC bundle.
+        """
+        print(f"\nBopOS I/O Bridge Running")
+        print(f"Python listening on port {PYTHON_PORT}")
+        print(f"Sending to PD on port {PD_PORT}")
+        print(f"Poll rate: {self.poll_rate} Hz")
+        print(f"\nCommands:")
+        print(f"  /io/create <name> <type> <address>")
+        print(f"  /poll <rate>")
+        print(f"  /io/list")
+        print(f"\nPress Ctrl+C to quit\n")
+        
+        # Setup OSC server in separate thread
+        disp = dispatcher.Dispatcher()
+        disp.set_default_handler(self.handle_command)
+        
+        server = osc_server.ThreadingOSCUDPServer(
+            ("127.0.0.1", PYTHON_PORT), disp
+        )
+        
+        import threading
+        server_thread = threading.Thread(target=server.serve_forever)
+        server_thread.daemon = True
+        server_thread.start()
+        
+        # Main polling loop
+        try:
+            while self.running:
+                self.poll_and_send()
+                time.sleep(1.0 / self.poll_rate)
+                
+        except KeyboardInterrupt:
+            print("\n\nShutting down...")
+            self.running = False
+            server.shutdown()
+            
+            # Cleanup all peripherals
+            for peripheral in self.peripherals.values():
+                peripheral.cleanup()
 
 
 def main():
-    global server, osc_client, polling
+    manager = IOManager()
     
-    # Setup OSC client (for sending TO Pure Data)
-    osc_client = OSCClient()
+    # Optional: Auto-create some peripherals at startup
+    # Uncomment and modify as needed:
+    # manager.create_peripheral('adc', 'ads1015', 0x48)
+    # manager.create_peripheral('tilt', 'lis3dh', 0x19)
+    # manager.create_peripheral('touch', 'mpr121', 0x5A)
     
-    # Setup I2C devices
-    setup_peripherals()
+    manager.run()
 
-    time.sleep(1);  # Short delay to ensure devices are ready
-
-    # Start polling (comment out to disable)
-    polling = True
-    poll_thread = threading.Thread(target=poll_loop)
-    poll_thread.daemon = True
-    poll_thread.start()
-    print(f"Polling at {POLL_RATE} Hz")    
-    
-    # Uncomment to see sensor values printed every second:
-    #threading.Thread(target=debug_print_sensors, daemon=True).start()
-
-    # Setup OSC server (for receiving FROM Pure Data)
-    server = OSCServer(('127.0.0.1', PYTHON_LISTEN_PORT))
-    server.addMsgHandler("default", handle_osc)
-    
-    print(f"Python listening on port {PYTHON_LISTEN_PORT}")
-    print(f"Sending to Pure Data on port {PD_LISTEN_PORT}")
-    print("Press Ctrl+C to quit")
-    
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        print("\nShutting down...")
-        server.close()
 
 if __name__ == "__main__":
     main()
