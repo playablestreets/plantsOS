@@ -25,7 +25,7 @@ def config_callback(path='', tags='', args='', source=''):
             # sys.argv[1] is mac address passed in at run
             # row[0] is mac address in config file
             # row[1] is ID in config file
-            if row[0] == sys.argv[1]:
+            if row[0] == sys.argv[2]:
                 print('MAC address found in bopos.devices.csv')
                 msg = OSCMessage("/id")
                 msg.append(row[1], 'f')
