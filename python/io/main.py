@@ -128,7 +128,7 @@ class IOManager:
                 print(f"Poll rate set to {self.poll_rate} Hz")
         
         # /list
-        elif parts[0] == 'list':
+        elif parts[0] == 'report':
             print("\nActive peripherals:")
             for name, peripheral in self.peripherals.items():
                 print(f"  {name}: {peripheral.__class__.__name__}")
@@ -155,7 +155,7 @@ class IOManager:
         print(f"\nCommands:")
         print(f"  /create <name> <type> <address>")
         print(f"  /poll <rate>")
-        print(f"  /list")
+        print(f"  /report")
         print(f"\nPress Ctrl+C to quit\n")
         
         # Setup OSC server in separate thread
