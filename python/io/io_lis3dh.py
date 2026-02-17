@@ -21,14 +21,14 @@ class IO_LIS3DH:
     
     def read_data(self):
         """
-        Read acceleration on all 3 axes.
-        Returns: [x, y, z] in g-forces
+        Read angle on all 3 axes.
+        Returns: [x, y, z] in degrees
         """
-        accel = self.motion.acceleration # This returns a tuple: (x, y, z)
+        angle = self.motion.angle # This returns a tuple: (x, y, z)
         return [
-            accel[0],
-            accel[1],
-            accel[2]
+            angle[0],
+            angle[1],
+            angle[2]
         ]
     
     def write_data(self, **kwargs):
