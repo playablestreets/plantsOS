@@ -27,6 +27,9 @@ echo "STARTDATE: $STARTDATE"
 echo "STARTTIME: $STARTTIME"
 
 
+echo "------------------- Starting bopOS IO..."
+sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/io/main.py &
+
 #Start Jack 
 echo "------------------- Starting Jack..."
 # jackd -P70 -p16 -t2000 -d alsa -dhw:$SOUNDCARD -p 512 -n 2 -r 44100 -s -P& #44.1khz        
@@ -46,6 +49,5 @@ sleep 5
 echo "------------------- Starting helper.py..."
 # PYTHON
 sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/helper.py $MACADDRESS &
-sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/io/main.py &
 
 exit
