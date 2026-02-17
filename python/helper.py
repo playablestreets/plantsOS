@@ -31,7 +31,7 @@ def config_callback(path='', tags='', args='', source=''):
                 print('MAC address found in bopos.devices.csv')
                 print('setting ID to ' + row[2])
                 msg = OSCMessage("/id")
-                msg.append(row[1], 'f')
+                msg.append(row[2], 'f')
                 client.send(msg)
             else:
                 print('MAC address not found in bopos.devices.csv')
