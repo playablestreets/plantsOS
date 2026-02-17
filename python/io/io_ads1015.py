@@ -10,7 +10,7 @@ import adafruit_ads1x15.ads1015 as ADS1015
 import adafruit_ads1x15.ads1x15 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
 
-class ADC:
+class IO_ADS1015:
     """Simple ADS1015 ADC - reads 4 analog channels."""
 
     def __init__(self, bus=None, address=0x48):

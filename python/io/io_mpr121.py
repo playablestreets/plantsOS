@@ -8,7 +8,7 @@ import board
 import busio
 import adafruit_mpr121
 
-class Touch:
+class IO_MPR121:
     """MPR121 capacitive sensor - reads filtered analog values from 12 electrodes."""
     
     def __init__(self, bus=None, address=0x5A):

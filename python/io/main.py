@@ -16,9 +16,9 @@ DEFAULT_POLL_RATE = 10  # Hz
 
 # Available peripheral types
 PERIPHERAL_TYPES = {
-    'ads1015': ('peripheral_adc', 'ADC'),
-    'lis3dh': ('peripheral_tilt', 'Tilt'),
-    'mpr121': ('peripheral_touch', 'Touch'),
+    'ads1015': ('io_ads1015', 'IO_ADS1015'), # 4 channel ADC
+    'lis3dh': ('io_lis3dh', 'IO_LIS3DH'), # 3-axis accelerometer
+    'mpr121': ('io_mpr121', 'IO_MPR121'), # 12-channel capacitive touch sensor
 }
 
 class IOManager:
@@ -191,7 +191,6 @@ def main():
     manager = IOManager()
     
     # Optional: Auto-create some peripherals at startup
-    # Uncomment and modify as needed:
     # manager.create_peripheral('adc', 'ads1015', 0x48)
     # manager.create_peripheral('tilt', 'lis3dh', 0x19)
     # manager.create_peripheral('touch', 'mpr121', 0x5A)

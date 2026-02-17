@@ -10,14 +10,8 @@ Simple Python bridge for interfacing I2C sensors with Pure Data via OSC.
 - PD sends OSC commands to Python to control peripherals
 - Peripherals can be created dynamically via OSC
 
-## Quick Start
 
-### 1. Run the Python script
-```bash
-python3 main.py
-```
-
-### 2. From Pure Data, create peripherals dynamically
+### From Pure Data, create peripherals dynamically
 
 ```
 [io/create adc1 ads1015 0x48(  ← Create ADC at address 0x48
@@ -25,22 +19,22 @@ python3 main.py
 [io/create touch mpr121 0x5A(  ← Create touch sensor
 ```
 
-### 3. Receive data bundle in PD
+### Receive data bundle in PD
 
 All sensor data arrives in a single OSC bundle at the poll rate:
 ```
-/adc1/data 3.3 1.2 0.0 0.5
-/tilt/data 0.1 -0.5 0.9
-/touch/data 512 234 789 ... (12 values)
+/adc1 3.3 1.2 0.0 0.5
+/tilt 0.1 -0.5 0.9
+/touch 512 234 789 ... (12 values)
 ```
 
-### 4. Control poll rate
+### Control poll rate
 ```
 [poll 20(  ← Poll at 20 Hz
 [poll 5(   ← Poll at 5 Hz
 ```
 
-### 5. Send commands to peripherals
+### Send commands to peripherals
 ```
 [touch/threshold 15 8(  ← Set touch thresholds
 ```
@@ -48,11 +42,11 @@ All sensor data arrives in a single OSC bundle at the poll rate:
 ## File Structure
 
 ```
-main.py                    # Main OSC bridge (NEW - simplified!)
-peripheral_adc.py          # ADS1015 ADC module
-peripheral_tilt.py         # LIS3DH accelerometer
-peripheral_touch.py        # MPR121 touch sensor
-peripheral_template.py     # Template for new peripherals
+main.py                    # Main OSC bridge 
+io_ads1015.py          # ADS1015 ADC module
+io_lis3dh.py         # LIS3DH accelerometer
+io_mpr121.py        # MPR121 touch sensor
+io_template.py     # Template for new peripherals
 ```
 
 ## How It Works
@@ -103,48 +97,23 @@ class MyPeripheral:
 
 | Type | Module | Class | Description |
 |------|--------|-------|-------------|
-| `ads1015` | peripheral_adc | ADC | 4-channel 12-bit ADC |
-| `lis3dh` | peripheral_tilt | Tilt | 3-axis accelerometer |
-| `mpr121` | peripheral_touch | Touch | 12-channel capacitive touch |
+| `ads1015` | peripheral_adc | IO_ADS1015 | 4-channel 12-bit ADC |
+| `lis3dh` | peripheral_tilt | IO_LIS3DH | 3-axis accelerometer |
+| `mpr121` | peripheral_touch | IO_MPR121 | 12-channel capacitive touch |
 
 ## Creating New Peripherals
 
-1. Copy `peripheral_template.py` to `peripheral_yourdevice.py`
+1. Copy `io_template.py` to `io_yourdevice.py`
 2. Fill in `setup()`, `read_data()`, and `write_data()`
 3. Add to `PERIPHERAL_TYPES` in `main.py`:
 ```python
 PERIPHERAL_TYPES = {
-    'ads1015': ('peripheral_adc', 'ADC'),
-    'yourdevice': ('peripheral_yourdevice', 'YourDevice'),
+    'ads1015': ('io_ads1015', 'IO_ADS1015'),
+    'yourdevice': ('io_yourdevice', 'IO_YOURDEVICE'),
 }
 ```
 4. Create from PD: `[io/create dev1 yourdevice 0x48(`
 
-## Examples
-
-### Auto-create peripherals at startup
-Edit `main.py`:
-```python
-def main():
-    manager = IOManager()
-    
-    # Auto-create peripherals
-    manager.create_peripheral('adc', 'ads1015', 0x48)
-    manager.create_peripheral('tilt', 'lis3dh', 0x19)
-    
-    manager.run()
-```
-
-### Simple PD Patch
-```
-[metro 100]  ← Receive bundles automatically
-|
-[oscformat]  ← Unpack bundle
-|
-[route /adc1/data /tilt/data /touch/data]
-|       |          |
-[unpack f f f f]   [unpack f f f]   [unpack f f f f ...]
-```
 
 ## Dependencies
 
@@ -162,19 +131,3 @@ pip3 install piicodev-lis3dh
 ✅ **Dynamic** - Create peripherals at runtime
 ✅ **Consistent** - All peripherals use same interface
 ✅ **Modular** - Easy to add new devices
-
-## Troubleshooting
-
-**No data in PD?**
-- Check PD is listening on port 6662
-- Check Python shows "Sending to PD on port 6662"
-- Try `[io/list(` to see active peripherals
-
-**Can't create peripheral?**
-- Check I2C address with `i2cdetect -y 1`
-- Check device type is in `PERIPHERAL_TYPES`
-- Check peripheral module is in same directory
-
-**Slow performance?**
-- Lower poll rate: `[poll 5(`
-- Reduce number of active peripherals

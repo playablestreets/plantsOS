@@ -6,7 +6,7 @@ Reads tilt/acceleration in x, y, z axes
 
 from PiicoDev_LIS3DH import PiicoDev_LIS3DH
 
-class Tilt:
+class IO_LIS3DH:
     """LIS3DH accelerometer - outputs x, y, z acceleration in g-forces."""
     
     def __init__(self, bus=None, address=None):
