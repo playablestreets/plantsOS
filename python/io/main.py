@@ -6,6 +6,7 @@ Simple interface between I2C sensors and Pure Data via OSC
 
 import time
 import threading
+import signal
 from pyOSC3 import OSCClient, OSCMessage, OSCBundle, OSCServer
 
 # Settings
@@ -164,6 +165,11 @@ class IOManager:
         server_thread = threading.Thread(target=server.serve_forever)
         server_thread.daemon = True
         server_thread.start()
+        
+        # Handle SIGTERM to ensure cleanup runs on external termination
+        def signal_handler(signum, frame):
+            raise KeyboardInterrupt
+        signal.signal(signal.SIGTERM, signal_handler)
         
         # Main polling loop
         try:
