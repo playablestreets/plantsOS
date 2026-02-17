@@ -25,11 +25,14 @@ def config_callback(path='', tags='', args='', source=''):
             # sys.argv[1] is mac address passed in at run
             # row[0] is mac address in config file
             # row[1] is ID in config file
-            if row[0] == sys.argv[2]:
+            if row[0] == sys.argv[1]:
                 print('MAC address found in bopos.devices.csv')
+                print('setting ID to ' + row[1])
                 msg = OSCMessage("/id")
                 msg.append(row[1], 'f')
                 client.send(msg)
+                print('setting hostname to ' + row[2])
+                os.system(f"sudo hostnamectl set-hostname {row[2]}")
             else:
                 print('MAC address not found in bopos.devices.csv')
 
