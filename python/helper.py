@@ -28,7 +28,7 @@ def config_callback(path='', tags='', args='', source=''):
             # row[1] is hostname in config file
             # row[2] is ID in config file
             if row[0] == sys.argv[1]:
-                print('MAC address found in bopos.devices.csv')
+                print('MAC address found in bopos.devices')
                 macfound = True
     
             if macfound:

@@ -5,7 +5,8 @@ Simple interface between I2C sensors and Pure Data via OSC
 """
 
 import time
-from pythonosc import udp_client, dispatcher, osc_server, osc_bundle_builder, osc_message_builder
+import threading
+from pyOSC3 import OSCClient, OSCMessage, OSCBundle, OSCServer
 
 # Settings
 PYTHON_PORT = 8880      # This script listens here for commands from Pure Data
@@ -26,7 +27,8 @@ class IOManager:
         self.running = True
         
         # OSC client for sending to PD
-        self.osc_client = udp_client.SimpleUDPClient("127.0.0.1", PD_PORT)
+        self.osc_client = OSCClient()
+        self.osc_client.connect(("127.0.0.1", PD_PORT))
     
     def create_peripheral(self, name, device_type, address):
         """
@@ -72,9 +74,7 @@ class IOManager:
             return
         
         # Build OSC bundle
-        bundle = osc_bundle_builder.OscBundleBuilder(
-            osc_bundle_builder.IMMEDIATELY
-        )
+        bundle = OSCBundle()
         
         # Read data from each peripheral
         for name, peripheral in self.peripherals.items():
@@ -82,31 +82,31 @@ class IOManager:
                 data = peripheral.read_data()
                 
                 # Add message to bundle
-                msg = osc_message_builder.OscMessageBuilder(address=f"/{name}/data")
+                msg = OSCMessage(f"/{name}/data")
                 
                 # Handle different return types
                 if isinstance(data, dict):
                     # Send dict values in order
                     for value in data.values():
-                        msg.add_arg(value)
+                        msg.append(value)
                 elif isinstance(data, (list, tuple)):
                     for value in data:
-                        msg.add_arg(value)
+                        msg.append(value)
                 else:
-                    msg.add_arg(data)
+                    msg.append(data)
                 
-                bundle.add_content(msg.build())
+                bundle.append(msg)
                 
             except Exception as e:
                 print(f"Error reading {name}: {e}")
         
         # Send bundle to PD
         try:
-            self.osc_client.send(bundle.build())
+            self.osc_client.send(bundle)
         except Exception as e:
             print(f"Error sending OSC: {e}")
     
-    def handle_command(self, address, *args):
+    def handle_command(self, address, tags, args, source):
         """
         Handle OSC commands from PD.
         """
@@ -158,14 +158,9 @@ class IOManager:
         print(f"\nPress Ctrl+C to quit\n")
         
         # Setup OSC server in separate thread
-        disp = dispatcher.Dispatcher()
-        disp.set_default_handler(self.handle_command)
+        server = OSCServer(("127.0.0.1", PYTHON_PORT))
+        server.addMsgHandler("default", self.handle_command)
         
-        server = osc_server.ThreadingOSCUDPServer(
-            ("127.0.0.1", PYTHON_PORT), disp
-        )
-        
-        import threading
         server_thread = threading.Thread(target=server.serve_forever)
         server_thread.daemon = True
         server_thread.start()
@@ -179,7 +174,7 @@ class IOManager:
         except KeyboardInterrupt:
             print("\n\nShutting down...")
             self.running = False
-            server.shutdown()
+            server.close()
             
             # Cleanup all peripherals
             for peripheral in self.peripherals.values():
