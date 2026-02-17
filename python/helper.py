@@ -24,16 +24,20 @@ def config_callback(path='', tags='', args='', source=''):
             # row variable is a list that represents a row in csv
             # sys.argv[1] is mac address passed in at run
             # row[0] is mac address in config file
-            # row[1] is ID in config file
+            # row[1] is hostname in config file
+            # row[2] is ID in config file
+            macfound = False
             if row[0] == sys.argv[1]:
+                print('MAC address found in bopos.devices.csv')
+                macfound = True
+            if macfound:
                 print('setting hostname to ' + row[1])
                 os.system(f"sudo hostnamectl set-hostname {row[1]}")
-                print('MAC address found in bopos.devices.csv')
                 print('setting ID to ' + row[2])
                 msg = OSCMessage("/id")
                 msg.append(row[2], 'f')
                 client.send(msg)
-            else:
+            if not macfound:
                 print('MAC address not found in bopos.devices.csv')
 
                 # this is causing an error in linux
