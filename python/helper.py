@@ -114,7 +114,7 @@ atexit.register(exit_handler)
 #ARG 1 MAC Address
 if __name__ == "__main__":
 
-    config_callback()
+    # config_callback()
 
     while True:
         sleep(1)
