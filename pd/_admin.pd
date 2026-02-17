@@ -1,4 +1,4 @@
-#N canvas 329 127 874 372 12;
+#N canvas 586 62 874 390 12;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 54 227 netreceive -u -b 5550;
 #X obj 54 251 oscparse;
@@ -29,7 +29,7 @@
 #X coords 0 -1 1 1 250 260 2 100 100;
 #X restore 15 89 pd message list;
 #X text 14 4 open device ports:;
-#X obj 620 49 admin.device -1;
-#X obj 310 49 admin.device 1;
-#X obj 460 49 admin.device 2;
-#X text 624 26 ▼ unassigned device, f 20;
+#X obj 630 63 admin.device -1;
+#X obj 320 63 admin.device 1;
+#X obj 470 63 admin.device 2;
+#X text 634 40 ▼ unassigned device, f 20;

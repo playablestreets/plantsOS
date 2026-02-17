@@ -39,7 +39,7 @@ class ADC:
         Read all 4 channels.
         Returns: [ch0_voltage, ch1_voltage, ch2_voltage, ch3_voltage]
         """
-        return [round(ch.voltage, 3) for ch in self.channels]
+        return [(ch.value/65535) for ch in self.channels]
     
     def write_data(self, **kwargs):
         """ADC is read-only."""
