@@ -1,7 +1,7 @@
 # BopOS I2C Bridge Dependencies
 
 # OSC communication
-python-osc>=1.8.0
+pyOSC3
 
 # Adafruit CircuitPython libraries
 adafruit-circuitpython-ads1x15

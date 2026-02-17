@@ -147,7 +147,7 @@
 #X obj 32 216 loadbang;
 #X obj 452 283 r gain;
 #X obj 452 313 clip 0 0.5;
-#N canvas 37 125 1267 758 mapping 0;
+#N canvas 37 125 1267 758 mapping 1;
 #X obj 373 82 r osc-in;
 #X obj 373 106 route gain;
 #X obj 373 199 value gain;
@@ -224,9 +224,7 @@
 #X connect 18 0 21 0;
 #X connect 19 0 18 0;
 #X connect 20 0 28 0;
-#X connect 20 0 43 0;
 #X connect 21 0 29 0;
-#X connect 21 0 43 0;
 #X connect 22 0 25 0;
 #X connect 23 0 22 0;
 #X connect 24 0 26 0;
