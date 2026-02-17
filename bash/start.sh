@@ -40,8 +40,8 @@ echo "------------------- Starting Pure Data..."
 pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RND; STARTTIME $STARTTIME; STARTDATE $STARTDATE; " &
 
 # leave enough time for PD to start before starting the helper  
-# the helper will parse and forward variables from config.csv
-sleep 10
+# the helper will parse and forward variables from bopos.devices
+sleep 5
 
 echo "------------------- Starting helper.py..."
 # PYTHON

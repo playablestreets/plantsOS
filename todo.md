@@ -11,7 +11,7 @@
 ```
 bopOS/
   bopos.config 
-  bopos.devices.csv 
+  bopos.devices
   DASHBOARD.pd
   DASHBOARD.tosc  
   patches/
