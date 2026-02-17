@@ -24,11 +24,11 @@ class IO_LIS3DH:
         Read acceleration on all 3 axes.
         Returns: [x, y, z] in g-forces
         """
-        accel = self.motion.acceleration
+        accel = self.motion.acceleration # This returns a tuple: (x, y, z)
         return [
-            round(accel['x'], 3),
-            round(accel['y'], 3),
-            round(accel['z'], 3)
+            accel[0],
+            accel[1],
+            accel[2]
         ]
     
     def write_data(self, **kwargs):
