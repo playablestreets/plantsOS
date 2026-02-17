@@ -9,12 +9,12 @@
 
 ### Unicast localhost:7770
     send to helper.py
-    forward 6660:/helper/* to helper.py
+    forward 6660:/helper/* to helper.py (localhost:7770)
 
 
 ### Unicast localhost:8880
-    send to sensors.py
-    forward 6660:/sensors/* to sensors.py
+    send to io/main.py
+    forward 6660:/io/* to io/main.py (localhost:8880)
 
 
 ## ADMIN.pd
@@ -27,7 +27,7 @@
     Send to MAIN.pd
 
 ### Broadcast 7770
-    Send to sensors.py
+    Send to io/main.py
 
 ## helper.py
 - Runs on Pis. 
@@ -38,7 +38,7 @@
 ### Unicast localhost:6661
     Send to MAIN.pd
 
-## sensors.py 
+## io/main.py 
 - Runs on Pis. 
 - Reads/writes to/from sensors and i2c peripherals.
 

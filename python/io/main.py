@@ -82,7 +82,7 @@ class IOManager:
                 data = peripheral.read_data()
                 
                 # Add message to bundle
-                msg = OSCMessage(f"/{name}/data")
+                msg = OSCMessage(f"/{name}")
                 
                 # Handle different return types
                 if isinstance(data, dict):
@@ -112,8 +112,8 @@ class IOManager:
         """
         parts = address.strip('/').split('/')
         
-        # /io/create <name> <type> <address>
-        if parts[0] == 'io' and len(parts) > 1 and parts[1] == 'create':
+        # /create <name> <type> <address>
+        if parts[0] == 'create':
             if len(args) >= 3:
                 name = str(args[0])
                 device_type = str(args[1])
@@ -126,8 +126,8 @@ class IOManager:
                 self.poll_rate = max(0.1, float(args[0]))
                 print(f"Poll rate set to {self.poll_rate} Hz")
         
-        # /io/list
-        elif parts[0] == 'io' and len(parts) > 1 and parts[1] == 'list':
+        # /list
+        elif parts[0] == 'list':
             print("\nActive peripherals:")
             for name, peripheral in self.peripherals.items():
                 print(f"  {name}: {peripheral.__class__.__name__}")
@@ -152,9 +152,9 @@ class IOManager:
         print(f"Sending to PD on port {PD_PORT}")
         print(f"Poll rate: {self.poll_rate} Hz")
         print(f"\nCommands:")
-        print(f"  /io/create <name> <type> <address>")
+        print(f"  /create <name> <type> <address>")
         print(f"  /poll <rate>")
-        print(f"  /io/list")
+        print(f"  /list")
         print(f"\nPress Ctrl+C to quit\n")
         
         # Setup OSC server in separate thread
