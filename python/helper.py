@@ -35,7 +35,7 @@ def config_callback(path='', tags='', args='', source=''):
                 hostname = row[1]
                 print('setting hostname to ' + hostname)
                 cmd = (f'sudo hostnamectl set-hostname {hostname} && '
-                    f'sudo sed -i "/127\\\\.\\\\(0\\\\.\\\\)\\\\{{1,2\\\\}}1/ s/[[:alnum:]\\\\.-]\\\\+ *$/ {hostname}/" /etc/hosts')
+       f'sudo sed -i "/127\\\\.0\\\\.1\\\\.1/ s/[[:alnum:]\\\\.-]\\\\+ *$/ {hostname}/" /etc/hosts')
                 os.system(cmd)
 
                 id = row[2]
