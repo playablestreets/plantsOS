@@ -6,13 +6,13 @@
 #X obj 193 10 r osc-from-devices;
 #X obj 193 123 s \$0-osc-in;
 #X obj 193 182 r \$0-osc-in;
-#X obj 19 230 tgl 19 1 \$0-print empty print 20 9 0 12 #fcfcfc #000000 #000000 1 1;
+#X obj 19 230 tgl 19 1 \$0-print empty print 20 9 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 353 369 list prepend;
 #X obj 403 339 r \$0-print;
 #X obj 353 417 print device-\$1;
 #X listbox 19 193 18 0 0 2 status____________ \$0-osc-list - 0;
 #X obj 385 300 s \$0-osc-list;
-#X obj 11 11 cnv 18 148 20 empty \$0-header device\ 1 6 10 0 14 #e3c6ff #404040 0;
+#X obj 11 11 cnv 18 148 20 empty \$0-header device\ 0 6 10 0 14 #e3c6ff #404040 0;
 #X obj 29 787 loadbang;
 #X obj 29 811 \$1;
 #X obj 31 870 s \$0-header;
@@ -71,7 +71,7 @@
 #X msg 646 43 list gain \$1;
 #X msg 795 30 label gain:\$1;
 #X obj 795 54 s \$0-to-gain;
-#X obj 19 211 tgl 19 1 \$0-echo empty echo 20 9 0 12 #fcfcfc #000000 #000000 1 1;
+#X obj 19 211 tgl 19 1 \$0-echo empty echo 20 9 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 767 390 r \$0-echo;
 #X msg 767 419 echo \$1;
 #X obj 767 449 list;

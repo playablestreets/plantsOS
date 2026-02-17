@@ -1,8 +1,0 @@
-board==1.0
-piicodev==1.10.3
-pyOSC3==1.2
-adafruit-blinka
-adafruit-circuitpython-mpr121
-smbus2
-gdown
-adafruit-circuitpython-ads1x15
