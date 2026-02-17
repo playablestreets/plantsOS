@@ -12,7 +12,7 @@ client.connect( ('127.0.0.1', 6661) )
 def config_callback(path='', tags='', args='', source=''):
 
     directory = os.path.dirname(os.path.realpath(__file__))
-    config_file = os.path.join(directory, "config.csv")
+    config_file = os.path.join(directory, "../bopos.devices.csv")
     print("loading: ", config_file)
 
     # open file in read mode

@@ -1,6 +1,7 @@
 - run pip install -r ./requirements across python scripts during update
 - Broadcast MAC, ip address, and hostname on boot
 - set hostname from bopos.devices.csv in helper.py
+- add soundcard to bopos.config, read in start.sh
 
 # DECOUPLE BOPOS
 - structure below
