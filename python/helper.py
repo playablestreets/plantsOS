@@ -30,13 +30,20 @@ def config_callback(path='', tags='', args='', source=''):
             if row[0] == sys.argv[1]:
                 print('MAC address found in bopos.devices.csv')
                 macfound = True
+    
             if macfound:
-                print('setting hostname to ' + row[1])
-                os.system(f"sudo hostnamectl set-hostname {row[1]}")
-                print('setting ID to ' + row[2])
+                hostname = row[1]
+                print('setting hostname to ' + hostname)
+                cmd = (f'sudo hostnamectl set-hostname {hostname} && '
+                    f'sudo sed -i "/127\\\\.\\\\(0\\\\.\\\\)\\\\{{1,2\\\\}}1/ s/[[:alnum:]\\\\.-]\\\\+ *$/ {hostname}/" /etc/hosts')
+                os.system(cmd)
+
+                id = row[2]
+                print('setting ID to ' + id)
                 msg = OSCMessage("/id")
-                msg.append(row[2], 'f')
+                msg.append(id, 'f')
                 client.send(msg)
+
             if not macfound:
                 print('MAC address not found in bopos.devices.csv')
 
@@ -94,8 +101,6 @@ def checkout_callback(path, tags, args, source):
 def exit_handler():
     print("exiting.  closing server...")
     server.close()
-
-
 
 
 server.addMsgHandler( "/config", config_callback )
