@@ -168,7 +168,7 @@
 #X floatatom 1073 311 5 0 0 0 - - - 0;
 #X obj 1073 278 expr 1 - ($i1 - 1);
 #X obj 1087 350 print button2;
-#X obj 498 439 r gain;
+#X obj 499 408 r gain;
 #X obj 908 349 sel 1;
 #X msg 913 383 - 0.1;
 #X obj 1036 351 sel 1;
@@ -181,6 +181,7 @@
 #X obj 940 614 s gain;
 #X obj 767 637 print gain;
 #X obj 764 593 r gain;
+#X obj 499 438 clip 0 0.5;
 #X connect 5 0 4 0;
 #X connect 9 0 26 0;
 #X connect 10 0 27 0;
@@ -222,7 +223,7 @@
 #X connect 47 0 49 0;
 #X connect 47 0 53 0;
 #X connect 48 0 47 0;
-#X connect 50 0 15 0;
+#X connect 50 0 63 0;
 #X connect 51 0 52 0;
 #X connect 52 0 57 0;
 #X connect 53 0 54 0;
@@ -235,3 +236,4 @@
 #X connect 58 0 59 0;
 #X connect 59 0 60 0;
 #X connect 62 0 61 0;
+#X connect 63 0 15 0;
