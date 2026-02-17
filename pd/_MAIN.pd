@@ -1,8 +1,8 @@
-#N canvas 420 164 697 519 12;
+#N canvas 706 390 697 519 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 640 40 empty empty plantsOS\ 🪁\ Kite\ Choir 20 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 614 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 46 256;
+#X obj 614 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 47 256;
 #X obj 32 138 declare -path ./bop, f 28;
 #X obj 324 437 dac~, f 35;
 #X msg 164 95 \; pd dsp 1;
@@ -147,7 +147,7 @@
 #X obj 32 216 loadbang;
 #X obj 452 283 r gain;
 #X obj 452 313 clip 0 0.5;
-#N canvas 37 125 1267 758 mapping 1;
+#N canvas 37 125 1267 758 mapping 0;
 #X obj 373 82 r osc-in;
 #X obj 373 106 route gain;
 #X obj 373 199 value gain;
