@@ -40,7 +40,7 @@ def config_callback(path='', tags='', args='', source=''):
 
 def update_callback(path='', tags='', args='', source=''):
     directory = os.path.dirname(os.path.realpath(__file__))
-    update_script = os.path.join(directory, "update.sh")
+    update_script = os.path.join(directory, "../bash/update.sh")
     msg = OSCMessage("/update")
     client.send(msg)
     print("UPDATE!")
@@ -48,7 +48,7 @@ def update_callback(path='', tags='', args='', source=''):
 
 def getsamples_callback(path='', tags='', args='', source=''):
     directory = os.path.dirname(os.path.realpath(__file__))
-    update_script = os.path.join(directory, "getsamples.sh")
+    update_script = os.path.join(directory, "../bash/getsamples.sh")
     msg = OSCMessage("/getsamples")
     client.send(msg)
     print("UPDATE SAMPLES!")
@@ -72,11 +72,11 @@ def checkout_callback(path, tags, args, source):
     branch = args[0].lstrip('/')
     directory = os.path.dirname(os.path.realpath(__file__))
     print("checking out: " + branch)
-    checkout_script = os.path.join(directory, "checkout.sh ") + branch
+    checkout_script = os.path.join(directory, "../bash/checkout.sh ") + branch
     os.system(checkout_script)
 
     # directory = os.path.dirname(os.path.realpath(__file__))
-    update_script = os.path.join(directory, "update.sh")
+    update_script = os.path.join(directory, "../bash/update.sh")
     msg = OSCMessage("/update")
     client.send(msg)
     print("UPDATE!")
