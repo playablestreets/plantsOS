@@ -159,10 +159,10 @@
 #X connect 20 3 5 0;
 #X connect 20 4 17 0;
 #X restore 483 1028 pd process-helper-messages;
-#X obj 889 983 r osc-in;
+#X obj 889 963 r osc-in;
 #X obj 888 1136 netsend -u -b;
-#X obj 927 1077 loadbang;
-#N canvas 63 100 1190 774 process-helper-messages 1;
+#X obj 933 1063 loadbang;
+#N canvas 63 100 1190 774 process-helper-messages 0;
 #X obj 100 27 inlet;
 #X obj 123 423 outlet;
 #X obj 142 94 list split 1, f 24;
@@ -179,10 +179,10 @@
 #X connect 5 0 3 0;
 #X connect 6 0 4 0;
 #X connect 6 1 5 0;
-#X restore 891 1042 pd process-helper-messages;
-#X text 881 951 forward incoming OSC to io/main.py (unicast to 8880);
-#X msg 927 1103 connect 127.0.0.1 8880;
-#X obj 890 1012 route io;
+#X restore 891 1022 pd process-helper-messages;
+#X text 887 933 forward incoming OSC to io/main.py (unicast to 8880);
+#X msg 933 1089 connect 127.0.0.1 8880;
+#X obj 890 992 route io;
 #X connect 0 0 1 0;
 #X connect 1 0 6 0;
 #X connect 3 0 4 0;
