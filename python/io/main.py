@@ -78,7 +78,7 @@ class IOManager:
         bundle = OSCBundle()
         
         # Read data from each peripheral
-        for name, peripheral in self.peripherals.items():
+        for name, peripheral in list(self.peripherals.items()):
             try:
                 data = peripheral.read_data()
                 
