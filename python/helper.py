@@ -20,13 +20,13 @@ def config_callback(path='', tags='', args='', source=''):
         # pass the file object to reader() to get the reader object
         csv_reader = reader(read_obj, skipinitialspace=True)
         # Iterate over each row in the csv using reader object
+        macfound = False
         for row in csv_reader:
             # row variable is a list that represents a row in csv
             # sys.argv[1] is mac address passed in at run
             # row[0] is mac address in config file
             # row[1] is hostname in config file
             # row[2] is ID in config file
-            macfound = False
             if row[0] == sys.argv[1]:
                 print('MAC address found in bopos.devices.csv')
                 macfound = True
@@ -34,8 +34,7 @@ def config_callback(path='', tags='', args='', source=''):
             if macfound:
                 hostname = row[1]
                 print('setting hostname to ' + hostname)
-                cmd = (f'sudo hostnamectl set-hostname {hostname} && '
-       f'sudo sed -i "/127\\\\.0\\\\.1\\\\.1/ s/[[:alnum:]\\\\.-]\\\\+ *$/ {hostname}/" /etc/hosts')
+                cmd = (f'sudo hostnamectl set-hostname {hostname} && 'f'sudo sed -i "/127\\\\.0\\\\.1\\\\.1/ s/[[:alnum:]\\\\.-]\\\\+ *$/ {hostname}/" /etc/hosts')
                 os.system(cmd)
 
                 id = row[2]
@@ -44,14 +43,15 @@ def config_callback(path='', tags='', args='', source=''):
                 msg.append(id, 'f')
                 client.send(msg)
 
-            if not macfound:
-                print('MAC address not found in bopos.devices.csv')
-
                 # this is causing an error in linux
                 # msg.clear("/pos")
                 # msg.append(row[2], typehint='f')
                 # msg.append(row[3], typehint='f')
                 # client.send(msg)
+                break
+
+        if not macfound:
+            print('MAC address not found in bopos.devices.csv')
 
 
 def update_callback(path='', tags='', args='', source=''):
