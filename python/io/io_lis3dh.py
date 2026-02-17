@@ -2,9 +2,7 @@
 """
 LIS3DH 3-Axis Accelerometer
 Reads tilt/acceleration in x, y, z axes
-Addresses:
-    0x19 (Default)
-    0x18 (Selectable via a solder bridge on the hardware module)
+default address: 0x19 
 """
 
 from PiicoDev_LIS3DH import PiicoDev_LIS3DH
@@ -15,17 +13,10 @@ class IO_LIS3DH:
     def __init__(self, bus=None, address=None):
         self.name = "tilt"
         self.motion = None
-        self.bus = bus
-        self.address = address
     
     def setup(self):
         """Initialize the LIS3DH hardware."""
-        init_kwargs = {}
-        if self.bus is not None:
-            init_kwargs['bus'] = self.bus
-        if self.address is not None:
-            init_kwargs['addr'] = self.address
-        self.motion = PiicoDev_LIS3DH(**init_kwargs)
+        self.motion = PiicoDev_LIS3DH()
         print(f"  {self.name}: 3-axis accelerometer ready")
     
     def read_data(self):

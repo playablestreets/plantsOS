@@ -2,7 +2,7 @@
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 640 40 empty empty plantsOS\ 🪁\ Kite\ Choir 20 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 614 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 48 256;
+#X obj 614 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 49 256;
 #X obj 32 138 declare -path ./bop, f 28;
 #X obj 324 437 dac~, f 35;
 #X msg 164 95 \; pd dsp 1;
@@ -258,7 +258,7 @@
 #X obj 32 347 s osc-in;
 #X msg 64 316 id -1;
 #X text 111 315 < mute on dash;
-#X msg 43 280 io create tilt lis3dh 0x19;
+#X msg 43 283 io create tilt lis3dh 0x19;
 #X connect 5 0 4 0;
 #X connect 9 0 23 0;
 #X connect 10 0 24 0;
@@ -277,7 +277,6 @@
 #X connect 24 0 3 1;
 #X connect 25 0 30 0;
 #X connect 26 0 25 0;
-#X connect 26 0 33 0;
 #X connect 27 0 28 0;
 #X connect 28 0 12 0;
 #X connect 31 0 30 0;
