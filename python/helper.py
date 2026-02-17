@@ -26,10 +26,12 @@ def config_callback(path='', tags='', args='', source=''):
             # row[0] is mac address in config file
             # row[1] is ID in config file
             if row[0] == sys.argv[1]:
-                print('MAC MATCHED LINE IN CONFIG')
+                print('MAC address found in bopos.devices.csv')
                 msg = OSCMessage("/id")
                 msg.append(row[1], 'f')
                 client.send(msg)
+            else:
+                print('MAC address not found in bopos.devices.csv')
 
                 # this is causing an error in linux
                 # msg.clear("/pos")
