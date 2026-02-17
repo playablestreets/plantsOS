@@ -1,4 +1,4 @@
-# BopOS I2C Bridge Dependencies
+# helper.py and io/main.py dependencies
 
 # OSC communication
 pyOSC3
