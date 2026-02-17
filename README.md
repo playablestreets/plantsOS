@@ -2,9 +2,9 @@
 
 A Raspberry Pi and Pure Data based framework for networked multi-device sound and interactivity. 
 
-Python provide admin services (updating, rebooting, shutdown), as well as input/output via i2c.   
+- Python provides admin services (updating, rebooting, shutdown), as well as input/output via i2c.   
 
-Plays well with the [bop](https://github.com/zealtv/bop) library for PD Vanilla. 
+- Plays well with the [bop](https://github.com/zealtv/bop) library for PD Vanilla. 
 
 # Requirements 
 
@@ -146,13 +146,15 @@ sudo ~/plantsOS/bash/update.sh
 
 ---
 
-# TODO
+# FUTURE TODOs
 
 - run pip install -r ./requirements across python scripts during update
-- Broadcast MAC, ip address, and hostname on boot
-- add soundcard to bopos.config, read in start.sh
+- install script
+- Broadcast MAC, ip address, and hostname on boot and on request
+- configure soundcard via bopos.config
+- look first in active patch for bopos.config and bopos.devices (?)
 
-## DECOUPLE BOPOS
+## DECOUPLE BOPOS from PD Patch
 - structure as below
 - hot-swappable patches specified as git repos in bopos.config
   - if patch uses bop, bop can be submodule or flat folder  (recursive downloading of bop or samplepacks not required)
@@ -166,6 +168,8 @@ bopOS/
   DASHBOARD.tosc  
   patches/
     kitechoir/
+        bopos.config
+        bopos.devices
         bop/
             samplepacks/
                 kc_samplepack/
