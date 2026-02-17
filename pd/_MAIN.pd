@@ -1,8 +1,8 @@
-#N canvas 706 390 697 519 12;
+#N canvas 725 166 699 566 12;
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 640 40 empty empty plantsOS\ 🪁\ Kite\ Choir 20 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 614 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 49 256;
+#X obj 614 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 50 256;
 #X obj 32 138 declare -path ./bop, f 28;
 #X obj 324 437 dac~, f 35;
 #X msg 164 95 \; pd dsp 1;
@@ -122,7 +122,7 @@
 #X connect 36 1 35 0;
 #X connect 39 0 34 1;
 #X connect 40 0 36 1;
-#X restore 32 476 pd tilt;
+#X restore 32 506 pd tilt;
 #X f 18;
 #X obj 324 347 catch~ left;
 #X obj 562 345 catch~ right;
@@ -136,7 +136,7 @@
 #A saved cutoff 3000;
 #A saved wet 0.7;
 #A saved dry 1;
-#X obj 32 447 r osc-in;
+#X obj 32 477 r osc-in;
 #X obj 327 145 bop.stream~;
 #A saved pack kc_samplepack;
 #A saved folder 7;
@@ -253,12 +253,13 @@
 #X connect 52 0 38 0;
 #X connect 52 1 51 0;
 #X connect 53 0 54 0;
-#X restore 32 406 pd mapping;
+#X restore 32 436 pd mapping;
 #X f 23;
-#X obj 32 347 s osc-in;
-#X msg 64 316 id -1;
-#X text 111 315 < mute on dash;
+#X obj 32 387 s osc-in;
+#X msg 64 356 id -1;
+#X text 111 355 < mute on dash;
 #X msg 43 283 io create tilt lis3dh 0x19;
+#X msg 62 319 io poll 20;
 #X connect 5 0 4 0;
 #X connect 9 0 23 0;
 #X connect 10 0 24 0;
@@ -277,7 +278,10 @@
 #X connect 24 0 3 1;
 #X connect 25 0 30 0;
 #X connect 26 0 25 0;
+#X connect 26 0 33 0;
+#X connect 26 0 34 0;
 #X connect 27 0 28 0;
 #X connect 28 0 12 0;
 #X connect 31 0 30 0;
 #X connect 33 0 30 0;
+#X connect 34 0 30 0;
