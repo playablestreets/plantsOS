@@ -37,9 +37,11 @@ class ADC:
     def read_data(self):
         """
         Read all 4 channels.
-        Returns: [ch0_value, ch1_value, ch2_value, ch3_value]
+        Returns a list of 4 normalized float values (0.0-1.0).
         """
-        return [(ch.value) for ch in self.channels]
+        # The raw value is a 12-bit integer (0-4095).
+        # Divide by 4095.0 to normalize to a 0.0-1.0 float.
+        return [(ch.value / 4095.0) for ch in self.channels]
     
     def write_data(self, **kwargs):
         """ADC is read-only."""
