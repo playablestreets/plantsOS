@@ -8,8 +8,8 @@ import time
 from pythonosc import udp_client, dispatcher, osc_server, osc_bundle_builder, osc_message_builder
 
 # Settings
-PYTHON_PORT = 8880      # Python listens here for PD commands
-PD_PORT = 6662          # Pure Data listens here for data
+PYTHON_PORT = 8880      # This script listens here for commands from Pure Data
+PD_PORT = 6662          # Pure Data listens here for messages from this script
 DEFAULT_POLL_RATE = 10  # Hz
 
 # Available peripheral types
