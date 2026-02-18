@@ -1,7 +1,5 @@
 [
   {
-    "name": "default",
-    "git_url": "https://github.com/yourorg/default-patch.git",
-    "entrypoint": "main.pd"
+    "name": "default"
   }
 ]
