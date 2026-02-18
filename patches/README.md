@@ -17,6 +17,13 @@ patches.json is an array of objects, each describing a patch. Each object can ha
     "git_url": "https://github.com/yourorg/default-patch.git",
     "entrypoint": "main.pd",
     "samplepack_url": "https://drive.google.com/uc?export=download&id=xxxx"
+  },
+  {
+    "name": "custom",
+    "git_url": "https://github.com/yourorg/custom-patch.git"
   }
 ]
 ```
+
+## active_patch.txt
+stores the currently active patch

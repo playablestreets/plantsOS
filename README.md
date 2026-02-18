@@ -3,7 +3,6 @@
 A Raspberry Pi and Pure Data based framework for networked multi-device sound and interactivity. 
 
 - Python provides admin services (updating, rebooting, shutdown), as well as input/output via i2c.   
-
 - Plays well with the [bop](https://github.com/zealtv/bop) library for PD Vanilla. 
 
 # Requirements 
@@ -78,18 +77,13 @@ python3 -m venv ./venv
 # goto home directory
 cd ~
 
-
 # clone this repo (or your fork)
 git clone https://github.com/playablestreets/plantsOS.git
 
-
-# !copy samples
 # !edit bash/start.sh to configure soundcard
-
 
 # run update script 
 sudo ~/plantsOS/bash/update.sh
-
 
 # pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
 
@@ -154,6 +148,7 @@ sudo ~/plantsOS/bash/update.sh
 - Broadcast MAC, ip address, and hostname on boot and on request
 - configure soundcard and jack settings via bopos.config
 - look first in active patch for bopos.config and bopos.devices (?)
+- remove bop from this repo, make bopos.feedback pure pd
 
 ## DECOUPLE BOPOS from PD Patch
 - structure as below
@@ -163,11 +158,14 @@ sudo ~/plantsOS/bash/update.sh
 ```
 bopOS/
   bopos.devices
+  bopos.config
   DASHBOARD.pd
   DASHBOARD.tosc  
   patches/
+    default/
+        main.pd
     patches.json
-    .active_patch.txt
+    active_patch.txt
   pd/
     bop/
     seq/
