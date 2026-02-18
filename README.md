@@ -153,7 +153,7 @@ sudo ~/plantsOS/bash/update.sh
 - run pip install -r ./requirements across python scripts during update
 - install script
 - Broadcast MAC, ip address, and hostname on boot and on request
-- configure soundcard via bopos.config
+- configure soundcard and jack settings via bopos.config
 - look first in active patch for bopos.config and bopos.devices (?)
 
 ## DECOUPLE BOPOS from PD Patch
