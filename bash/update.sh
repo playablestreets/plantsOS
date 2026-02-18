@@ -8,7 +8,7 @@ echo "--- updating submodules"
 git submodule update --init --recursive
 echo "--- setting permissions to allow PD write access"
 chown -R pi ./
-cd scripts
+cd bash
 echo "--- copying rc.local"
 sudo cp ./rc.local /etc/
 echo "--- rebooting in 5 seconds..."
