@@ -3,3 +3,6 @@
 # Except these files
 !.gitignore
 !README.md
+!default/**
+!active_patch.txt
+!patches.json

@@ -150,7 +150,6 @@ sudo ~/plantsOS/bash/update.sh
 
 # FUTURE TODOs
 
-- run pip install -r ./requirements across python scripts during update
 - install script
 - Broadcast MAC, ip address, and hostname on boot and on request
 - configure soundcard and jack settings via bopos.config
@@ -168,12 +167,11 @@ bopOS/
   DASHBOARD.tosc  
   patches/
     patches.json
-    active_patch.txt
+    .active_patch.txt
   pd/
     bop/
     seq/
     bopos.feedback.pd
-    bopos.sensors.pd
     bopos.osc.pd
     bopos.gui.pd  
   bash/
@@ -220,7 +218,7 @@ This plan enables hot-swappable, repo-based Pure Data patches with simple, maint
        {
          "name": "kitechoir",
          "git_url": "https://github.com/yourorg/kitechoir-patch.git",
-         "samplepacks_url": "https://drive.google.com/uc?export=download&id=xxxx",
+         "samplepack_url": "https://drive.google.com/uc?export=download&id=xxxx",
          "entrypoint": "MAIN.pd"
        },
        {
@@ -263,7 +261,7 @@ This plan enables hot-swappable, repo-based Pure Data patches with simple, maint
 
 4. **OSC Patch Switching**
    - Add OSC handler in [python/helper.py](http://_vscodecontentref_/0) (e.g., `/setpatch kitechoir`).
-   - Handler updates active_patch.txt and triggers a restart or patch reload.
+   - Handler updates .active_patch.txt and triggers a restart or patch reload.
 
 5. **Documentation**
    - Update [README.md](http://_vscodecontentref_/1) to explain:
