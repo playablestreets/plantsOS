@@ -2,7 +2,7 @@
 #X declare -path ./bop;
 #X declare -path ./bop/babs;
 #X obj 32 14 cnv 19 640 40 empty empty plantsOS\ 🪁\ Kite\ Choir 20 20 0 16 #c6ffc7 #e3c6ff 0;
-#X obj 614 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 54 256;
+#X obj 614 33 nbx 3 17 -1e+37 1e+37 0 1 version empty version 0 -10 0 12 #c6ffc7 #000000 #000000 55 256;
 #X obj 32 138 declare -path ./bop, f 28;
 #X obj 309 723 dac~, f 35;
 #X msg 164 95 \; pd dsp 1;
@@ -215,7 +215,7 @@
 #X floatatom 550 208 5 0 0 0 - - - 0;
 #X obj 742 279 r ID;
 #X msg 742 306 pack kc_samplepackAPAM \, folder 0 \, loop 1 \, \$1 127;
-#X text 739 254 CHOIR--------------------------------;
+#X text 738 244 CHOIR--------------------------------;
 #X obj 423 185 r gain-center;
 #X obj 304 184 r gain-left;
 #X obj 550 184 r gain-right;
@@ -235,7 +235,7 @@
 #X msg 609 73 2;
 #X obj 578 114 s ID;
 #X msg 299 296 pack kc_samplepackAPAM \, folder 1 \, loop 1 \, \$1 127;
-#X text 292 254 BIRDS--------------------------------;
+#X text 293 245 BIRDS--------------------------------;
 #X obj 1158 351 bop.stream~;
 #A saved pack kc_samplepackAPAM;
 #A saved folder 2;
@@ -244,7 +244,7 @@
 #X obj 1177 438 line~;
 #X msg 1177 409 \$1 100;
 #X obj 1159 468 *~;
-#X text 1153 260 WIND--------------------------------;
+#X text 1154 243 WIND--------------------------------;
 #X msg 1160 302 pack kc_samplepackAPAM \, folder 2 \, loop 1 \, \$1 127;
 #X obj 1177 381 r gain-right;
 #X obj 437 599 clip 0 0.9;
@@ -253,6 +253,8 @@
 #X obj 1157 529 throw~ left;
 #X obj 1248 528 throw~ right;
 #X obj 1159 503 *~ 0.6;
+#X obj 296 266 loadbang;
+#X obj 1158 267 loadbang;
 #X connect 5 0 4 0;
 #X connect 9 0 19 0;
 #X connect 10 0 20 0;
@@ -305,3 +307,5 @@
 #X connect 70 0 15 0;
 #X connect 73 0 72 0;
 #X connect 73 0 71 0;
+#X connect 74 0 59 0;
+#X connect 75 0 66 0;
