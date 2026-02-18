@@ -215,13 +215,13 @@ This plan enables hot-swappable, repo-based Pure Data patches with simple, maint
      [
        {
          "name": "kitechoir",
-         "git_url": "https://github.com/yourorg/kitechoir-patch.git",
+         "git_url": "https://github.com/yourorg/kitechoir.git",
          "samplepack_url": "https://drive.google.com/uc?export=download&id=xxxx",
          "entrypoint": "MAIN.pd"
        },
        {
          "name": "coldvoice",
-         "git_url": "https://github.com/yourorg/coldvoice-patch.git"
+         "git_url": "https://github.com/yourorg/coldvoice.git"
        }
      ]
      ```
