@@ -11,7 +11,7 @@ A Raspberry Pi and Pure Data based framework for networked multi-device sound an
 
 # Installation and Setup
 
-## Flash SD using Raspberry Pi Imager
+Flash SD using Raspberry Pi Imager
 - Choose OS RASPBERRY PI OS LITE (64-BIT)
 - Set username to pi and password
 - Set hostname to raspberrypi
@@ -19,53 +19,40 @@ A Raspberry Pi and Pure Data based framework for networked multi-device sound an
 - enable SSH
 - Flash SD
 
-## Install packages
+
+Boot pi and login
 ```
-# login
 ssh pi@raspberrypi.local
-
-
-# update raspbian
-sudo apt-get update; sudo apt-get upgrade -y
-
-
-# enable i2c and expand filesystem
-sudo raspi-config
-
-
-# install jack2, git, pip, and pure data
-sudo apt-get install jackd2 git pip puredata -y
-
-# accept jack realtime priority when prompted 
-
-
-#make python virtual environment
-cd ~
-python3 -m venv ./venv
-
-
-# clone this repo (or your fork)
-git clone https://github.com/playablestreets/plantsOS.git
-
-
-# install python dependencies
-~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt
-
-
-# edit bash/start.sh to configure soundcard
-nano ./plantsOS/bash/start.sh
-
-
-# run update script 
-sudo ~/plantsOS/bash/update.sh
-
-
-# pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
-
-# if a hostname is linked to your devices MAC address in bopos.local, you can ssh using the new hostname
-ssh pi@newhostname.local
-
 ```
+
+use raspi-config toenable i2c and expand filesystem
+```
+sudo raspi-config
+```
+
+Install packages  ( accept jack realtime priority when prompted )
+```
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y jackd2 git python3-pip puredata python3-venv && cd ~ && python3 -m venv ./venv && git clone https://github.com/playablestreets/plantsOS.git && ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt
+```
+
+edit bash/start.sh to configure soundcard
+```
+nano ./plantsOS/bash/start.sh
+```
+
+run update script 
+```
+sudo ~/plantsOS/bash/update.sh
+```
+
+pi should reboot with jack, puredata, and python running
+
+# Multidevice Network (bopos.devices)
+For spatial or multidevice setups, the bopos.devices file specifies devices running on your network.  Devices are identified by MAC address (lowercase) and you can a hostname as well as these variables which will be passed Pure Data:
+- Device ID
+- position of left element
+- position of right element
+
 
 # OSC architecture
 
@@ -120,51 +107,10 @@ ssh pi@newhostname.local
 
 ---
 
-# FUTURE TODOs
+# TODO
 
-- install script
 - Broadcast MAC, ip address, and hostname on boot and on request
-- configure soundcard and jack settings via bopos.config
+- configure soundcard and jack settings in a config file
 - remove bop from this repo, make bopos.feedback pure pd
-
-## DECOUPLE BOPOS from PD Patch
-- structure as below
-- hot-swappable patches specified as git repos
-- id, hostname, position, class, etc specified in bopos.devices - require a good way of setting this remotely.
-
-```
-bopOS/
-  bopos.devices
-  DASHBOARD.pd
-  bash/
-    start.sh
-    stop.sh
-    update.sh
-    install.sh
-    downloadsamples.sh
-    deletesamples.sh
-    rc.local
-  patches/
-    default/
-        main.pd
-        bopos.config
-    active_patch.txt
-  pd/
-    bop/
-    seq/
-    bopos.feedback.pd
-    bopos.osc.pd
-    bopos.gui.pd  
-  python/
-    helper.py
-    io/
-        main.py
-        io_adc.py
-        io_tilt.py
-        io_touch.py
-        io_screen.py
-        io_leds.py
-        io_template.py
-```
-
+- bopos.devices should be json and allow for arbitrary properties to be passed to PD
 
