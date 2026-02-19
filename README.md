@@ -13,8 +13,9 @@ A Raspberry Pi and Pure Data based framework for networked multi-device sound an
 
 ## Flash SD using Raspberry Pi Imager
 - Choose OS RASPBERRY PI OS LITE (64-BIT)
-- Set username and password
-- configure wireless LAN
+- Set username to pi and password
+- Set hostname to raspberrypi
+- configure wireless network
 - enable SSH
 - Flash SD
 
@@ -24,39 +25,18 @@ A Raspberry Pi and Pure Data based framework for networked multi-device sound an
 ssh pi@raspberrypi.local
 
 
-# update
-sudo apt-get update
-sudo apt-get upgrade
+# update raspbian
+sudo apt-get update; sudo apt-get upgrade -y
 
 
-# enable i2c, expand filesystem, and set gpu memory to 16 (if applicable)
+# enable i2c and expand filesystem
 sudo raspi-config
 
 
-# install jack2
-sudo apt-get install jackd2
+# install jack2, git, pip, and pure data
+sudo apt-get install jackd2 git pip puredata -y
 
-
-# install git
-sudo apt-get install git
-
-
-# install pure-data dependencies
-sudo apt-get install build-essential automake autoconf libtool gettext libasound2-dev libjack-jackd2-dev tcl tk wish
-
-
-# build and install puredata 0.54+
-cd ~
-git clone https://github.com/pure-data/pure-data.git
-cd ./pure-data/
-./autogen.sh
-./configure --enable-jack
-make
-sudo make install
-
-
-#install pip
-sudo apt-get install pip
+# accept jack realtime priority when prompted 
 
 
 #make python virtual environment
@@ -64,26 +44,20 @@ cd ~
 python3 -m venv ./venv
 
 
+# clone this repo (or your fork)
+git clone https://github.com/playablestreets/plantsOS.git
+
+
 # install python dependencies
 ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt
 
 
+# edit bash/start.sh to configure soundcard
 
-
-```
-
-## Install project code
-```
-# goto home directory
-cd ~
-
-# clone this repo (or your fork)
-git clone https://github.com/playablestreets/plantsOS.git
-
-# !edit bash/start.sh to configure soundcard
 
 # run update script 
 sudo ~/plantsOS/bash/update.sh
+
 
 # pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
 
