@@ -111,10 +111,15 @@ For spatial or multidevice setups, the bopos.devices file specifies devices runn
 
 - document osc commands and return values and ranges in io_modules - normalise where sensible
 - Broadcast MAC, ip address, and hostname on boot and on request
-- configure soundcard and jack settings in a config file
+- configure soundcard and jack settings in a config file. ie
+    SOUNDCARD="digiamp"
+    SAMPLERATE="22050"
+    BUFFER="1024"
+    CHANNELS="2"
 - remove bop from this repo, make bopos.feedback pure pd
 - bopos.devices should be json and allow for arbitrary properties to be passed to PD. Find a good way to manage this.
 - rename update.sh to updateOS.sh, create scripts to add and update patch repos
 - add osc commands for the scripts above as well as setting active patch
 - a mechanism for persistance - send an osc message to a script which stores value in json.  those values are returned at boot.
+- a shared clock negotiated amongst devices
 
