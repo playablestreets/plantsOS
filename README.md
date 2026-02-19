@@ -158,20 +158,7 @@ sudo ~/plantsOS/bash/update.sh
 ```
 bopOS/
   bopos.devices
-  bopos.config
   DASHBOARD.pd
-  DASHBOARD.tosc  
-  patches/
-    default/
-        main.pd
-    patches.json
-    active_patch.txt
-  pd/
-    bop/
-    seq/
-    bopos.feedback.pd
-    bopos.osc.pd
-    bopos.gui.pd  
   bash/
     start.sh
     stop.sh
@@ -180,6 +167,17 @@ bopOS/
     downloadsamples.sh
     deletesamples.sh
     rc.local
+  patches/
+    default/
+        main.pd
+        bopos.config
+    active_patch.txt
+  pd/
+    bop/
+    seq/
+    bopos.feedback.pd
+    bopos.osc.pd
+    bopos.gui.pd  
   python/
     helper.py
     io/
@@ -193,90 +191,3 @@ bopOS/
 ```
 
 
-# Decoupling Plan
-
-## Plan: Decoupled Patch Management with jq-based Metadata Access
-
-This plan enables hot-swappable, repo-based Pure Data patches with simple, maintainable selection and management, using jq for JSON parsing in shell scripts.
-
----
-
-**Steps**
-
-1. **Patch Registry**
-   - Create [patches/patches.json](patches/patches.json) as a JSON array.
-   - Each entry includes:
-     - `name` (unique, used for selection)
-     - `git_url` (required)
-     - `samplepacks_url` (optional)
-     - `entrypoint` (optional, defaults to `main.pd`)
-   - Example:
-     ```json
-     [
-       {
-         "name": "kitechoir",
-         "git_url": "https://github.com/yourorg/kitechoir.git",
-         "samplepack_url": "https://drive.google.com/uc?export=download&id=xxxx",
-         "entrypoint": "MAIN.pd"
-       },
-       {
-         "name": "coldvoice",
-         "git_url": "https://github.com/yourorg/coldvoice.git"
-       }
-     ]
-     ```
-
-2. **Active Patch Selection**
-   - Store the name of the active patch in [patches/active_patch.txt](patches/active_patch.txt).
-   - Only the patch name (e.g., `kitechoir`) is stored, one per line.
-   - Update this file via OSC handler in [python/helper.py](python/helper.py) or manually.
-
-3. **Patch Cloning & Launch Logic in start.sh**
-   - Ensure jq is installed (`sudo apt-get install jq`).
-   - In [bash/start.sh](bash/start.sh):
-     - Read the active patch name:
-       ```sh
-       ACTIVE_PATCH=$(cat patches/active_patch.txt)
-       ```
-     - Extract patch metadata using jq:
-       ```sh
-       PATCH_INFO=$(jq -r --arg name "$ACTIVE_PATCH" '.[] | select(.name == $name)' patches/patches.json)
-       GIT_URL=$(echo "$PATCH_INFO" | jq -r '.git_url')
-       ENTRYPOINT=$(echo "$PATCH_INFO" | jq -r '.entrypoint // "main.pd"')
-       SAMPLEPACKS_URL=$(echo "$PATCH_INFO" | jq -r '.samplepacks_url // empty')
-       ```
-     - If the patch folder is missing, clone it:
-       ```sh
-       if [ ! -d "patches/$ACTIVE_PATCH" ]; then
-         git clone "$GIT_URL" "patches/$ACTIVE_PATCH"
-       fi
-       ```
-     - Download samplepack if `SAMPLEPACKS_URL` is set.
-     - Launch the patch’s entrypoint:
-       ```sh
-       pd "patches/$ACTIVE_PATCH/$ENTRYPOINT"
-       ```
-
-4. **OSC Patch Switching**
-   - Add OSC handler in [python/helper.py](http://_vscodecontentref_/0) (e.g., `/setpatch kitechoir`).
-   - Handler updates .active_patch.txt and triggers a restart or patch reload.
-
-5. **Documentation**
-   - Update [README.md](http://_vscodecontentref_/1) to explain:
-     - The patch system and file formats.
-     - How to add/switch patches.
-     - The jq dependency and installation.
-
----
-
-**Verification**
-- Add two patches to patches.json, one with all fields, one with only required.
-- Switch patches by editing active_patch.txt and via OSC.
-- Confirm correct repo, samplepack, and entrypoint are used.
-- Confirm fallback to `main.pd` when `entrypoint` is omitted.
-
-**Decisions**
-- Use patches/active_patch.txt for active patch selection.
-- Use patches/patches.json for patch metadata only.
-- Use jq in start.sh for robust, maintainable JSON parsing.
-- Default entrypoint to `main.pd` if not specified.
