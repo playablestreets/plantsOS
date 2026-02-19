@@ -112,5 +112,5 @@ For spatial or multidevice setups, the bopos.devices file specifies devices runn
 - Broadcast MAC, ip address, and hostname on boot and on request
 - configure soundcard and jack settings in a config file
 - remove bop from this repo, make bopos.feedback pure pd
-- bopos.devices should be json and allow for arbitrary properties to be passed to PD
+- bopos.devices should be json and allow for arbitrary properties to be passed to PD. Find a good way to manage this.
 
