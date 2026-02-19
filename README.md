@@ -53,6 +53,7 @@ git clone https://github.com/playablestreets/plantsOS.git
 
 
 # edit bash/start.sh to configure soundcard
+nano ./plantsOS/bash/start.sh
 
 
 # run update script 
