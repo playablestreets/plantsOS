@@ -62,6 +62,9 @@ sudo ~/plantsOS/bash/update.sh
 
 # pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
 
+# if a hostname is linked to your devices MAC address in bopos.local, you can ssh using the new hostname
+ssh pi@newhostname.local
+
 ```
 
 # OSC architecture
