@@ -10,6 +10,11 @@ client.connect( ('127.0.0.1', 6661) )
 
 
 def config_callback(path='', tags='', args='', source=''):
+    # NOTE: On Raspbian Trixie (Debian 13+), hostname changes must be made using hostnamectl.
+    # Direct edits to /etc/hostname are discouraged and may not update mDNS/Bonjour (.local) names.
+    # avahi-daemon provides .local (Bonjour/mDNS) resolution and listens for hostname changes via systemd.
+    # After changing the hostname, avahi-daemon is restarted to ensure the .local address updates immediately.
+    # /etc/hosts is also updated for local resolution of the new hostname.
 
     directory = os.path.dirname(os.path.realpath(__file__))
     config_file = os.path.join(directory, "../bopos.devices")
@@ -17,9 +22,7 @@ def config_callback(path='', tags='', args='', source=''):
 
     # open file in read mode
     with open(config_file, 'r') as read_obj:
-        # pass the file object to reader() to get the reader object
         csv_reader = reader(read_obj, skipinitialspace=True)
-        # Iterate over each row in the csv using reader object
         macfound = False
         for row in csv_reader:
             # row variable is a list that represents a row in csv
@@ -30,26 +33,29 @@ def config_callback(path='', tags='', args='', source=''):
             if row[0] == sys.argv[1]:
                 print('MAC address found in bopos.devices')
                 macfound = True
-    
-            if macfound:
                 hostname = row[1]
                 print('setting hostname to ' + hostname)
-                cmd = (f'sudo hostnamectl set-hostname {hostname} && 'f'sudo sed -i "/127\\\\.0\\\\.1\\\\.1/ s/[[:alnum:]\\\\.-]\\\\+ *$/ {hostname}/" /etc/hosts')
-                os.system(cmd)
+
+                # Use hostnamectl for systemd-based systems (Debian 13/Trixie)
+                os.system(f'sudo hostnamectl set-hostname {hostname}')
+                # Update /etc/hosts for local resolution
+                os.system(f"sudo sed -i 's/^127.0.1.1.*/127.0.1.1   {hostname}/' /etc/hosts")
+
+                # Ensure avahi-daemon is running and restart it to update mDNS (.local)
+                avahi_status = os.system('systemctl is-active --quiet avahi-daemon')
+                if avahi_status == 0:
+                    print('Restarting avahi-daemon to update mDNS hostname...')
+                    os.system('sudo systemctl restart avahi-daemon')
+                else:
+                    print('avahi-daemon is not active. Attempting to start...')
+                    os.system('sudo systemctl start avahi-daemon')
 
                 id = row[2]
                 print('setting ID to ' + id)
                 msg = OSCMessage("/id")
                 msg.append(id, 'f')
                 client.send(msg)
-
-                # this is causing an error in linux
-                # msg.clear("/pos")
-                # msg.append(row[2], typehint='f')
-                # msg.append(row[3], typehint='f')
-                # client.send(msg)
                 break
-
         if not macfound:
             print('MAC address not found in bopos.devices.csv')
 
