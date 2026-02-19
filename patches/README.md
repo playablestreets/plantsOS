@@ -1,29 +1,37 @@
-## patches.json
-This file lists available patch folders and their metadata for the system to recognize and manage them.
+## Patch Management Workflow (2026)
 
-### Structure
-patches.json is an array of objects, each describing a patch. Each object can have the following fields:
+### Patch Structure
 
-- name (required): The name of the patch folder (must match a subfolder in this directory).
-- git_url (optional): The URL to the patch's git repository.
-- entrypoint (optional): The main Pure Data file to load for this patch (e.g., "main.pd").
-- samplepack_url (optional): URL to download a sample pack associated with the patch.
+- Each patch is a git repository cloned into a subfolder of `patches/` (e.g., `patches/default`).
+- The patch folder name is the patch name.
+- The entry point for each patch is always `main.pd` inside the patch folder.
+- Optionally, a patch may include a `bopos.config` file specifying variables (e.g., `SAMPLEPACKSURL`) to be accessed by shell scripts in the parent project.
 
-### Example
-```json
-[
-  {
-    "name": "default",
-    "git_url": "https://github.com/yourorg/default-patch.git",
-    "entrypoint": "main.pd",
-    "samplepack_url": "https://drive.google.com/uc?export=download&id=xxxx"
-  },
-  {
-    "name": "custom",
-    "git_url": "https://github.com/yourorg/custom-patch.git"
-  }
-]
+### Adding Patches
+
+- Patches are added via an OSC command that receives the patch repo git URL.
+- The system clones the repo into `patches/<patchname>`.
+
+### Activating Patches
+
+- The active patch is tracked in `patches/active_patch.txt`.
+- When activated, the system launches `main.pd` from the patch folder.
+- If a `bopos.config` file is present, shell scripts can access variables such as `SAMPLEPACKSURL` for samplepack download.
+
+### Example Patch Folder
+
 ```
+patches/
+  default/
+    bop/ # optional - patch provides it's own pd dependencies
+    main.pd
+    bopos.config   # optional, stores variables like SAMPLEPACKSURL
+```
+
+### Notes
+
+- Entry point is always `main.pd` unless otherwise specified in future conventions.
+- Samplepack location and other variables are discovered from `bopos.config` in the patch folder.
 
 ## active_patch.txt
 stores the currently active patch

@@ -44,8 +44,13 @@ sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/io/main.py &
 
 sleep 1
 
+# Determine active patch
+ACTIVE_PATCH=$(cat /home/pi/plantsOS/patches/active_patch.txt)
+PATCH_PATH="/home/pi/plantsOS/patches/$ACTIVE_PATCH"
+PATCH_ENTRYPOINT="$PATCH_PATH/main.pd"
+
 echo "------------------- Starting Pure Data..."
 # PUREDATA
-pd -nogui -jack -open "/home/pi/plantsOS/pd/_MAIN.pd" -send "; RANDOM $RND; STARTTIME $STARTTIME; STARTDATE $STARTDATE; " &
+pd -nogui -jack -open "$PATCH_ENTRYPOINT" -send "; RANDOM $RND; STARTTIME $STARTTIME; STARTDATE $STARTDATE; " &
 
 exit
