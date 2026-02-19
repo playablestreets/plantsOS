@@ -1,4 +1,4 @@
-# peripheral_touch.py
+# io_mpr121.py
 """
 MPR121 Capacitive Touch Sensor
 12-channel capacitive touch sensor with filtered data (0-1023)

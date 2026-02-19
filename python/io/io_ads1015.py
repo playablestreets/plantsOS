@@ -1,4 +1,4 @@
-# peripheral_adc.py
+# io_ads1015.py
 """
 ADS1015 12-bit Analog-to-Digital Converter
 Reads 4 analog channels (A0-A3) and returns voltages

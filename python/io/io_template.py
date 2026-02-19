@@ -1,4 +1,4 @@
-# peripheral_template.py
+# io_template.py
 """
 Template for creating new peripheral modules.
 

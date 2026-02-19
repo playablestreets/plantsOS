@@ -1,4 +1,4 @@
-# peripheral_tilt.py
+# io_lis3dh.py
 """
 LIS3DH 3-Axis Accelerometer
 Reads tilt/acceleration in x, y, z axes
