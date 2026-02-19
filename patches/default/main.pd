@@ -6,7 +6,7 @@
 #X obj 408 19 r osc-in;
 #X msg 14 43 \; pd dsp 1;
 #X obj 14 14 loadbang, f 9;
-#X obj 18 251 bopos.osc, f 10;
+#X obj 18 311 bopos.osc, f 10;
 #X obj 19 175 bopos.feedback, f 16;
 #X msg 18 219 io create adc ads1015 0x48;
 #X obj 14 108 declare -path ../../pd/bop;
@@ -18,7 +18,7 @@
 #A saved semisteps 0.4343;
 #A saved root 64;
 #A saved hold 0;
-#A saved duration 0.560556;
+#A saved duration 0.958663;
 #A saved velocity 0.75;
 #X msg 327 321 semisteps \$1;
 #X obj 328 18 tgl 19 1 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000 0 1;
@@ -30,7 +30,7 @@
 #X obj 567 353 bop.casio~, f 23;
 #A saved wave-1 2;
 #A saved wave-2 5;
-#A saved filter 0.345233;
+#A saved filter 0.81551;
 #A saved attack 0.0214286;
 #A saved decay 0.178571;
 #A saved sustain 0.628571;
@@ -49,6 +49,8 @@
 #A saved dry 1;
 #X obj 568 404 lop~ 400;
 #X obj 408 43 route enable;
+#X msg 63 275 version 1;
+#X obj 63 244 loadbang;
 #X connect 1 0 28 0;
 #X connect 3 0 2 0;
 #X connect 6 0 4 0;
@@ -74,3 +76,5 @@
 #X connect 26 0 19 1;
 #X connect 27 0 26 0;
 #X connect 28 0 14 0;
+#X connect 29 0 4 0;
+#X connect 30 0 29 0;

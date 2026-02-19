@@ -196,6 +196,9 @@
 #X obj 86 1128 list prepend 0, f 21;
 #X text 404 673 wait for id to be set from helper.py, f 10;
 #X text 383 81 get ID from helper.py;
+#X obj 634 619 r osc-in;
+#X obj 634 653 route version;
+#X obj 634 687 s version;
 #X connect 0 0 1 0;
 #X connect 1 0 6 0;
 #X connect 3 0 4 0;
@@ -263,3 +266,5 @@
 #X connect 98 0 100 0;
 #X connect 100 0 99 0;
 #X connect 101 0 7 0;
+#X connect 104 0 105 0;
+#X connect 105 0 106 0;
