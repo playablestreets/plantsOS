@@ -2,7 +2,7 @@
 """
 Template for creating new peripheral modules.
 
-Copy this file and rename it (e.g., 'peripheral_leds.py')
+Copy this file and rename it (e.g., 'io_leds.py')
 Fill in the methods below with your device-specific code.
 """
 

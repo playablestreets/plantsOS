@@ -25,7 +25,7 @@ Boot pi and login
 ssh pi@raspberrypi.local
 ```
 
-use raspi-config toenable i2c and expand filesystem
+use raspi-config to enable i2c and expand filesystem
 ```
 sudo raspi-config
 ```
@@ -109,10 +109,12 @@ For spatial or multidevice setups, the bopos.devices file specifies devices runn
 
 # TODO
 
+- document osc commands and return values and ranges in io_modules - normalise where sensible
 - Broadcast MAC, ip address, and hostname on boot and on request
 - configure soundcard and jack settings in a config file
 - remove bop from this repo, make bopos.feedback pure pd
 - bopos.devices should be json and allow for arbitrary properties to be passed to PD. Find a good way to manage this.
-- document osc commands and return values and ranges in io_modules - normalise where sensible
-
+- rename update.sh to updateOS.sh, create scripts to add and update patch repos
+- add osc commands for the scripts above as well as setting active patch
+- a mechanism for persistance - send an osc message to a script which stores value in json.  those values are returned at boot.
 
