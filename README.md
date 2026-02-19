@@ -113,4 +113,6 @@ For spatial or multidevice setups, the bopos.devices file specifies devices runn
 - configure soundcard and jack settings in a config file
 - remove bop from this repo, make bopos.feedback pure pd
 - bopos.devices should be json and allow for arbitrary properties to be passed to PD. Find a good way to manage this.
+- document osc commands and return values and ranges in io_modules - normalise where sensible
+
 
