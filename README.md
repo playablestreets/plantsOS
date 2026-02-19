@@ -125,7 +125,6 @@ ssh pi@newhostname.local
 - install script
 - Broadcast MAC, ip address, and hostname on boot and on request
 - configure soundcard and jack settings via bopos.config
-- look first in active patch for bopos.config and bopos.devices (?)
 - remove bop from this repo, make bopos.feedback pure pd
 
 ## DECOUPLE BOPOS from PD Patch
