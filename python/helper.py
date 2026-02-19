@@ -12,7 +12,7 @@ client.connect( ('127.0.0.1', 6661) )
 def config_callback(path='', tags='', args='', source=''):
 
     directory = os.path.dirname(os.path.realpath(__file__))
-    config_file = os.path.join(directory, "config.csv")
+    config_file = os.path.join(directory, "../bopos.devices")
     print("loading: ", config_file)
 
     # open file in read mode
@@ -20,12 +20,27 @@ def config_callback(path='', tags='', args='', source=''):
         # pass the file object to reader() to get the reader object
         csv_reader = reader(read_obj, skipinitialspace=True)
         # Iterate over each row in the csv using reader object
+        macfound = False
         for row in csv_reader:
             # row variable is a list that represents a row in csv
+            # sys.argv[1] is mac address passed in at run
+            # row[0] is mac address in config file
+            # row[1] is hostname in config file
+            # row[2] is ID in config file
             if row[0] == sys.argv[1]:
-                print('MAC MATCHED LINE IN CONFIG')
+                print('MAC address found in bopos.devices')
+                macfound = True
+    
+            if macfound:
+                hostname = row[1]
+                print('setting hostname to ' + hostname)
+                cmd = (f'sudo hostnamectl set-hostname {hostname} && 'f'sudo sed -i "/127\\\\.0\\\\.1\\\\.1/ s/[[:alnum:]\\\\.-]\\\\+ *$/ {hostname}/" /etc/hosts')
+                os.system(cmd)
+
+                id = row[2]
+                print('setting ID to ' + id)
                 msg = OSCMessage("/id")
-                msg.append(row[1], 'f')
+                msg.append(id, 'f')
                 client.send(msg)
 
                 # this is causing an error in linux
@@ -33,20 +48,24 @@ def config_callback(path='', tags='', args='', source=''):
                 # msg.append(row[2], typehint='f')
                 # msg.append(row[3], typehint='f')
                 # client.send(msg)
+                break
+
+        if not macfound:
+            print('MAC address not found in bopos.devices.csv')
 
 
 def update_callback(path='', tags='', args='', source=''):
     directory = os.path.dirname(os.path.realpath(__file__))
-    update_script = os.path.join(directory, "update.sh")
+    update_script = os.path.join(directory, "../bash/update.sh")
     msg = OSCMessage("/update")
     client.send(msg)
     print("UPDATE!")
     os.system(update_script)
 
-def updatesamples_callback(path='', tags='', args='', source=''):
+def getsamples_callback(path='', tags='', args='', source=''):
     directory = os.path.dirname(os.path.realpath(__file__))
-    update_script = os.path.join(directory, "updatesamples.sh")
-    msg = OSCMessage("/updatesamples")
+    update_script = os.path.join(directory, "../bash/getsamples.sh")
+    msg = OSCMessage("/getsamples")
     client.send(msg)
     print("UPDATE SAMPLES!")
     os.system(update_script)        
@@ -63,21 +82,39 @@ def reboot_callback(path='', tags='', args='', source=''):
     print("REBOOTING")
     os.system("systemctl reboot")
 
+def checkout_callback(path, tags, args, source):
+    msg = OSCMessage("/checkout")
+    client.send(msg)    
+    branch = args[0].lstrip('/')
+    directory = os.path.dirname(os.path.realpath(__file__))
+    print("checking out: " + branch)
+    checkout_script = os.path.join(directory, "../bash/checkout.sh ") + branch
+    os.system(checkout_script)
+
+    # directory = os.path.dirname(os.path.realpath(__file__))
+    update_script = os.path.join(directory, "../bash/update.sh")
+    msg = OSCMessage("/update")
+    client.send(msg)
+    print("UPDATE!")
+    os.system(update_script)
+
 def exit_handler():
     print("exiting.  closing server...")
     server.close()
 
+
 server.addMsgHandler( "/config", config_callback )
 server.addMsgHandler( "/update", update_callback )
-server.addMsgHandler( "/updatesamples", updatesamples_callback )
+server.addMsgHandler( "/getsamples", getsamples_callback )
 server.addMsgHandler( "/shutdown", shutdown_callback )
 server.addMsgHandler( "/reboot", reboot_callback )
+server.addMsgHandler( "/checkout", checkout_callback )
 atexit.register(exit_handler)
 
 #ARG 1 MAC Address
 if __name__ == "__main__":
 
-    config_callback()
+    # config_callback()
 
     while True:
         sleep(1)
