@@ -48,7 +48,7 @@ sudo ~/plantsOS/bash/update.sh
 pi should reboot with jack, puredata, and python running
 
 # Multidevice Network (bopos.devices)
-For spatial or multidevice setups, the bopos.devices file specifies devices running on your network.  Devices are identified by MAC address (lowercase) and you can a hostname as well as these variables which will be passed Pure Data:
+For spatial or multidevice setups, the bopos.devices file specifies devices running on your network.  Devices are identified by MAC address (lowercase) and can be associated to a hostname as well as variables which will be passed Pure Data:
 - Device ID
 - position of left element
 - position of right element
