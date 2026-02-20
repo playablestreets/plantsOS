@@ -3,6 +3,7 @@
 A Raspberry Pi and Pure Data based framework for networked multi-device sound and interactivity. 
 
 - Python provides admin services (updating, rebooting, shutdown), as well as input/output via i2c.   
+
 - Plays well with the [bop](https://github.com/zealtv/bop) library for PD Vanilla. 
 
 # Requirements 
@@ -11,48 +12,88 @@ A Raspberry Pi and Pure Data based framework for networked multi-device sound an
 
 # Installation and Setup
 
-Flash SD using Raspberry Pi Imager
+## Flash SD using Raspberry Pi Imager
 - Choose OS RASPBERRY PI OS LITE (64-BIT)
-- Set username to pi and password
-- Set hostname to raspberrypi
-- configure wireless network
+- Set username and password
+- configure wireless LAN
 - enable SSH
 - Flash SD
 
-
-Boot pi and login
+## Install packages
 ```
+# login
 ssh pi@raspberrypi.local
-```
 
-use raspi-config to enable i2c and expand filesystem
-```
+
+# update
+sudo apt-get update
+sudo apt-get upgrade
+
+
+# enable i2c, expand filesystem, and set gpu memory to 16 (if applicable)
 sudo raspi-config
+
+
+# install jack2
+sudo apt-get install jackd2
+
+
+# install git
+sudo apt-get install git
+
+
+# install pure-data dependencies
+sudo apt-get install build-essential automake autoconf libtool gettext libasound2-dev libjack-jackd2-dev tcl tk wish
+
+
+# build and install puredata 0.54+
+cd ~
+git clone https://github.com/pure-data/pure-data.git
+cd ./pure-data/
+./autogen.sh
+./configure --enable-jack
+make
+sudo make install
+
+
+#install pip
+sudo apt-get install pip
+
+
+#make python virtual environment
+cd ~
+python3 -m venv ./venv
+
+
+# install python dependencies
+~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt
+
+
+
+
 ```
 
-Install packages  ( accept jack realtime priority when prompted )
+## Install project code
 ```
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y jackd2 git python3-pip puredata python3-venv && cd ~ && python3 -m venv ./venv && git clone https://github.com/playablestreets/plantsOS.git && ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt
-```
+# goto home directory
+cd ~
 
-edit bash/start.sh to configure soundcard
-```
-nano ./plantsOS/bash/start.sh
-```
 
-run update script 
-```
+# clone this repo (or your fork)
+git clone https://github.com/playablestreets/plantsOS.git
+
+
+# !copy samples
+# !edit bash/start.sh to configure soundcard
+
+
+# run update script 
 sudo ~/plantsOS/bash/update.sh
+
+
+# pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
+
 ```
-
-pi should reboot with jack, puredata, and python running
-
-# Multidevice Network (bopos.devices)
-For spatial or multidevice setups, the bopos.devices file specifies devices running on your network.  Devices are identified by MAC address (lowercase) and can be associated to a hostname as well as variables which will be passed Pure Data:
-- Device ID
-- position of left element
-- position of right element
-
 
 # OSC architecture
 
@@ -107,19 +148,53 @@ For spatial or multidevice setups, the bopos.devices file specifies devices runn
 
 ---
 
-# TODO
+# FUTURE TODOs
 
-- document osc commands and return values and ranges in io_modules - normalise where sensible
+- run pip install -r ./requirements across python scripts during update
+- install script
 - Broadcast MAC, ip address, and hostname on boot and on request
-- configure soundcard and jack settings in a config file. ie
-    SOUNDCARD="digiamp"
-    SAMPLERATE="22050"
-    BUFFER="1024"
-    CHANNELS="2"
-- remove bop from this repo, make bopos.feedback pure pd
-- bopos.devices should be json and allow for arbitrary properties to be passed to PD. Find a good way to manage this.
-- rename update.sh to updateOS.sh, create scripts to add and update patch repos
-- add osc commands for the scripts above as well as setting active patch
-- a mechanism for persistance - send an osc message to a script which stores value in json.  those values are returned at boot.
-- a shared clock negotiated amongst devices
+- configure soundcard and jack settings via bopos.config
+- look first in active patch for bopos.config and bopos.devices (?)
 
+## DECOUPLE BOPOS from PD Patch
+- structure as below
+- hot-swappable patches specified as git repos in bopos.config
+  - if patch uses bop, bop can be submodule or flat folder  (recursive downloading of bop or samplepacks not required)
+- id, hostname, position, class, etc specified in bopos.devices
+
+```
+bopos
+├── DASHBOARD.pd
+├── README.md
+├── bash
+│   ├── updatebopos.sh
+│   ├── rc.local
+│   ├── start.sh
+│   ├── stop.sh
+│   └── update.sh
+├── bopos.devices
+├── patches
+│   ├── README.md
+│   ├── active_patch.txt
+│   └── default
+│       ├── bopos.config
+│       ├── bopos.devices
+│       ├── start.sh
+|       ├── stop.sh
+|       ├── retreive.sh
+│       └── main.pd
+├── pd
+│   ├── bopos.feedback.pd
+│   ├── bopos.gui.pd
+│   ├── bopos.osc.pd
+└── python
+    ├── helper.py
+    ├── io
+    │   ├── README.md
+    │   ├── io_ads1015.py
+    │   ├── io_lis3dh.py
+    │   ├── io_mpr121.py
+    │   ├── io_template.py
+    │   └── main.py
+    └── requirements.txt
+```
