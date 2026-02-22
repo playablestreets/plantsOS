@@ -155,6 +155,7 @@ sudo ~/plantsOS/bash/update.sh
 - Broadcast MAC, ip address, and hostname on boot and on request
 - configure soundcard and jack settings via bopos.config
 - look first in active patch for bopos.config and bopos.devices (?)
+- get sample script downloads file - if downloaded, then deletes previous samples, unzips new samples and sends feedback via osc
 
 ## DECOUPLE BOPOS from PD Patch
 - structure as below
