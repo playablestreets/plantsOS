@@ -1,4 +1,4 @@
 #!/bin/bash 
 
-echo "custom script executed"
+echo "patch custom script executed"
 exit 0
