@@ -112,6 +112,16 @@ def switch_patch_callback(path='', tags='', args='', source=''):
     stop_script = os.path.join(directory, '../bash/stop.sh')
     start_script = os.path.join(directory, '../bash/start.sh')
 
+    print ("Switching patch...")
+    print(f"Received args: {args}")
+    print(f"Patches directory: {patches_dir}")
+    print(f"Active patch file: {active_patch_file}")
+    print(f"Stop script: {stop_script}")
+    print(f"Start script: {start_script}")
+    print(f"Contents of patches directory: {os.listdir(patches_dir)}")
+    print(f"Current active patch: {open(active_patch_file).read().strip() if os.path.exists(active_patch_file) else 'None'}")
+    print(f"Running as user: {os.getlogin()}")
+
     if not args or not args[0]:
         print("No patch name provided to /switch_patch")
         return
@@ -168,7 +178,7 @@ server.addMsgHandler( "/getsamples", getsamples_callback )
 server.addMsgHandler( "/shutdown", shutdown_callback )
 server.addMsgHandler( "/reboot", reboot_callback )
 server.addMsgHandler( "/checkout", checkout_callback )
-server.addMsgHandler( "/switch_patch", switch_patch_callback )
+server.addMsgHandler( "/patch", switch_patch_callback )
 atexit.register(exit_handler)
 
 #ARG 1 MAC Address
