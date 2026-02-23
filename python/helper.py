@@ -176,16 +176,17 @@ def switch_patch_callback(path='', tags='', args='', source=''):
 def add_patch_callback(path='', tags='', args='', source=''):
     directory = os.path.dirname(os.path.realpath(__file__))
     patches_dir = os.path.join(directory, '../patches')
-    if not args or not args[0]:
-        print("No repo provided to /addpatch")
+    if not args or len(args) < 2:
+        print("/addpatch requires two arguments: user and repo")
         return
-    repo_arg = args[0].strip()
-    # Only allow user/repo format
-    m = re.match(r'^([\w-]+)/([\w.-]+)$', repo_arg)
-    if not m:
-        print(f"Invalid repo format: {repo_arg}. Use user/repo.")
+    user = str(args[0]).strip()
+    repo = str(args[1]).strip()
+    if not re.match(r'^[\w-]+$', user):
+        print(f"Invalid user: {user}")
         return
-    user, repo = m.groups()
+    if not re.match(r'^[\w.-]+$', repo):
+        print(f"Invalid repo: {repo}")
+        return
     repo_url = f"https://github.com/{user}/{repo}.git"
     dest_dir = os.path.join(patches_dir, repo)
     # Check if repo exists on GitHub
@@ -229,7 +230,8 @@ def add_patch_callback(path='', tags='', args='', source=''):
     # Optionally, send OSC confirmation
     try:
         msg = OSCMessage("/addpatch")
-        msg.append(repo_arg)
+        msg.append(user)
+        msg.append(repo)
         client.send(msg)
     except Exception as e:
         print(f"Failed to send OSC confirmation: {e}")
@@ -247,7 +249,7 @@ server.addMsgHandler( "/shutdown", shutdown_callback )
 server.addMsgHandler( "/reboot", reboot_callback )
 server.addMsgHandler( "/checkout", checkout_callback )
 server.addMsgHandler( "/patch", switch_patch_callback )
-server.addMsgHandler( "/addpatch", add_patch_callback )
+server.addMsgHandler( "/addpatch", add_patch_callback )  # expects two arguments: user, repo
 atexit.register(exit_handler)
 
 #ARG 1 MAC Address
