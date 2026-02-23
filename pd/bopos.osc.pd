@@ -130,6 +130,7 @@
 #X text 1002 245 bang out empty message of this address;
 #X obj 111 122 route reboot shutdown update getsamples addpatch, f 143;
 #X obj 796 285 oscformat addpatch;
+#X obj 869 237 list;
 #X connect 0 0 24 0;
 #X connect 1 0 18 0;
 #X connect 2 0 1 0;
@@ -157,9 +158,10 @@
 #X connect 24 1 12 0;
 #X connect 24 2 15 0;
 #X connect 24 3 5 0;
-#X connect 24 4 25 0;
+#X connect 24 4 26 0;
 #X connect 24 5 19 0;
 #X connect 25 0 18 0;
+#X connect 26 0 25 0;
 #X restore 483 1028 pd process-helper-messages;
 #X obj 889 963 r osc-in;
 #X obj 889 1137 netsend -u -b;
