@@ -168,6 +168,7 @@ sudo ~/plantsOS/bash/update.sh
 - hot-swappable patches specified as git repos in bopos.config
   - if patch uses bop, bop can be submodule or flat folder  (recursive downloading of bop or samplepacks not required)
 - id, hostname, position, class, etc specified in bopos.devices
+- set version as shorthand of git commit - perhaps with a tag in the commit comment
 
 ```
 bopos
