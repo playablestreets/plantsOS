@@ -26,35 +26,41 @@ def config_callback(path='', tags='', args='', source=''):
     config_file = os.path.join(directory, "../bopos.devices")
     print("loading: ", config_file)
 
-    # open file in read mode
+    import socket
+    current_hostname = socket.gethostname()
+    reboot_required = False
+
     with open(config_file, 'r') as read_obj:
         csv_reader = reader(read_obj, skipinitialspace=True)
         macfound = False
         for row in csv_reader:
-            # row variable is a list that represents a row in csv
-            # sys.argv[1] is mac address passed in at run
-            # row[0] is mac address in config file
-            # row[1] is hostname in config file
-            # row[2] is ID in config file
             if row[0] == sys.argv[1]:
                 print('MAC address found in bopos.devices')
                 macfound = True
                 hostname = row[1]
                 print('setting hostname to ' + hostname)
 
-                # Use hostnamectl for systemd-based systems (Debian 13/Trixie)
-                os.system(f'sudo hostnamectl set-hostname {hostname}')
-                # Update /etc/hosts for local resolution
-                os.system(f"sudo sed -i 's/^127.0.1.1.*/127.0.1.1   {hostname}/' /etc/hosts")
 
-                # Ensure avahi-daemon is running and restart it to update mDNS (.local)
-                avahi_status = os.system('systemctl is-active --quiet avahi-daemon')
-                if avahi_status == 0:
-                    print('Restarting avahi-daemon to update mDNS hostname...')
-                    os.system('sudo systemctl restart avahi-daemon')
-                else:
-                    print('avahi-daemon is not active. Attempting to start...')
-                    os.system('sudo systemctl start avahi-daemon')
+                if current_hostname != hostname:
+                    reboot_required = True
+                    msg = OSCMessage("/announce")
+                    msg.append("Reboot required for hostname change.")
+                    client.send(msg)
+                    print(f"OSC announcement sent: Reboot required for hostname change. Current: {current_hostname}, Expected: {hostname}")
+
+                    # Only change hostname if needed
+                    os.system(f'sudo hostnamectl set-hostname {hostname}')
+                    # Update /etc/hosts for local resolution
+                    os.system(f"sudo sed -i 's/^127.0.1.1.*/127.0.1.1   {hostname}/' /etc/hosts")
+
+                    # Ensure avahi-daemon is running and restart it to update mDNS (.local)
+                    avahi_status = os.system('systemctl is-active --quiet avahi-daemon')
+                    if avahi_status == 0:
+                        print('Restarting avahi-daemon to update mDNS hostname...')
+                        os.system('sudo systemctl restart avahi-daemon')
+                    else:
+                        print('avahi-daemon is not active. Attempting to start...')
+                        os.system('sudo systemctl start avahi-daemon')
 
                 id = row[2]
                 print('setting ID to ' + id)
