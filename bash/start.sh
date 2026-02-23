@@ -16,9 +16,26 @@ STARTDATE=$(date -d "$now" +%Y%m%d)
 STARTTIME=$(date -d "$now" +%H%M%S)
 
 
-echo "------------------- Waiting..."
+# sleep 15
 
-sleep 15
+echo "------------------- Waiting..."
+# Wait up to 15 seconds, allow skip by key press
+WAIT_TIME=15
+SKIP=0
+printf "Waiting %ds (press any key to skip)...\n" "$WAIT_TIME"
+stty -echo -icanon time 0 min 0
+for ((i=0; i<$WAIT_TIME; i++)); do
+    read -t 1 -n 1 key && SKIP=1 && break
+    printf "."
+    sleep 1
+done
+stty sane
+echo ""
+if [ $SKIP -eq 1 ]; then
+    echo "Wait skipped by key press."
+else
+    echo "Wait complete."
+fi
 
 echo "------------------- Starting bopOS..."
 echo "SOUNDCARD: $SOUNDCARD"
@@ -50,7 +67,24 @@ jackd -P70 -p16 -t2000 -d alsa -dhw:$SOUNDCARD -p 512 -n 2 -r 44100 -s -P& #44.1
 # jackd -P80 -t2000 -d alsa -dhw:$SOUNDCARD -p 1024 -n 2 -r 22050 -s -P& #22khz
 
 
-sleep 15 # leave enough time for jack to start before launching PD
+
+# Wait up to 15 seconds for Jack, allow skip by key press
+WAIT_TIME=15
+SKIP=0
+printf "Waiting %ds for Jack (press any key to skip)...\n" "$WAIT_TIME"
+stty -echo -icanon time 0 min 0
+for ((i=0; i<$WAIT_TIME; i++)); do
+    read -t 1 -n 1 key && SKIP=1 && break
+    printf "."
+    sleep 1
+done
+stty sane
+echo ""
+if [ $SKIP -eq 1 ]; then
+    echo "Wait for Jack skipped by key press."
+else
+    echo "Wait for Jack complete."
+fi
 
 
 echo "------------------- Starting Pure Data..."
