@@ -9,8 +9,9 @@
 
 ### Adding Patches
 
-- Patches are added via an OSC command that receives the patch repo git URL.
-- The system clones the repo into `patches/<patchname>`.
+- Patches are added via an OSC command that receives the patch repo in the format `user/repo` (GitHub short URL).
+- The system checks if the repo exists, deletes any existing patch folder of the same name, and then clones the repo recursively (including submodules) into `patches/<patchname>`.
+- Example OSC command: `/addpatch user/repo`
 
 ### Activating Patches
 

@@ -129,10 +129,16 @@ sudo ~/plantsOS/bash/update.sh
     Send to io/main.py
 
 ## helper.py
+
 ### Listening 7770
 
 - Runs on Pis. 
-- Issues OS and admin commands like shutdown and update.
+- Issues OS and admin commands like shutdown, update, patch switching, and patch installation.
+
+#### Patch Management via OSC
+
+- `/patch <patchname>`: Switches the active patch (updates `patches/active_patch.txt` and restarts the patch system).
+- `/addpatch <user/repo>`: Adds a patch by cloning a GitHub repo (e.g., `user/repo`). If a patch folder of that name exists, it is deleted before cloning. Cloning is recursive (submodules included).
 
 ### Unicasts to localhost:6661
     Send to MAIN.pd

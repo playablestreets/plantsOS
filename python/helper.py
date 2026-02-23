@@ -1,3 +1,7 @@
+import shutil
+import subprocess
+import re
+
 
 import os, sys
 from time import sleep
@@ -167,6 +171,70 @@ def switch_patch_callback(path='', tags='', args='', source=''):
         print(f"Failed to send OSC confirmation: {e}")
 
 
+
+
+def add_patch_callback(path='', tags='', args='', source=''):
+    directory = os.path.dirname(os.path.realpath(__file__))
+    patches_dir = os.path.join(directory, '../patches')
+    if not args or not args[0]:
+        print("No repo provided to /addpatch")
+        return
+    repo_arg = args[0].strip()
+    # Only allow user/repo format
+    m = re.match(r'^([\w-]+)/([\w.-]+)$', repo_arg)
+    if not m:
+        print(f"Invalid repo format: {repo_arg}. Use user/repo.")
+        return
+    user, repo = m.groups()
+    repo_url = f"https://github.com/{user}/{repo}.git"
+    dest_dir = os.path.join(patches_dir, repo)
+    # Check if repo exists on GitHub
+    try:
+        result = subprocess.run(["git", "ls-remote", repo_url], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+        if result.returncode != 0:
+            print(f"GitHub repo not found or not accessible: {repo_url}")
+            return
+    except Exception as e:
+        print(f"Error checking repo: {e}")
+        return
+    # Remove existing folder if it exists
+    if os.path.isdir(dest_dir):
+        try:
+            print(f"Removing existing patch folder: {dest_dir}")
+            shutil.rmtree(dest_dir)
+        except Exception as e:
+            print(f"Failed to remove existing patch folder: {e}")
+            return
+    # Clone repo recursively
+    try:
+        print(f"Cloning {repo_url} into {dest_dir} (recursive)...")
+        result = subprocess.run(["git", "clone", "--recursive", repo_url, dest_dir], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode != 0:
+            print(f"Failed to clone repo: {result.stderr.decode().strip()}")
+            return
+        print(f"Successfully cloned {repo_url} into {dest_dir}")
+    except Exception as e:
+        print(f"Error cloning repo: {e}")
+        return
+    # Pull recursively (in case)
+    try:
+        print(f"Pulling submodules in {dest_dir}...")
+        result = subprocess.run(["git", "pull", "--recurse-submodules"], cwd=dest_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode != 0:
+            print(f"Failed to pull submodules: {result.stderr.decode().strip()}")
+        else:
+            print("Submodules updated.")
+    except Exception as e:
+        print(f"Error pulling submodules: {e}")
+    # Optionally, send OSC confirmation
+    try:
+        msg = OSCMessage("/addpatch")
+        msg.append(repo_arg)
+        client.send(msg)
+    except Exception as e:
+        print(f"Failed to send OSC confirmation: {e}")
+
+
 def exit_handler():
     print("exiting.  closing server...")
     server.close()
@@ -179,6 +247,7 @@ server.addMsgHandler( "/shutdown", shutdown_callback )
 server.addMsgHandler( "/reboot", reboot_callback )
 server.addMsgHandler( "/checkout", checkout_callback )
 server.addMsgHandler( "/patch", switch_patch_callback )
+server.addMsgHandler( "/addpatch", add_patch_callback )
 atexit.register(exit_handler)
 
 #ARG 1 MAC Address
