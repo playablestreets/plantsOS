@@ -69,7 +69,7 @@ jackd -P70 -p16 -t2000 -d alsa -dhw:$SOUNDCARD -p 512 -n 2 -r 44100 -s -P& #44.1
 
 
 # Wait up to 15 seconds for Jack, allow skip by key press
-WAIT_TIME=15
+WAIT_TIME=5
 SKIP=0
 printf "Waiting %ds for Jack (press any key to skip)...\n" "$WAIT_TIME"
 stty -echo -icanon time 0 min 0
