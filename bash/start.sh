@@ -55,10 +55,18 @@ sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/io/main.py &
 
 sleep 1
 
+
 # Determine active patch
 ACTIVE_PATCH=$(cat /home/pi/plantsOS/patches/active_patch.txt)
 PATCH_PATH="/home/pi/plantsOS/patches/$ACTIVE_PATCH"
 PATCH_ENTRYPOINT="$PATCH_PATH/main.pd" 
+
+# Print the current active patch clearly
+echo "====================="
+echo "ACTIVE PATCH: $ACTIVE_PATCH"
+echo "PATCH PATH: $PATCH_PATH"
+echo "PATCH ENTRYPOINT: $PATCH_ENTRYPOINT"
+echo "====================="
 
 
 #Start Jack 
