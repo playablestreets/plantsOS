@@ -21,12 +21,12 @@
 #X f 18;
 #X text 13 24 PD listening on 6660;
 #X text 13 41 PD reporting on 5550;
-#N canvas 932 339 538 465 message 0;
+#N canvas 932 339 538 465 message 1;
 #X text 105 105 OSC messages;
-#X text 108 169 aloha \; echo 0-1 \; id -99-99 \;;
-#X text 107 218 helper update \; helper getsamples \; helper shutdown \; helper reboot \; helper checkout <branch> \;;
-#X text 106 133 gain 0-1 \;;
-#X text 105 308 io create <name> <type> <address> \; io poll <rate> \; io list \;;
+#X text 106 154 aloha \; echo 0-1 \; id -99-99 \;;
+#X text 105 124 gain 0-1 \;;
+#X text 103 308 io create <name> <type> <address> \; io poll <rate> \; io list \;;
+#X text 106 208 helper update \; helper getsamples \; helper shutdown \; helper reboot \; helper checkout <branch> \; helper switch_patch <patchname> \;, f 33;
 #X coords 0 -1 1 1 250 260 2 100 100;
 #X restore 15 89 pd message list;
 #X text 14 4 open device ports:;

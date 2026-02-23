@@ -1,3 +1,55 @@
+def switch_patch_callback(path='', tags='', args='', source=''):
+    import os
+    from pyOSC3 import OSCMessage
+    directory = os.path.dirname(os.path.realpath(__file__))
+    patches_dir = os.path.join(directory, '../patches')
+    active_patch_file = os.path.join(patches_dir, 'active_patch.txt')
+    stop_script = os.path.join(directory, '../bash/stop.sh')
+    start_script = os.path.join(directory, '../bash/start.sh')
+
+    if not args or not args[0]:
+        print("No patch name provided to /switch_patch")
+        return
+    patch_name = args[0].strip()
+    patch_path = os.path.join(patches_dir, patch_name)
+    if not os.path.isdir(patch_path):
+        print(f"Patch '{patch_name}' does not exist in patches directory.")
+        return
+    try:
+        # Write new patch name to active_patch.txt
+        with open(active_patch_file, 'w') as f:
+            f.write(patch_name + '\n')
+        print(f"Set active patch to: {patch_name}")
+    except Exception as e:
+        print(f"Failed to write active_patch.txt: {e}")
+        return
+    try:
+        print("Running stop.sh with sudo...")
+        stop_result = os.system(f"sudo {stop_script}")
+        if stop_result != 0:
+            print(f"stop.sh exited with code {stop_result}")
+        else:
+            print("stop.sh completed successfully.")
+    except Exception as e:
+        print(f"Failed to run stop.sh: {e}")
+        return
+    try:
+        print("Running start.sh as user...")
+        start_result = os.system(f"{start_script}")
+        if start_result != 0:
+            print(f"start.sh exited with code {start_result}")
+        else:
+            print("start.sh completed successfully.")
+    except Exception as e:
+        print(f"Failed to run start.sh: {e}")
+        return
+    # Optionally, send OSC confirmation
+    try:
+        msg = OSCMessage("/switch_patch")
+        msg.append(patch_name)
+        client.send(msg)
+    except Exception as e:
+        print(f"Failed to send OSC confirmation: {e}")
 import os, sys
 from time import sleep
 from csv import reader
@@ -115,6 +167,7 @@ server.addMsgHandler( "/getsamples", getsamples_callback )
 server.addMsgHandler( "/shutdown", shutdown_callback )
 server.addMsgHandler( "/reboot", reboot_callback )
 server.addMsgHandler( "/checkout", checkout_callback )
+server.addMsgHandler( "/switch_patch", switch_patch_callback )
 atexit.register(exit_handler)
 
 #ARG 1 MAC Address
