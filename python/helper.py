@@ -1,3 +1,4 @@
+
 import shutil
 import subprocess
 import re
@@ -236,6 +237,22 @@ def add_patch_callback(path='', tags='', args='', source=''):
     except Exception as e:
         print(f"Failed to send OSC confirmation: {e}")
 
+# Pull the latest changes for the currently active patch repo
+def pull_active_patch_callback(path='', tags='', args='', source=''):
+    directory = os.path.dirname(os.path.realpath(__file__))
+    script_path = os.path.join(directory, '../bash/pull_active_patch.sh')
+    print(f"[pull_active_patch_callback] Running: {script_path}")
+    try:
+        result = subprocess.run(["bash", script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print("[pull_active_patch_callback] Output:")
+        print(result.stdout.decode())
+        if result.returncode != 0:
+            print(f"[pull_active_patch_callback] Error: {result.stderr.decode()}")
+        else:
+            print("[pull_active_patch_callback] Patch updated successfully.")
+    except Exception as e:
+        print(f"[pull_active_patch_callback] Exception: {e}")
+
 
 def exit_handler():
     print("exiting.  closing server...")
@@ -250,6 +267,8 @@ server.addMsgHandler( "/reboot", reboot_callback )
 server.addMsgHandler( "/checkout", checkout_callback )
 server.addMsgHandler( "/patch", switch_patch_callback )
 server.addMsgHandler( "/addpatch", add_patch_callback )  # expects two arguments: user, repo
+server.addMsgHandler( "/pullpatch", pull_active_patch_callback )  # pulls the current active patch repo
+
 atexit.register(exit_handler)
 
 #ARG 1 MAC Address

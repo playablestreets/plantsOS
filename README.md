@@ -156,6 +156,7 @@ sudo ~/plantsOS/bash/update.sh
 
 # FUTURE TODOs
 
+- helper.py should just run bash scripts and talk osc
 - run pip install -r ./requirements across python scripts during update
 - install script
 - Broadcast MAC, ip address, and hostname on boot and on request
