@@ -44,18 +44,6 @@ echo "RANDOM: $RND"
 echo "STARTDATE: $STARTDATE"
 echo "STARTTIME: $STARTTIME"
 
-
-# Start helper.py to manage system functions
-echo "------------------- Starting helper.py..."
-sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/helper.py $MACADDRESS &
-
-# Start io/main.py to access sensors and peripherals
-echo "------------------- Starting io/main.py..."
-sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/io/main.py &
-
-sleep 1
-
-
 # Determine active patch
 ACTIVE_PATCH=$(cat /home/pi/plantsOS/patches/active_patch.txt)
 PATCH_PATH="/home/pi/plantsOS/patches/$ACTIVE_PATCH"
@@ -67,6 +55,19 @@ echo "ACTIVE PATCH: $ACTIVE_PATCH"
 echo "PATCH PATH: $PATCH_PATH"
 echo "PATCH ENTRYPOINT: $PATCH_ENTRYPOINT"
 echo "====================="
+
+
+
+# Start helper.py to manage system functions
+echo "------------------- Starting helper.py..."
+sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/helper.py $MACADDRESS &
+
+# Start io/main.py to access sensors and peripherals
+echo "------------------- Starting io/main.py..."
+sudo /home/pi/venv/bin/python /home/pi/plantsOS/python/io/main.py &
+
+sleep 1
+
 
 
 #Start Jack 
@@ -97,7 +98,7 @@ fi
 
 echo "------------------- Starting Pure Data..."
 # PUREDATA
-pd -nogui -jack -open "$PATCH_ENTRYPOINT" -send "; RANDOM $RND; STARTTIME $STARTTIME; STARTDATE $STARTDATE; " &
+pd -nogui -jack -open "$PATCH_ENTRYPOINT" -send "; RANDOM $RND; STARTTIME $STARTTIME; STARTDATE $STARTDATE; ACTIVEPATCH $ACTIVE_PATCH"" &
 # run active patch start script if it exists
 if [ -f "$PATCH_PATH/start.sh" ]; then
     echo "------------------- Running patch start script..."
