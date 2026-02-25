@@ -3,18 +3,30 @@
 ## Timeline
 - Bump-in in a few days
 
+## Hardware
+- 2x MPR121 capacitive touch sensors (addresses TBD — likely 0x5A and 0x5B)
+- Each MPR121 reads only electrode 0
+- Electrodes are conductive tape under ice
+- Each MPR121 maps to one audio channel
+- MCP2221A USB I2C adapter for laptop dev
+- Laptop: macOS running PD with GUI
+
 ## Tasks
-1. **MPR121 tuning** — find good touch/release thresholds and filter settings
+1. **Laptop dev script (start-laptop.sh)** — run PD + io/main.py on mac via MCP2221A
+   - Set BLINKA_MCP2221=1 env var
+   - Start io/main.py (background)
+   - Start PD with GUI (no jack, no nogui) loading active patch
+   - No jackd needed — macOS uses CoreAudio natively in PD
+   - May need: pip install adafruit-blinka (check)
+2. **Terminal monitor mode** — --monitor flag on io/main.py showing visual bar for electrode 0
+3. **MPR121 tuning** — find good threshold/filter settings via PD OSC → io/main.py
    - Had values from ESP32 version but lost them
-   - Need low-friction way to iterate on settings
-2. **Pure Data sensor interpretation** — user's domain, do not touch .pd files
-3. **Patch restart friction** — /patch command doesn't properly restart start script
+   - Tuning values set from PD patch as OSC messages
+4. **Pure Data sensor interpretation** — user's domain, do not touch .pd files
+
+## Patch restart friction (lower priority)
+- /patch command writes active_patch.txt but doesn't properly restart start script
 
 ## Future (post-coldvoice)
-- Laptop dev script: runs pd + io/main.py with MCP2221A USB I2C adapter
 - Further patch decoupling polish
-
-## Hardware for coldvoice
-- MPR121 capacitive touch (12 channels)
-- Likely ADS1015 ADC as well (from default patch)
-- Unknown: how many Pis, which sensors on which devices
+- Remote SSH tuning/debug tool (visual terminal monitor)
