@@ -199,4 +199,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--monitor" in sys.argv:
+        from io_mpr121_debug import monitor
+        monitor()
+    else:
+        main()
