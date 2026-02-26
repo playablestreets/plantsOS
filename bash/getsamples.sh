@@ -1,10 +1,23 @@
 #!/bin/bash
 
-# Source the configuration file to access variables
-source "$(dirname "$0")/../bopos.config"
-
-# Get the absolute path to the git repository root
+# Resolve the active patch and source its config
 GITREPO_ROOT=$(git -C "$(dirname "$0")" rev-parse --show-toplevel)
+ACTIVE_PATCH_FILE="$GITREPO_ROOT/patches/active_patch.txt"
+
+if [ ! -f "$ACTIVE_PATCH_FILE" ]; then
+  echo "Error: active_patch.txt not found at $ACTIVE_PATCH_FILE"
+  exit 1
+fi
+
+PATCH_NAME=$(cat "$ACTIVE_PATCH_FILE" | tr -d '\n')
+PATCH_CONFIG="$GITREPO_ROOT/patches/$PATCH_NAME/bopos.config"
+
+if [ ! -f "$PATCH_CONFIG" ]; then
+  echo "Error: bopos.config not found for patch '$PATCH_NAME' at $PATCH_CONFIG"
+  exit 1
+fi
+
+source "$PATCH_CONFIG"
 
 # Define the hardcoded path for the sample packs destination directory
 SAMPLES_DIR_PATH="$GITREPO_ROOT/pd/bop/samplepacks"

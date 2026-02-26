@@ -11,5 +11,8 @@ adafruit-circuitpython-busdevice
 # PiicoDev library for LIS3DH
 piicodev
 
+# sample downloading
+gdown
+
 # System libraries (usually pre-installed on Raspberry Pi)
 # These may need: sudo apt-get install python3-dev python3-pip
