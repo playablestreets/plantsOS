@@ -1,4 +1,4 @@
-#N canvas 35 40 1343 888 12;
+#N canvas 251 37 789 888 12;
 #X declare -path pd;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 54 227 netreceive -u -b 5550;
@@ -41,4 +41,3 @@
 #X obj 534 436 bopos.gui 6;
 #X obj 18 677 bopos.gui 111;
 #X text 194 651 ▼ bob pi;
-#X obj 784 16 bopos.gui 7;
