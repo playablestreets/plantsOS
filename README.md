@@ -65,6 +65,16 @@ sudo ~/plantsOS/bash/update.sh
 
 # pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
 
+# From DASHBOARD.pd on the same network
+## download patch repo from github
+/helper addpatch gituser reponame 
+
+## switch to patch and reboot
+/helper patch repo name 
+
+## get samples from gdrive if required
+/helper getsamples 
+
 ```
 
 # OSC architecture
