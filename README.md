@@ -24,72 +24,44 @@ A Raspberry Pi and Pure Data based framework for networked multi-device sound an
 # login
 ssh pi@raspberrypi.local
 
+# run this one-liner (soundcard may later need to defined in bash/start.sh)
+sudo apt-get update; sudo apt-get upgrade -y; sudo raspi-config nonint do_i2c 0; sudo raspi-config nonint do_expand_rootfs; echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections; sudo DEBIAN_FRONTEND=noninteractive apt-get install -y jackd2; sudo apt-get install puredata git pip -y; cd ~; python3 -m venv ./venv; git clone https://github.com/playablestreets/plantsOS.git; ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt; sudo ~/plantsOS/bash/update.sh
 
+
+# Or step by step
 # update
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get update; sudo apt-get upgrade -y
 
+# enable i2c
+sudo raspi-config nonint do_i2c 0
 
-# enable i2c, expand filesystem, and set gpu memory to 16 (if applicable)
-sudo raspi-config
+# expand filesystem
+sudo raspi-config nonint do_expand_rootfs
 
+# install jack, enabling realtime mode
+echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections; sudo DEBIAN_FRONTEND=noninteractive apt-get install -y jackd2
 
-# install jack2
-sudo apt-get install jackd2
-
-
-# install git
-sudo apt-get install git
-
-
-# install pure-data dependencies
-sudo apt-get install build-essential automake autoconf libtool gettext libasound2-dev libjack-jackd2-dev tcl tk wish
-
-
-# build and install puredata 0.54+
-cd ~
-git clone https://github.com/pure-data/pure-data.git
-cd ./pure-data/
-./autogen.sh
-./configure --enable-jack
-make
-sudo make install
-
-
-#install pip
-sudo apt-get install pip
-
+# install git, puredata, and pip
+sudo apt-get install puredata git pip -y
 
 #make python virtual environment
 cd ~
 python3 -m venv ./venv
 
-
-# install python dependencies
-~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt
-
-
-
-
-```
-
-## Install project code
-```
 # goto home directory
 cd ~
-
 
 # clone this repo (or your fork)
 git clone https://github.com/playablestreets/plantsOS.git
 
+# install python dependencies
+~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt
 
 # !copy samples
 # !edit bash/start.sh to configure soundcard
 
-
 # run update script 
 sudo ~/plantsOS/bash/update.sh
-
 
 # pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
 
