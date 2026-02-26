@@ -120,8 +120,6 @@ def switch_patch_callback(path='', tags='', args='', source=''):
     directory = os.path.dirname(os.path.realpath(__file__))
     patches_dir = os.path.join(directory, '../patches')
     active_patch_file = os.path.realpath(os.path.join(patches_dir, 'active_patch.txt'))
-    stop_script = os.path.realpath(os.path.join(directory, '../bash/stop.sh'))
-    start_script = os.path.realpath(os.path.join(directory, '../bash/start.sh'))
 
     if not args or not args[0]:
         print("No patch name provided to /patch")
@@ -134,7 +132,6 @@ def switch_patch_callback(path='', tags='', args='', source=''):
         print(f"Patch '{patch_name}' not found in {patches_dir}")
         return
 
-    # Check that the patch has a main.pd entrypoint
     if not os.path.isfile(os.path.join(patch_path, 'main.pd')):
         print(f"Patch '{patch_name}' has no main.pd — cannot switch")
         return
@@ -142,7 +139,6 @@ def switch_patch_callback(path='', tags='', args='', source=''):
     current = open(active_patch_file).read().strip() if os.path.exists(active_patch_file) else 'None'
     print(f"Switching patch: {current} -> {patch_name}")
 
-    # Write new patch name
     try:
         with open(active_patch_file, 'w') as f:
             f.write(patch_name + '\n')
@@ -151,12 +147,22 @@ def switch_patch_callback(path='', tags='', args='', source=''):
         print(f"Failed to write active_patch.txt: {e}")
         return
 
-    # Spawn a detached bash process to stop and restart.
-    # This MUST be bash (not python) because stop.sh runs "pkill python"
-    # which would kill this process. The bash process survives.
-    restart_cmd = f"setsid bash -c '{stop_script}; sleep 2; {start_script}' > /dev/null 2>&1 &"
-    print(f"Spawning restart: {restart_cmd}")
-    os.system(restart_cmd)
+    # Stop the running patch
+    os.system("pkill pd; pkill jackd")
+
+    # Pull latest for the new patch repo if it has a git repo
+    if os.path.isdir(os.path.join(patch_path, '.git')):
+        print(f"Pulling latest for {patch_name}...")
+        result = subprocess.run(
+            ["git", "pull", "--recurse-submodules"],
+            cwd=patch_path, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=120
+        )
+        print(result.stdout.decode())
+        if result.returncode != 0:
+            print(f"git pull failed: {result.stderr.decode()}")
+
+    print("Rebooting...")
+    os.system("systemctl reboot")
 
 
 
