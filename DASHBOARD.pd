@@ -1,4 +1,4 @@
-#N canvas 819 51 619 674 12;
+#N canvas 872 47 576 664 12;
 #X declare -path pd;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 54 227 netreceive -u -b 5550;
