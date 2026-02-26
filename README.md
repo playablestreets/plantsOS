@@ -138,10 +138,11 @@ sudo ~/plantsOS/bash/update.sh
 
 # FUTURE TODOs
 
+- simplify installation and setup
+- MAC address matching should be case insensitive
 - helper.py should just run bash scripts and talk osc
 - run pip install -r ./requirements across python scripts during update
-- install script
-- Broadcast MAC, ip address, and hostname on boot and on request
+- Broadcast MAC, ip address, and hostname on boot and on request (or other useful info)
 - configure soundcard and jack settings via bopos.config
 - look first in active patch for bopos.config and bopos.devices (?)
 - get sample script downloads file - if downloaded, then deletes previous samples, unzips new samples and sends feedback via osc
