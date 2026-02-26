@@ -52,6 +52,8 @@ def config_callback(path='', tags='', args='', source=''):
                     os.system(f'sudo hostnamectl set-hostname {hostname}')
                     # Update /etc/hosts for local resolution
                     os.system(f"sudo sed -i 's/^127.0.1.1.*/127.0.1.1   {hostname}/' /etc/hosts")
+                    # Notify NetworkManager so it sends the new hostname in DHCP requests (Trixie/NM)
+                    os.system(f'sudo nmcli general hostname {hostname}')
 
                     # Ensure avahi-daemon is running and restart it to update mDNS (.local)
                     avahi_status = os.system('systemctl is-active --quiet avahi-daemon')
@@ -67,6 +69,9 @@ def config_callback(path='', tags='', args='', source=''):
                 msg = OSCMessage("/id")
                 msg.append(id, 'f')
                 client.send(msg)
+                if reboot_required:
+                    sleep(2)  # let OSC messages flush before reboot
+                    os.system('sudo systemctl reboot')
                 break
         if not macfound:
             print('MAC address not found in bopos.devices.csv')

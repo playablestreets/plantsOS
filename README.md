@@ -146,6 +146,8 @@ sudo ~/plantsOS/bash/update.sh
 - configure soundcard and jack settings via bopos.config
 - look first in active patch for bopos.config and bopos.devices (?)
 - get sample script downloads file - if downloaded, then deletes previous samples, unzips new samples and sends feedback via osc
+- i'd like the update.sh to check and see if the hostname exists in bopos.devices, and if it does exist but does not match the current name, the hostname should be changed.  perhaps break set hostname out into a new script to simplify the occurances of that opperation in other scripts.
+- the version that gets reported should be a string with an identifier for the patch, followed by a number.  perhaps this can be left to the patch - ie cv99 for coldvoice version 99.  instead of a version perhaps it's a patchID.
 
 ## DECOUPLE BOPOS from PD Patch
 - structure as below
