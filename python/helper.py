@@ -119,63 +119,44 @@ def checkout_callback(path, tags, args, source):
 def switch_patch_callback(path='', tags='', args='', source=''):
     directory = os.path.dirname(os.path.realpath(__file__))
     patches_dir = os.path.join(directory, '../patches')
-    active_patch_file = os.path.join(patches_dir, 'active_patch.txt')
-    stop_script = os.path.join(directory, '../bash/stop.sh')
-    start_script = os.path.join(directory, '../bash/start.sh')
-
-    print ("Switching patch...")
-    print(f"Received args: {args}")
-    print(f"Patches directory: {patches_dir}")
-    print(f"Active patch file: {active_patch_file}")
-    print(f"Stop script: {stop_script}")
-    print(f"Start script: {start_script}")
-    print(f"Contents of patches directory: {os.listdir(patches_dir)}")
-    print(f"Current active patch: {open(active_patch_file).read().strip() if os.path.exists(active_patch_file) else 'None'}")
-    print(f"Running as user: {os.getlogin()}")
+    active_patch_file = os.path.realpath(os.path.join(patches_dir, 'active_patch.txt'))
+    stop_script = os.path.realpath(os.path.join(directory, '../bash/stop.sh'))
+    start_script = os.path.realpath(os.path.join(directory, '../bash/start.sh'))
 
     if not args or not args[0]:
-        print("No patch name provided to /switch_patch")
+        print("No patch name provided to /patch")
         return
+
     patch_name = args[0].strip()
     patch_path = os.path.join(patches_dir, patch_name)
+
     if not os.path.isdir(patch_path):
-        print(f"Patch '{patch_name}' does not exist in patches directory.")
+        print(f"Patch '{patch_name}' not found in {patches_dir}")
         return
+
+    # Check that the patch has a main.pd entrypoint
+    if not os.path.isfile(os.path.join(patch_path, 'main.pd')):
+        print(f"Patch '{patch_name}' has no main.pd — cannot switch")
+        return
+
+    current = open(active_patch_file).read().strip() if os.path.exists(active_patch_file) else 'None'
+    print(f"Switching patch: {current} -> {patch_name}")
+
+    # Write new patch name
     try:
-        # Write new patch name to active_patch.txt
         with open(active_patch_file, 'w') as f:
             f.write(patch_name + '\n')
-        print(f"Set active patch to: {patch_name}")
+        print(f"Active patch set to: {patch_name}")
     except Exception as e:
         print(f"Failed to write active_patch.txt: {e}")
         return
-    try:
-        print("Running stop.sh with sudo...")
-        stop_result = os.system(f"sudo {stop_script}")
-        if stop_result != 0:
-            print(f"stop.sh exited with code {stop_result}")
-        else:
-            print("stop.sh completed successfully.")
-    except Exception as e:
-        print(f"Failed to run stop.sh: {e}")
-        return
-    try:
-        print("Running start.sh as user...")
-        start_result = os.system(f"{start_script}")
-        if start_result != 0:
-            print(f"start.sh exited with code {start_result}")
-        else:
-            print("start.sh completed successfully.")
-    except Exception as e:
-        print(f"Failed to run start.sh: {e}")
-        return
-    # Optionally, send OSC confirmation
-    try:
-        msg = OSCMessage("/switch_patch")
-        msg.append(patch_name)
-        client.send(msg)
-    except Exception as e:
-        print(f"Failed to send OSC confirmation: {e}")
+
+    # Spawn a detached bash process to stop and restart.
+    # This MUST be bash (not python) because stop.sh runs "pkill python"
+    # which would kill this process. The bash process survives.
+    restart_cmd = f"setsid bash -c '{stop_script}; sleep 2; {start_script}' > /dev/null 2>&1 &"
+    print(f"Spawning restart: {restart_cmd}")
+    os.system(restart_cmd)
 
 
 
@@ -213,31 +194,31 @@ def add_patch_callback(path='', tags='', args='', source=''):
         except Exception as e:
             print(f"Failed to remove existing patch folder: {e}")
             return
-    # Clone repo recursively
+    # Clone repo recursively (120s timeout to handle slow networks)
     try:
-        print(f"Cloning {repo_url} into {dest_dir} (recursive)...")
-        result = subprocess.run(["git", "clone", "--recursive", repo_url, dest_dir], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(f"Cloning {repo_url} into {dest_dir}...")
+        result = subprocess.run(
+            ["git", "clone", "--recursive", repo_url, dest_dir],
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=120
+        )
         if result.returncode != 0:
             print(f"Failed to clone repo: {result.stderr.decode().strip()}")
             return
-        print(f"Successfully cloned {repo_url} into {dest_dir}")
+        print(f"Cloned {repo_url} into {dest_dir}")
+    except subprocess.TimeoutExpired:
+        print(f"Clone timed out after 120s — check network connection")
+        return
     except Exception as e:
         print(f"Error cloning repo: {e}")
         return
-    # Pull recursively (in case)
-    try:
-        print(f"Pulling submodules in {dest_dir}...")
-        result = subprocess.run(["git", "pull", "--recurse-submodules"], cwd=dest_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if result.returncode != 0:
-            print(f"Failed to pull submodules: {result.stderr.decode().strip()}")
-        else:
-            print("Submodules updated.")
-    except Exception as e:
-        print(f"Error pulling submodules: {e}")
-    # Optionally, send OSC confirmation
+
+    # Validate patch has a main.pd entrypoint
+    if not os.path.isfile(os.path.join(dest_dir, 'main.pd')):
+        print(f"Warning: cloned patch '{repo}' has no main.pd — it won't load in PD")
+
+    # Send OSC confirmation
     try:
         msg = OSCMessage("/addpatch")
-        msg.append(user)
         msg.append(repo)
         client.send(msg)
     except Exception as e:
@@ -249,7 +230,7 @@ def pull_active_patch_callback(path='', tags='', args='', source=''):
     script_path = os.path.join(directory, '../bash/pull_active_patch.sh')
     print(f"[pull_active_patch_callback] Running: {script_path}")
     try:
-        result = subprocess.run(["bash", script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        result = subprocess.run(["bash", script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=120)
         print("[pull_active_patch_callback] Output:")
         print(result.stdout.decode())
         if result.returncode != 0:
