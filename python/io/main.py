@@ -16,7 +16,8 @@ DEFAULT_POLL_RATE = 10  # Hz
 
 # Available peripheral types
 PERIPHERAL_TYPES = {
-    'ads1015': ('io_ads1015', 'IO_ADS1015'), # 4 channel ADC
+    'ads1015': ('io_ads1015', 'IO_ADS1015'), # 4 channel 12-bit ADC
+    'ads1115': ('io_ads1115', 'IO_ADS1115'), # 4 channel 16-bit ADC
     'lis3dh': ('io_lis3dh', 'IO_LIS3DH'), # 3-axis accelerometer
     'mpr121': ('io_mpr121', 'IO_MPR121'), # 12-channel capacitive touch sensor
 }
