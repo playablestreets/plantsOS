@@ -16,19 +16,12 @@ client.connect( ('127.0.0.1', 6661) )
 
 
 def config_callback(path='', tags='', args='', source=''):
-    # NOTE: On Raspbian Trixie (Debian 13+), hostname changes must be made using hostnamectl.
-    # Direct edits to /etc/hostname are discouraged and may not update mDNS/Bonjour (.local) names.
-    # avahi-daemon provides .local (Bonjour/mDNS) resolution and listens for hostname changes via systemd.
-    # After changing the hostname, avahi-daemon is restarted to ensure the .local address updates immediately.
-    # /etc/hosts is also updated for local resolution of the new hostname.
-
     directory = os.path.dirname(os.path.realpath(__file__))
     config_file = os.path.join(directory, "../bopos.devices")
     print("loading: ", config_file)
 
     import socket
     current_hostname = socket.gethostname()
-    reboot_required = False
 
     with open(config_file, 'r') as read_obj:
         csv_reader = reader(read_obj, skipinitialspace=True)
@@ -38,40 +31,18 @@ def config_callback(path='', tags='', args='', source=''):
                 print('MAC address found in bopos.devices')
                 macfound = True
                 hostname = row[1]
-                print('setting hostname to ' + hostname)
-
 
                 if current_hostname != hostname:
-                    reboot_required = True
-                    msg = OSCMessage("/announce")
-                    msg.append("Reboot required for hostname change.")
-                    client.send(msg)
-                    print(f"OSC announcement sent: Reboot required for hostname change. Current: {current_hostname}, Expected: {hostname}")
-
-                    # Only change hostname if needed
+                    print(f"Hostname change: {current_hostname} -> {hostname}")
                     os.system(f'sudo hostnamectl set-hostname {hostname}')
-                    # Update /etc/hosts for local resolution
                     os.system(f"sudo sed -i 's/^127.0.1.1.*/127.0.1.1   {hostname}/' /etc/hosts")
-                    # Notify NetworkManager so it sends the new hostname in DHCP requests (Trixie/NM)
-                    os.system(f'sudo nmcli general hostname {hostname}')
-
-                    # Ensure avahi-daemon is running and restart it to update mDNS (.local)
-                    avahi_status = os.system('systemctl is-active --quiet avahi-daemon')
-                    if avahi_status == 0:
-                        print('Restarting avahi-daemon to update mDNS hostname...')
-                        os.system('sudo systemctl restart avahi-daemon')
-                    else:
-                        print('avahi-daemon is not active. Attempting to start...')
-                        os.system('sudo systemctl start avahi-daemon')
+                    os.system('sudo systemctl restart avahi-daemon')
 
                 id = row[2]
                 print('setting ID to ' + id)
                 msg = OSCMessage("/id")
                 msg.append(id, 'f')
                 client.send(msg)
-                if reboot_required:
-                    sleep(2)  # let OSC messages flush before reboot
-                    os.system('sudo systemctl reboot')
                 break
         if not macfound:
             print('MAC address not found in bopos.devices.csv')
