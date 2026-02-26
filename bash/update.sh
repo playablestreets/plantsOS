@@ -1,9 +1,13 @@
 #!/bin/bash
 cd /home/pi/plantsOS
+echo "--- saving active patch selection"
+ACTIVE_PATCH=$(cat patches/active_patch.txt)
 echo "--- clearing changes"
 git restore .
 echo "--- pulling from git"
 git pull
+echo "--- restoring active patch selection: $ACTIVE_PATCH"
+echo "$ACTIVE_PATCH" > patches/active_patch.txt
 echo "--- updating submodules"
 git submodule update --init --recursive
 echo "--- setting permissions to allow PD write access"

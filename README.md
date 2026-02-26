@@ -163,6 +163,7 @@ sudo ~/plantsOS/bash/update.sh
 - configure soundcard and jack settings via bopos.config
 - look first in active patch for bopos.config and bopos.devices (?)
 - get sample script downloads file - if downloaded, then deletes previous samples, unzips new samples and sends feedback via osc
+- persist active_patch.txt content when updates are run
 
 ## DECOUPLE BOPOS from PD Patch
 - structure as below
