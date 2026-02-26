@@ -20,59 +20,35 @@ A Raspberry Pi and Pure Data based framework for networked multi-device sound an
 - Flash SD
 
 ## Install packages
+
+### login
 ```
-# login
 ssh pi@raspberrypi.local
-
-# run this one-liner (soundcard may later need to defined in bash/start.sh)
+```
+### run this one-liner 
+```
 sudo apt-get update; sudo apt-get upgrade -y; sudo raspi-config nonint do_i2c 0; sudo raspi-config nonint do_expand_rootfs; echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections; sudo DEBIAN_FRONTEND=noninteractive apt-get install -y jackd2; sudo apt-get install puredata git pip -y; cd ~; python3 -m venv ./venv; git clone https://github.com/playablestreets/plantsOS.git; ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt; sudo ~/plantsOS/bash/update.sh
+```
 
+- pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
+- you may need to edit bash/start.sh to configure soundcard
 
-# Or step by step
-# update
-sudo apt-get update; sudo apt-get upgrade -y
+## Adding custom patches
 
-# enable i2c
-sudo raspi-config nonint do_i2c 0
+From DASHBOARD.pd running in puredata on the same network send the following OSC commands
 
-# expand filesystem
-sudo raspi-config nonint do_expand_rootfs
-
-# install jack, enabling realtime mode
-echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections; sudo DEBIAN_FRONTEND=noninteractive apt-get install -y jackd2
-
-# install git, puredata, and pip
-sudo apt-get install puredata git pip -y
-
-#make python virtual environment
-cd ~
-python3 -m venv ./venv
-
-# goto home directory
-cd ~
-
-# clone this repo (or your fork)
-git clone https://github.com/playablestreets/plantsOS.git
-
-# install python dependencies
-~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt
-
-# !copy samples
-# !edit bash/start.sh to configure soundcard
-
-# run update script 
-sudo ~/plantsOS/bash/update.sh
-
-# pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
-
-# From DASHBOARD.pd on the same network
-## download patch repo from github
+### download patch repo from github and add to the pi
+```
 /helper addpatch gituser reponame 
+```
 
-## switch to patch and reboot
+### switch to patch and reboot
+```
 /helper patch repo name 
+```
 
-## get samples from gdrive if required
+### get samples from gdrive if required
+```
 /helper getsamples 
 
 ```
