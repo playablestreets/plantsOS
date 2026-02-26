@@ -182,6 +182,7 @@
 #X connect 32 6 33 0;
 #X connect 32 7 31 0;
 #X connect 33 0 34 0;
+#X connect 34 0 18 0;
 #X restore 483 1028 pd process-helper-messages;
 #X obj 889 963 r osc-in;
 #X obj 889 1137 netsend -u -b;
