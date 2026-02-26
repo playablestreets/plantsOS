@@ -2,4 +2,5 @@ MAC, hostname, ID,  POSL, POSR
 b8:27:eb:b4:64:79, bobop, 111, 0 0, 0 0
 b8:27:eb:2c:73:80, spool1, 1, 0 0, 0 100
 b8:27:eb:d3:e9:2e, spool2, 2, 100 0, 100 100 
-d8:3a:dd:9b:56:41, voice1, 1, 0 0, 0 0
+d8:3a:dd:9b:56:41, voice7, 7, 0 0, 0 0
+dc:a6:32:4b:78:b9, voice1, 1, 0 0, 0 0
