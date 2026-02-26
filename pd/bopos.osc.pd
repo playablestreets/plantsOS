@@ -103,7 +103,7 @@
 #X obj 313 706 s aloha;
 #X obj 311 749 r aloha;
 #X text 309 568 aloha;
-#N canvas 63 100 1398 547 process-helper-messages 0;
+#N canvas 63 100 1398 547 process-helper-messages 1;
 #X obj 118 55 inlet;
 #X obj 111 252 oscformat reboot;
 #X msg 111 219 1;
@@ -136,9 +136,10 @@
 #X obj 896 183 symbol;
 #X obj 1157 227 oscformat config;
 #X msg 1141 187 1;
-#X obj 111 122 route reboot shutdown update getsamples addpatch patch pullpatch config, f 143;
-#X msg 1040 218 1;
-#X obj 1056 258 oscformat pullpatch;
+#X obj 126 95 route reboot shutdown update getsamples addpatch patch pullpatch config, f 143;
+#X msg 1075 242 1;
+#X obj 1059 284 oscformat pullpatch;
+#X obj 940 449 print PULLPATCH;
 #X connect 0 0 32 0;
 #X connect 1 0 18 0;
 #X connect 2 0 1 0;
@@ -180,6 +181,7 @@
 #X connect 32 4 24 0;
 #X connect 32 5 29 0;
 #X connect 32 6 33 0;
+#X connect 32 6 35 0;
 #X connect 32 7 31 0;
 #X connect 33 0 34 0;
 #X connect 34 0 18 0;
