@@ -26,3 +26,5 @@ else
   echo "Failed to update $PATCH_NAME."
   exit 4
 fi
+
+reboot
