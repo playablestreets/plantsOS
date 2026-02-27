@@ -114,33 +114,36 @@ From DASHBOARD.pd running in puredata on the same network send the following OSC
 
 # FUTURE TODOs
 
-- simplify installation and setup
+- new dashboard (see .notes)
+- simplify setup of new devices (incorporate into new dashboard)
 - MAC address matching should be case insensitive
 - helper.py should just run bash scripts and talk osc
-- run pip install -r ./requirements across python scripts during update
-- Broadcast MAC, ip address, and hostname on boot and on request (or other useful info)
+- run pip install -r ./requirements.txt across python scripts during update incase of changes to python libraries (new modules etc)
+- Announce MAC, ip address, and hostname on start.
 - configure soundcard and jack settings via bopos.config
-- look first in active patch for bopos.config and bopos.devices (?)
-- get sample script downloads file - if downloaded, then deletes previous samples, unzips new samples and sends feedback via osc
-- i'd like the update.sh to check and see if the hostname exists in bopos.devices, and if it does exist but does not match the current name, the hostname should be changed.  perhaps break set hostname out into a new script to simplify the occurances of that opperation in other scripts.
 - the version that gets reported should be a string with an identifier for the patch, followed by a number.  perhaps this can be left to the patch - ie cv99 for coldvoice version 99.  instead of a version perhaps it's a patchID.
 
-## DECOUPLE BOPOS from PD Patch
-- structure as below
-- hot-swappable patches specified as git repos in bopos.config
-  - if patch uses bop, bop can be submodule or flat folder  (recursive downloading of bop or samplepacks not required)
 - id, hostname, position, class, etc specified in bopos.devices
 - set version as shorthand of git commit - perhaps with a tag in the commit comment
 
 ```
 bopos
-├── DASHBOARD.pd
+├── .claude
+│   └── //settings
+├── .notes
+│   └── //notes, plans, and working memory
 ├── README.md
 ├── bash
-│   ├── updatebopos.sh
+│   ├── update.sh
+│   ├── clearsamples.sh
+│   ├── getsamples.sh
+│   ├── pull_active_patch.sh
 │   ├── rc.local
 │   ├── start.sh
 │   ├── stop.sh
+│   ├── start-laptop.sh
+│   ├── stop-laptop.sh
+│   ├── restart.sh
 │   └── update.sh
 ├── bopos.devices
 ├── patches
@@ -148,7 +151,6 @@ bopos
 │   ├── active_patch.txt
 │   └── default
 │       ├── bopos.config
-│       ├── bopos.devices
 │       ├── start.sh
 |       ├── stop.sh
 |       ├── retreive.sh
@@ -162,6 +164,7 @@ bopos
     ├── io
     │   ├── README.md
     │   ├── io_ads1015.py
+    │   ├── io_ads1115.py
     │   ├── io_lis3dh.py
     │   ├── io_mpr121.py
     │   ├── io_template.py
