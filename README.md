@@ -116,6 +116,7 @@ From DASHBOARD.pd running in puredata on the same network send the following OSC
 # FUTURE TODOs
 
 - helper.py should be renamed to bopos.py
+- a persistance file that can be written to via osc.  PD can send key value pairs to python helper.py/bopos.py which stores it in a text file.  On load, variables are returned to PD.  functions exist to get all data, delete data etc.  format should be simple - like a PD list - first element is key, folowing elements are list of values.
 - osc messages change from `/helper pullpatch` etc to `/os pullpatch`
 - new dashboard (see .notes)
 - simplify setup of new devices (incorporate into new dashboard)
