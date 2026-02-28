@@ -44,7 +44,6 @@ All sensor data arrives in a single OSC bundle at the poll rate:
 ```
 main.py                    # Main OSC bridge 
 io_ads1015.py          # ADS1015 ADC module
-io_ssd1306.py          # SSD1306 OLED display module
 io_lis3dh.py         # LIS3DH accelerometer
 io_mpr121.py        # MPR121 touch sensor
 io_template.py     # Template for new peripherals
