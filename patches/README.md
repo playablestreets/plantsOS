@@ -28,6 +28,7 @@ patches/
     bop/ # optional - patch provides it's own pd dependencies
     main.pd
     bopos.config   # optional, stores variables like SAMPLEPACKSURL
+    start.sh  # optional, runs at boot if present
 ```
 
 ### Notes

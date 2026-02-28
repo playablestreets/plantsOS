@@ -44,6 +44,7 @@ All sensor data arrives in a single OSC bundle at the poll rate:
 ```
 main.py                    # Main OSC bridge 
 io_ads1015.py          # ADS1015 ADC module
+io_ssd1306.py          # SSD1306 OLED display module
 io_lis3dh.py         # LIS3DH accelerometer
 io_mpr121.py        # MPR121 touch sensor
 io_template.py     # Template for new peripherals
@@ -74,8 +75,6 @@ class MyPeripheral:
         # Handle commands from PD
         command = kwargs.get('command')
         args = kwargs.get('args')
-        
-    def cleanup(self):
         # Shutdown cleanup
 ```
 
@@ -117,12 +116,7 @@ PERIPHERAL_TYPES = {
 
 ## Dependencies
 
-```bash
-pip3 install python-osc
-pip3 install adafruit-circuitpython-ads1x15
-pip3 install adafruit-circuitpython-mpr121
-pip3 install piicodev-lis3dh
-```
+Dependencies are listed in `requirements.txt` and should be updated automatically when update.sh is run.
 
 ## Design Principles
 

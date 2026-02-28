@@ -13,3 +13,6 @@ pyOSC3
 adafruit-circuitpython-mpr121
 adafruit-circuitpython-ads1x15
 adafruit-circuitpython-busdevice
+
+# PiicoDev SSD1306 OLED
+PiicoDev_SSD1306

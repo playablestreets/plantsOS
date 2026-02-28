@@ -1,4 +1,4 @@
-# helper.py and io/main.py dependencies
+# helper.py and io/main.py dependencies for raspberry pi
 
 # OSC communication
 pyOSC3
@@ -11,8 +11,9 @@ adafruit-circuitpython-busdevice
 # PiicoDev library for LIS3DH
 piicodev
 
+# PiicoDev SSD1306 OLED
+PiicoDev_SSD1306
+
 # sample downloading
 gdown
 
-# System libraries (usually pre-installed on Raspberry Pi)
-# These may need: sudo apt-get install python3-dev python3-pip

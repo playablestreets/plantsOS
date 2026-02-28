@@ -27,11 +27,12 @@ ssh pi@raspberrypi.local
 ```
 ### run this one-liner 
 ```
-sudo apt-get update; sudo apt-get upgrade -y; sudo raspi-config nonint do_i2c 0; sudo raspi-config nonint do_expand_rootfs; echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections; sudo DEBIAN_FRONTEND=noninteractive apt-get install -y jackd2; sudo apt-get install puredata git pip i2ctools -y; cd ~; python3 -m venv ./venv; git clone https://github.com/playablestreets/plantsOS.git; ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt; sudo ~/plantsOS/bash/update.sh
+sudo raspi-config nonint do_expand_rootfs; sudo raspi-config nonint do_i2c 0; sudo apt-get update; sudo apt-get upgrade -y;   echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections; sudo DEBIAN_FRONTEND=noninteractive apt-get install -y jackd2; sudo apt-get install puredata git pip i2c-tools -y; cd ~; python3 -m venv ./venv; git clone https://github.com/playablestreets/plantsOS.git; ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt; sleep 5; sudo ~/plantsOS/bash/update.sh; 
 ```
 
 - pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running
 - you may need to edit bash/start.sh to configure soundcard
+- run `i2cdetect -y 1` to check for connected i2c devices
 
 ## Adding custom patches
 
@@ -114,6 +115,8 @@ From DASHBOARD.pd running in puredata on the same network send the following OSC
 
 # FUTURE TODOs
 
+- helper.py should be renamed to bopos.py
+- osc messages change from `/helper pullpatch` etc to `/os pullpatch`
 - new dashboard (see .notes)
 - simplify setup of new devices (incorporate into new dashboard)
 - MAC address matching should be case insensitive
