@@ -39,10 +39,10 @@
 #X obj 79 428 s osc-in, f 9;
 #X text 563 383 report all other messages, f 14;
 #X text 68 24 ----------- OSC INPUT/OUTPUT -----------------------------------------------------------------, f 94;
-#X obj 481 969 r osc-in;
-#X obj 480 1122 netsend -u -b;
-#X obj 519 1063 loadbang;
-#X msg 519 1089 connect 127.0.0.1 7770;
+#X obj 482 969 r osc-in;
+#X obj 483 1122 netsend -u -b;
+#X obj 522 1063 loadbang;
+#X msg 522 1089 connect 127.0.0.1 7770;
 #X msg 153 1289 connect localhost 5550;
 #X obj 329 327 route id pos1 pos2 pos3, f 33;
 #X obj 401 614 loadbang;
@@ -61,7 +61,7 @@
 #X obj 557 654 route id;
 #X obj 557 688 s ID;
 #X text 553 577 set ID;
-#X text 473 937 forward incoming OSC to helper.py (unicast to 7770);
+#X text 474 937 forward incoming OSC to helper.py (unicast to 7770);
 #X obj 857 584 r ID;
 #X obj 857 613 print ID;
 #X obj 860 717 r RANDOM;
@@ -126,7 +126,7 @@
 #X obj 929 233 oscformat patch;
 #X obj 1254 295 oscformat config;
 #X msg 1273 229 1;
-#X obj 134 85 route reboot shutdown update getsamples addpatch patch pullpatch config, f 166;
+#X obj 137 81 route reboot shutdown update getsamples addpatch patch pullpatch config, f 166;
 #X msg 1075 242 1;
 #X obj 1059 284 oscformat pullpatch;
 #X obj 1160 197 s update;
@@ -134,6 +134,8 @@
 #X obj 1080 197 delay 500;
 #X obj 858 201 s update;
 #X obj 793 143 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
+#X obj 751 177 list;
+#X obj 919 151 symbol;
 #X connect 0 0 23 0;
 #X connect 1 0 18 0;
 #X connect 2 0 1 0;
@@ -161,10 +163,10 @@
 #X connect 23 2 15 0;
 #X connect 23 3 5 0;
 #X connect 23 3 30 0;
-#X connect 23 4 19 0;
 #X connect 23 4 30 0;
-#X connect 23 5 20 0;
+#X connect 23 4 31 0;
 #X connect 23 5 30 0;
+#X connect 23 5 32 0;
 #X connect 23 6 27 0;
 #X connect 23 7 22 0;
 #X connect 24 0 25 0;
@@ -173,6 +175,8 @@
 #X connect 27 1 26 0;
 #X connect 28 0 24 0;
 #X connect 30 0 29 0;
+#X connect 31 0 19 0;
+#X connect 32 0 20 0;
 #X restore 483 1028 pd process-helper-messages;
 #X obj 889 963 r osc-in;
 #X obj 889 1137 netsend -u -b;
