@@ -27,7 +27,7 @@ ssh pi@raspberrypi.local
 ```
 ### run this one-liner 
 ```
-sudo raspi-config nonint do_expand_rootfs; sudo raspi-config nonint do_i2c 0; sudo apt-get update; sudo apt-get upgrade -y;   echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections; sudo DEBIAN_FRONTEND=noninteractive apt-get install -y jackd2; sudo apt-get install puredata git pip i2c-tools -y; cd ~; python3 -m venv ./venv; git clone https://github.com/playablestreets/plantsOS.git; ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt; sleep 5; sudo ~/plantsOS/bash/update.sh; 
+sudo raspi-config nonint do_expand_rootfs; sudo raspi-config nonint do_i2c 0; sudo apt-get update; sudo apt-get upgrade -y;   echo "jackd2 jackd/tweak_rt_limits boolean true" | sudo debconf-set-selections; sudo DEBIAN_FRONTEND=noninteractive apt-get install -y jackd2; sudo apt-get install puredata git pip i2c-tools -y; cd ~; python3 -m venv ./venv; git clone https://github.com/playablestreets/plantsOS.git; ~/venv/bin/pip install -r ~/plantsOS/python/requirements.txt; sleep 5; sudo ~/plantsOS/bash/update.sh;
 ```
 
 - pi should copy rc.local and reboot with jack, puredata, io/main.py, and helper.py running

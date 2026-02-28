@@ -11,9 +11,6 @@ adafruit-circuitpython-busdevice
 # PiicoDev library for LIS3DH
 piicodev
 
-# PiicoDev SSD1306 OLED
-PiicoDev_SSD1306
-
 # sample downloading
 gdown
 
