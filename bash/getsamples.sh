@@ -20,7 +20,7 @@ fi
 source "$PATCH_CONFIG"
 
 # Define the hardcoded path for the sample packs destination directory
-SAMPLES_DIR_PATH="$GITREPO_ROOT/pd/bop/samplepacks"
+SAMPLES_DIR_PATH="$GITREPO_ROOT/patches/$PATCH_NAME/bop/samplepacks"
 
 # Define a temporary file for the downloaded zip
 TEMP_ZIP_FILE=$(mktemp)
