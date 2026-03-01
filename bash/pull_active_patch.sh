@@ -24,6 +24,8 @@ echo "Pulling latest changes for $PATCH_NAME..."
 git pull --recurse-submodules
 if [ $? -eq 0 ]; then
   echo "Successfully updated $PATCH_NAME."
+  echo "--- setting permissions to allow PD write access"
+  chown -R pi /home/pi/plantsOS
 else
   echo "Failed to update $PATCH_NAME."
   exit 4
