@@ -1,7 +1,7 @@
 #N canvas 111 37 1275 891 12;
 #X obj 163 102 bng 19 250 50 0 \$0-reboot reboot reboot 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 18 526 bng 19 250 50 0 \$0-updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
-#X obj 18 121 bng 19 250 50 0 \$0-update update update 25 10 0 12 #fcfcfc #000000 #000000;
+#X obj 18 121 bng 19 250 50 0 \$0-update update update\ bopos 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 163 121 bng 19 250 50 0 \$0-shutdown shutdown shutdown 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 314 15 r osc-from-devices;
 #X obj 314 128 s \$0-osc-in;
@@ -12,7 +12,7 @@
 #X obj 474 422 print device-\$1;
 #X listbox 18 163 32 0 0 2 status____________ \$0-osc-list - 0;
 #X obj 506 305 s \$0-osc-list;
-#X obj 11 11 cnv 18 240 20 empty \$0-header device\ 111 6 10 0 14 #e3c6ff #404040 0;
+#X obj 11 11 cnv 18 240 20 empty \$0-header device\ 0 6 10 0 14 #e3c6ff #404040 0;
 #X obj 29 787 loadbang;
 #X obj 29 811 \$1;
 #X obj 31 870 s \$0-header;
@@ -53,7 +53,7 @@
 #X obj 160 11 bng 19 250 50 0 \$0-aloha empty 👋 3 10 0 10 #e3c6ff #ffffff #000000;
 #X obj 185 805 r \$0-clear;
 #X obj 332 804 r \$0-clear;
-#X obj 113 43 hsl 130 19 0 1 0 0 \$0-gain \$0-to-gain gain:0.511628 5 10 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 113 43 hsl 130 19 0 1 0 0 \$0-gain \$0-to-gain gain:1 5 10 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 646 77 s \$0-osc-out;
 #X obj 643 192 s \$0-osc-out;
 #X obj 643 125 r \$0-gain2;

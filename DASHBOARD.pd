@@ -42,11 +42,11 @@
 #X text 194 651 ▼ bob pi;
 #X msg 513 685 io create oled io_ssd1306 0x3C;
 #X obj 319 671 r debug;
-#X obj 319 827 print;
-#X listbox 319 795 24 0 0 0 - - - 0;
+#X obj 318 879 print;
+#X listbox 318 847 24 0 0 0 - - - 0;
 #X obj 319 701 route 0, f 9;
 #X floatatom 379 671 5 0 0 0 - - - 0;
-#X obj 319 762 list;
+#X obj 318 814 list;
 #X msg 506 782 \$1;
 #X msg 543 782 \$1;
 #X floatatom 506 801 5 0 0 0 - - - 0;
@@ -65,8 +65,8 @@
 #X obj 639 836 vsl 19 162 0 3.3 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 679 836 vsl 19 162 0 3.3 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 722 831 vsl 19 162 0 3.3 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
+#X obj 336 773 s osc-in;
 #X connect 17 0 20 0;
-#X connect 19 0 18 0;
 #X connect 20 0 22 0;
 #X connect 20 0 27 0;
 #X connect 21 0 20 1;
