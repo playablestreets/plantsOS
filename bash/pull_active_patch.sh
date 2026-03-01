@@ -18,6 +18,8 @@ if [ ! -d "$PATCH_DIR/.git" ]; then
 fi
 
 cd "$PATCH_DIR" || exit 3
+echo "--- clearing changes"
+git restore .
 echo "Pulling latest changes for $PATCH_NAME..."
 git pull --recurse-submodules
 if [ $? -eq 0 ]; then
