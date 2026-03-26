@@ -1,4 +1,4 @@
-#N canvas 643 37 858 879 12;
+#N canvas 570 49 858 879 12;
 #X declare -path pd;
 #N canvas 1247 50 373 893 osc 0;
 #X obj 54 227 netreceive -u -b 5550;
@@ -40,7 +40,7 @@
 #X obj 534 436 bopos.gui 6;
 #X obj 18 677 bopos.gui 111;
 #X text 194 651 ▼ bob pi;
-#X msg 513 685 io create oled io_ssd1306 0x3C;
+#X msg 516 678 io create oled io_ssd1306 0x3C;
 #X obj 319 671 r debug;
 #X obj 318 879 print;
 #X listbox 318 847 24 0 0 0 - - - 0;
@@ -66,6 +66,7 @@
 #X obj 679 836 vsl 19 162 0 3.3 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 722 831 vsl 19 162 0 3.3 0 0 empty empty empty 0 -9 0 12 #fcfcfc #000000 #000000 0 1;
 #X obj 336 773 s osc-in;
+#X msg 516 659 io mpr cdc 10;
 #X connect 17 0 20 0;
 #X connect 20 0 22 0;
 #X connect 20 0 27 0;
