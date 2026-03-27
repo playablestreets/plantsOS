@@ -39,8 +39,8 @@
 #X obj 328 1074 bop.casio~, f 13;
 #A saved wave-1 0;
 #A saved wave-2 3;
-#A saved filter 0.651091;
-#A saved attack 0.233831;
+#A saved filter 0.288359;
+#A saved attack 0.156534;
 #A saved decay 0.207143;
 #A saved sustain 0;
 #A saved release 0.0642857;
@@ -82,6 +82,10 @@
 #X msg 430 520 40;
 #X msg 469 519 43;
 #X msg 511 521 47;
+#X msg 326 438 100;
+#X obj 323 349 sel 1;
+#X floatatom 331 321 5 0 0 0 - - - 0;
+#X obj 326 392 bng 19 250 50 0 empty empty empty 0 -10 0 12 #fcfcfc #000000 #000000;
 #X connect 0 0 19 0;
 #X connect 3 0 10 0;
 #X connect 4 0 14 0;
@@ -140,6 +144,7 @@
 #X connect 50 0 43 0;
 #X connect 51 0 52 0;
 #X connect 52 0 57 0;
+#X connect 52 0 67 0;
 #X connect 53 0 55 0;
 #X connect 54 0 53 0;
 #X connect 55 0 52 1;
@@ -152,3 +157,7 @@
 #X connect 62 0 46 0;
 #X connect 63 0 46 0;
 #X connect 64 0 46 0;
+#X connect 65 0 50 1;
+#X connect 66 0 68 0;
+#X connect 67 0 66 0;
+#X connect 68 0 65 0;
