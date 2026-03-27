@@ -1,4 +1,4 @@
-#N canvas 111 375 1275 930 12;
+#N canvas 111 154 1275 930 12;
 #X obj 19 161 bng 19 250 50 0 \$0-reboot reboot reboot 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 18 526 bng 19 250 50 0 \$0-updatesamples empty updatesamples 25 10 0 12 #fcfcfc #000000 #000000;
 #X obj 19 142 bng 19 250 50 0 \$0-update update update 25 10 0 12 #fcfcfc #000000 #000000;
@@ -12,7 +12,7 @@
 #X obj 353 417 print device-\$1;
 #X listbox 19 243 18 0 0 2 status____________ \$0-osc-list - 0;
 #X obj 385 300 s \$0-osc-list;
-#X obj 11 11 cnv 18 148 20 empty \$0-header device\ 0 6 10 0 14 #e3c6ff #404040 0;
+#X obj 11 11 cnv 18 148 20 empty \$0-header device\ 1 6 10 0 14 #e3c6ff #404040 0;
 #X obj 29 787 loadbang;
 #X obj 29 811 \$1;
 #X obj 31 870 s \$0-header;
@@ -28,7 +28,7 @@
 #X obj 376 58 s osc-to-devices;
 #X obj 193 34 route rpt;
 #X obj 193 93 route \$1;
-#X obj 140 11 bng 19 250 50 0 empty \$0-hb empty 3 10 0 10 #e3c6ff #ffffff #202020;
+#X obj 140 11 bng 19 19000 19000 0 empty \$0-hb empty 3 10 0 10 #e3c6ff #ffffff #202020;
 #X obj 353 392 route 1;
 #X obj 353 268 t l l;
 #X obj 193 340 s \$0-hb;
